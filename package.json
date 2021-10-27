@@ -1,11 +1,9 @@
 {
   "name": "ypo-ide",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "author": "Or Linzer",
+  "description": "A Web IDE running on browser for educational purposes",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
