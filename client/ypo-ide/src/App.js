@@ -1,9 +1,13 @@
 import logo from './logo.svg';
-import './App.css';
+import './styles/App.css';
 
 // import * as Monaco from 'monaco/';
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
+
+import FileExplorer from './components/file-explorer';
+
+import FileSystem from './scripts/file-system';
 
 class App extends React.Component {
   constructor (props) {
@@ -23,26 +27,23 @@ class App extends React.Component {
   }
 
   render () {
-    return (
-      <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
+    return [
+      // <div className="App">
+        <header key="1" className="App-header">
+          {/* TODO: set reference to the main page */}
+          <a href="{this}">
+            <img src={logo} className="App-logo" alt="logo" width="100" />
           </a>
-        </header> */}
-        <main>
+          <a href="{this}">
+            <h1>YPO IDE</h1>
+          </a>
+        </header>,
+        <main  key="2" className="App-main">
+          <FileExplorer files={['bla1', 'bla2', 'bla3']}/>
           <MonacoEditor
-            width="800"
-            height="600"
+            className="monaco-editor"
+            // width="800"
+            // height="600"
             language="javascript"
             theme="vs-dark"
             value={this.state.code}
@@ -50,9 +51,13 @@ class App extends React.Component {
             onChange={this.onChange}
             editorDidMount={this.editorDidMount}
           />
-        </main>
-      </div>
-    );
+        </main>,
+        // <footer key="3" className="App-footer">
+        //   <p>Created by <a className="App-link" href="mailto://orlinzer@gmail.com" title="orlinzer@gmail.com" target="_blank" rel="noopener noreferrer">Or Linzer</a></p>
+        //   <p>Copyright by <a className="App-link" href="https://www.ypo.co.il/" target="_blank" rel="noopener noreferrer"> Young Professors Online (YPO)</a></p>
+        // </footer>
+      // </div>
+    ];
   }
 }
 

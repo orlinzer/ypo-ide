@@ -1,0 +1,19 @@
+.file-explorer {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 20em;
+  /* height: 100vh; */
+
+  background-color: black;
+  color: white;
+
+  z-index: 10;
+}
+
+.file-explorer ul {
+  list-style: none;
+}
