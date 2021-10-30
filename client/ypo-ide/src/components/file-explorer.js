@@ -2,19 +2,27 @@ import * as React from "react";
 
 import './styles/file-explorer.css'
 
+// import FileSystem from "../scripts/file-system";
+
 export class FileExplorer extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      files: []
+      files: [] // TODO: remove
     }
 
-    if(props.files) {
+    if (props.files) {
       // TODO
       if (!Array.isArray(props.files)) { return; }
       props.files.forEach((file, index) => {
         this.state.files.push({ id: index, data: file });
       })
+    }
+
+    if (props.fileSystem) {
+      this.state.fileSystem = props.fileSystem;
+    } else {
+      // this.state.fileSystem = new FileSystem();
     }
   }
 

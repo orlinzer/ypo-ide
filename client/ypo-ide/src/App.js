@@ -5,9 +5,10 @@ import './styles/App.css';
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
-import FileExplorer from './components/file-explorer';
+// import FileExplorer from './components/file-explorer';
 
-import FileSystem from './scripts/file-system';
+// import FileSystem from './scripts/file-system';
+import * as FS from './scripts/file-system/file-system';
 
 class App extends React.Component {
   constructor (props) {
@@ -15,6 +16,10 @@ class App extends React.Component {
     this.state = {
       code: '// type your code...',
     }
+
+    // console.log(FS.fileSystem);
+    // let d = FS.createDirectory(FS.getRoot(), '/test');
+    // console.log(d);
   }
 
   editorDidMount (editor, monaco) {
@@ -39,7 +44,7 @@ class App extends React.Component {
           </a>
         </header>,
         <main  key="2" className="App-main">
-          <FileExplorer files={['bla1', 'bla2', 'bla3']}/>
+          {/* <FileExplorer files={['bla1', 'bla2', 'bla3']}/> */}
           <MonacoEditor
             className="monaco-editor"
             // width="800"
