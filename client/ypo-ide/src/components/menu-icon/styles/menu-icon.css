@@ -1,0 +1,63 @@
+.menu-icon {
+  padding: 0;
+  border: 0;
+  outline: 0;
+  margin: 0;
+
+  width: 2em;
+  height: 2em;
+
+  position: relative;
+
+  background-color: transparent;
+}
+
+.menu-icon > .a,
+.menu-icon > .b,
+.menu-icon > .c {
+  padding: 0;
+  border: 0;
+  outline: 0;
+  margin: 0;
+
+  position: absolute;
+
+  width: 75%;
+  height: 12.5%; /* (100% / 8) */
+
+  left: 12.5%;
+
+  background-color: black;
+
+  transition-delay: 0;
+  transition-duration: 0.25s;
+  transition-timing-function: linear;
+  transition-property: top, transform, opacity;
+}
+
+.menu-icon > .a {
+  top: 18.75%;
+}
+
+.menu-icon > .b {
+  top: 43.75%;
+}
+
+.menu-icon > .c {
+  top: 68.75%;
+}
+
+.menu-icon.open > .a {
+  top: 43.75%;
+  transform: rotate(45deg);
+}
+
+.menu-icon.open > .b {
+  /* display: none; */
+  opacity: 0;
+}
+
+.menu-icon.open > .c {
+  top: 43.75%;
+  transform: rotate(-45deg);
+}

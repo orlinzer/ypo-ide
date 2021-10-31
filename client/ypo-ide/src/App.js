@@ -1,10 +1,17 @@
+
+// Images
 import logo from './logo.svg';
+
+// Styles
+import 'normalize.css';
 import './styles/App.css';
 
-// import * as Monaco from 'monaco/';
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
-import { CodeLibrary } from './components/code-library/code-library';
+// import { CodeLibrary } from './components/code-library/code-library';
+import MenuIcon from './components/menu-icon/menu-icon'
+import ThemeIcon from './components/theme-icon/theme-icon';
+import LanguageIcon from './components/language-icon copy/language-icon';
 
 // import FileExplorer from './components/file-explorer';
 
@@ -12,15 +19,21 @@ import { CodeLibrary } from './components/code-library/code-library';
 // import * as FS from './scripts/file-system/file-system';
 
 export class App extends React.Component {
+
   constructor (props) {
     super(props);
     this.state = {
       code: '// type your code...',
-    }
 
-    // console.log(FS.fileSystem);
-    // let d = FS.createDirectory(FS.getRoot(), '/test');
-    // console.log(d);
+      theme: 'light',
+      // theme: 'dark',
+
+      direction: 'rtl',
+      // direction: 'ltr',
+
+      language: 'en-us',
+      // language: 'he-il',
+    }
   }
 
   editorDidMount (editor, monaco) {
@@ -34,23 +47,29 @@ export class App extends React.Component {
 
   render () {
     return [
-      <header key="1" className="App-header">
-        {/* TODO: set reference to the main page */}
-        <a href="{this}">
-          <img src={logo} className="App-logo" alt="logo" width="100" />
-        </a>
-        <a href="{this}">
-          <h1>YPO IDE</h1>
-        </a>
+      <header key="1">
+        <div className="start">
+          <a href="/">
+            <img src={logo} className="App-logo" alt="logo" width="100" />
+          </a>
+          <a href="/">
+            <h1>YPO IDE</h1>
+          </a>
+        </div>
+        <div className="middle"></div>
+        <div className="end">
+          <LanguageIcon />
+          <ThemeIcon />
+          <MenuIcon />
+        </div>
       </header>,
-      <div key="2" className="middle-div">
-        <div className="start-div"></div>
-        <main className="App-main">
-          {/* <FileExplorer files={['bla1', 'bla2', 'bla3']}/> */}
+      <main key="2">
+        <div className="start">
+
+        </div>
+        <div className="middle">
           <MonacoEditor
             className="monaco-editor"
-            // width="800"
-            // height="600"
             language="javascript"
             theme="vs-dark"
             value={this.state.code}
@@ -58,12 +77,11 @@ export class App extends React.Component {
             onChange={this.onChange}
             editorDidMount={this.editorDidMount}
           />
-        </main>
-        <div className="end-div">
-          <CodeLibrary/>
         </div>
-      </div>,
-      <footer key="3" className="App-footer">
+        <div className="end">
+        </div>
+      </main>,
+      <footer key="3">
         <p>Created by <a className="App-link" href="mailto://orlinzer@gmail.com" title="orlinzer@gmail.com" target="_blank" rel="noopener noreferrer">Or Linzer</a></p>
         <p>Copyright by <a className="App-link" href="https://www.ypo.co.il/" target="_blank" rel="noopener noreferrer"> Young Professors Online (YPO)</a></p>
       </footer>
