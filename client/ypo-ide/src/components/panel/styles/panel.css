@@ -1,0 +1,54 @@
+.panel,
+.panel > .panel-start,
+.panel > .panel-middle,
+.panel > .panel-end {
+  padding: 0;
+  border: 0;
+  outline: 0;
+  margin: 0;
+
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  min-width: min-content;
+  min-height: min-content;
+
+  display: flex;
+
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  align-content: stretch;
+  align-items: center;
+
+  justify-content: space-around;
+
+  gap: 0;
+
+  overflow: hidden;
+}
+
+.panel > * {
+  display: none;
+}
+
+.panel > .panel-start {
+  justify-content: flex-start;
+}
+
+.panel > .panel-end {
+  justify-content: flex-end;
+}
+
+/* .panel > .panel-start a,
+.panel > .panel-middle a,
+.panel > .panel-end a {
+  height: 100%;
+} */
+
+/* .panel > .panel-start a:hover,
+.panel > .panel-middle a:hover,
+.panel > .panel-end a:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+} */

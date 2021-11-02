@@ -1,16 +1,20 @@
+/* #region generic */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+:root,
 html {
-  font-size: 62.5%;
+  font-size: 16px;
+  line-height: 1.15;
 }
 
 body,
 .root {
-  font-size: 2rem;
+  font-size: 1rem;
 
   padding: 0;
   border: 0;
@@ -53,31 +57,6 @@ footer {
   flex-direction: row;
 
   align-content: stretch;
-  align-items: stretch;
-
-  justify-content: flex-start;
-
-  gap: 0;
-
-  overflow: hidden;
-}
-
-header {
-  height: 3em;
-
-  padding: 0;
-  border: 0;
-  outline: 0;
-  margin: 0;
-
-  position: relative;
-
-  display: flex;
-
-  flex-wrap: nowrap;
-  flex-direction: row;
-
-  align-content: stretch;
   align-items: center;
 
   justify-content: space-between;
@@ -87,17 +66,21 @@ header {
   overflow: hidden;
 }
 
-main {
-  flex-grow: 1;
-}
+/* #endregion generic */
 
-footer {
-  height: 1.5em;
+/* #region header */
+
+header {
+  height: 3em;
 }
 
 header > .start,
+header > .start-open,
+header > .start-open-handle,
 header > .middle,
-header > .end {
+header > .end,
+header > .end-open,
+header > .end-open-handle {
   padding: 0;
   border: 0;
   outline: 0;
@@ -125,6 +108,15 @@ header > .start {
   justify-content: flex-start;
 }
 
+header a.logo {
+  height: 2em;
+}
+
+header a.logo img {
+  height: 100%;
+  width: auto;
+}
+
 header > .middle {
   /* flex-grow: 1; */
   justify-content: center;
@@ -133,6 +125,16 @@ header > .middle {
 header > .end {
   /* width: 3em; */
   justify-content: flex-end;
+}
+
+/* #endregion header */
+
+/* #region main */
+
+main {
+  flex-grow: 1;
+
+  align-items: stretch;
 }
 
 main > .start,
@@ -164,6 +166,29 @@ main > .start {
   width: 3em;
 }
 
+main > .start-open {
+  width: 5em;
+}
+
+main > .start-open-handle {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  z-index: 10;
+
+  width: 0.125em;
+
+  background-color: transparent;
+  background-color: blue;
+}
+
+main > .start-open-handle:hover {
+  width: 0.125em;
+  background-color: blue;
+}
+
 main > .middle {
   flex-grow: 1;
 }
@@ -172,43 +197,18 @@ main > .end {
   width: 3em;
 }
 
-/* .App-header img {
-  height: 1.5em;
-  margin: 0.25em;
-} */
+/* #endregion main */
 
-/*
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* #region footer */
+
+footer {
+  height: 1.5em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* #endregion footer */
+
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 } */

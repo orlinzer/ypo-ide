@@ -7,11 +7,17 @@ import 'normalize.css';
 import './styles/App.css';
 
 import React from 'react';
-import MonacoEditor from 'react-monaco-editor';
-// import { CodeLibrary } from './components/code-library/code-library';
+// import MonacoEditor from 'react-monaco-editor';
+// import CodeLibrary from './components/code-library/code-library';
 import MenuIcon from './components/menu-icon/menu-icon'
 import ThemeIcon from './components/theme-icon/theme-icon';
-import LanguageIcon from './components/language-icon copy/language-icon';
+import LanguageIcon from './components/language-icon/language-icon';
+import Panel from './components/panel/panel';
+import PanelStart from './components/panel/panel-start';
+import PanelMiddle from './components/panel/panel-middle';
+import PanelEnd from './components/panel/panel-end';
+
+import { generateState } from './scripts/utils/react-helper';
 
 // import FileExplorer from './components/file-explorer';
 
@@ -22,6 +28,7 @@ export class App extends React.Component {
 
   constructor (props) {
     super(props);
+
     this.state = {
       code: '// type your code...',
 
@@ -33,7 +40,11 @@ export class App extends React.Component {
 
       language: 'en-us',
       // language: 'he-il',
-    }
+    };
+
+    // if (props.theme) {
+    //   // this.state
+    // }
   }
 
   editorDidMount (editor, monaco) {
@@ -48,27 +59,45 @@ export class App extends React.Component {
   render () {
     return [
       <header key="1">
-        <div className="start">
-          <a href="/">
-            <img src={logo} className="App-logo" alt="logo" width="100" />
-          </a>
-          <a href="/">
-            <h1>YPO IDE</h1>
-          </a>
-        </div>
-        <div className="middle"></div>
-        <div className="end">
-          <LanguageIcon />
-          <ThemeIcon />
-          <MenuIcon />
-        </div>
+        <Panel
+        theme={ this.state.theme }
+        direction={ this.state.direction }
+        language={ this.state.language }>
+          <PanelStart>
+            <a className="logo" href="/">
+              <img src={logo} alt="logo" width="100" />
+            </a>
+            <a href="/">
+              <h1>YPO IDE</h1>
+            </a>
+          </PanelStart>
+          <PanelMiddle>
+
+          </PanelMiddle>
+          <PanelEnd>
+            <LanguageIcon />
+            <ThemeIcon />
+            <MenuIcon />
+          </PanelEnd>
+        </Panel>
       </header>,
       <main key="2">
         <div className="start">
 
         </div>
+        <div className="start-open">
+          <div className="start-open-handle"></div>
+        </div>
         <div className="middle">
-          <MonacoEditor
+
+          <Panel>
+            <PanelStart>Hello start</PanelStart>
+            <PanelMiddle>Hello middle</PanelMiddle>
+            <PanelEnd>Hello end</PanelEnd>
+            <p>Hello nothing p</p>
+          </Panel>
+
+          {/* <MonacoEditor
             className="monaco-editor"
             language="javascript"
             theme="vs-dark"
@@ -76,8 +105,10 @@ export class App extends React.Component {
             options={this.state.options}
             onChange={this.onChange}
             editorDidMount={this.editorDidMount}
-          />
+          /> */}
         </div>
+        <div className="end-open-handle"></div>
+        <div className="end-open"></div>
         <div className="end">
         </div>
       </main>,
