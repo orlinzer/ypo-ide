@@ -1,32 +1,48 @@
 
-import React from 'react';
+// import React from 'react';
+
+// import React from "react";
 
 /**
  *
- * @param { React.ComponentProps } props
+ * @param { React.Component } component
  * @param { string[] } values
- * @param { React.ComponentState } defaultState
+ *
  * @returns { React.ComponentState }
  */
-export function generateState (props, defaultState, values) {
-  let state = {};
+export function generateState (component, values) {
+  if (!component || !component.state || !component.props) { return; }
 
-  if (typeof (defaultState) === 'object') {
-      state = { ...defaultState };
-  }
-
-  if (typeof (props) === 'object') {
-    if (Array.isArray(values)) {
-      for (let val of values) {
-        state[val] = props[val];
+  if (Array.isArray(values)) {
+    for (let val of values) {
+      if (component.props[val]) {
+        component.state[val] = component.props[val];
       }
-    } else {
-      state = { ...state, ...props };
-      delete state.children;
     }
+  } else {
+    component.state = { ...component.state, ...component.props };
   }
 
-  return state;
+  if (component.state.children) {
+    delete component.state.children;
+  }
+}
+
+
+
+/**
+ *
+ * @param { React.Component } component
+ * @param { string[] } classes
+ *
+ * @returns { string }
+ */
+export function generateClasses (component, classes) {
+
+  console.log(component.state);
+
+
+  return '';
 }
 
 export default this;
