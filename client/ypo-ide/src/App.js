@@ -8,6 +8,7 @@ import './styles/App.css';
 
 import React from 'react';
 // import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from '@monaco-editor/react';
 // import CodeLibrary from './components/code-library/code-library';
 import MenuIcon from './components/menu-icon/menu-icon'
 import ThemeIcon from './components/theme-icon/theme-icon';
@@ -16,8 +17,9 @@ import Panel from './components/panel/panel';
 import PanelStart from './components/panel/panel-start';
 import PanelMiddle from './components/panel/panel-middle';
 import PanelEnd from './components/panel/panel-end';
+import Button from './components/button/button';
 
-import { generateState } from './scripts/utils/react-helper';
+// import { generateState } from './scripts/utils/react-helper';
 
 // import FileExplorer from './components/file-explorer';
 
@@ -32,6 +34,10 @@ export class App extends React.Component {
     this.state = {
       code: '// type your code...',
 
+      options: {
+        // automaticLayout: true
+      },
+
       theme: 'light',
       // theme: 'dark',
 
@@ -45,15 +51,16 @@ export class App extends React.Component {
     // if (props.theme) {
     //   // this.state
     // }
-  }
 
-  editorDidMount (editor, monaco) {
-    console.log('editorDidMount', editor);
-    editor.focus();
-  }
-
-  onChange (newValue, e) {
-    console.log('onChange', newValue, e);
+  //   this.handleEditorChange = useCallback(_ => {
+  //     const countOfLines = valueGetter.current().split("\n").length;
+  //     if (countOfLines >= MIN_COUNT_OF_LINES) {
+  //       const currentHeight = countOfLines * LINE_HEIGHT;
+  //       if (MAX_HEIGHT > currentHeight) {
+  //         setHeight(currentHeight);
+  //       }
+  //     }
+  //   }, []);
   }
 
   render () {
@@ -64,12 +71,15 @@ export class App extends React.Component {
         direction={ this.state.direction }
         language={ this.state.language }>
           <PanelStart>
-            <a className="logo" href="/">
-              <img src={logo} alt="logo" width="100" />
-            </a>
-            <a href="/">
-              <h1>YPO IDE</h1>
-            </a>
+            <Button>
+              <a className="logo icon" href="/">
+                <img src={logo} alt="logo" width="100" />
+              </a>
+              <a className="label" href="/">
+                <h1>YPO IDE</h1>
+              </a>
+            </Button>
+            <Button>button</Button>
           </PanelStart>
           <PanelMiddle>
 
@@ -82,42 +92,76 @@ export class App extends React.Component {
         </Panel>
       </header>,
       <main key="2">
-        <div className="start">
-
-        </div>
-        <div className="start-open">
-          <div className="start-open-handle"></div>
-        </div>
-        <div className="middle">
-
-          <Panel>
-            <PanelStart>Hello start</PanelStart>
-            <PanelMiddle>Hello middle</PanelMiddle>
-            <PanelEnd>Hello end</PanelEnd>
-            <p>Hello nothing p</p>
-          </Panel>
-
-          {/* <MonacoEditor
-            className="monaco-editor"
-            language="javascript"
-            theme="vs-dark"
-            value={this.state.code}
-            options={this.state.options}
-            onChange={this.onChange}
-            editorDidMount={this.editorDidMount}
-          /> */}
-        </div>
-        <div className="end-open-handle"></div>
-        <div className="end-open"></div>
-        <div className="end">
-        </div>
+        <Panel>
+          <PanelStart>
+            <div className="start-open"></div>
+            <div className="start-open-handle"></div>
+          </PanelStart>
+          <PanelMiddle>
+            <MonacoEditor
+              className="monaco-editor"
+              language="javascript"
+              theme="vs-dark"
+              value={this.state.code}
+              options={this.state.options}
+              height="100%"
+              width="100%"
+              // onChange={this.onChange}
+              // editorDidMount={() => React.useCallback(this.editorDidMount, [this.handleEditorChange])}
+              // editorDidMount={this.editorDidMount}
+            />
+          </PanelMiddle>
+          <PanelEnd>
+            <div className="end-open-handle"></div>
+            <div className="end-open"></div>
+          </PanelEnd>
+        </Panel>
       </main>,
       <footer key="3">
-        <p>Created by <a className="App-link" href="mailto://orlinzer@gmail.com" title="orlinzer@gmail.com" target="_blank" rel="noopener noreferrer">Or Linzer</a></p>
-        <p>Copyright by <a className="App-link" href="https://www.ypo.co.il/" target="_blank" rel="noopener noreferrer"> Young Professors Online (YPO)</a></p>
+        <Panel>
+          <PanelStart>
+            <p>Created by <a className="App-link" href="mailto://orlinzer@gmail.com" title="orlinzer@gmail.com" target="_blank" rel="noopener noreferrer">Or Linzer</a></p>
+          </PanelStart>
+          <PanelMiddle>
+          </PanelMiddle>
+          <PanelEnd>
+            <p>Copyright by <a className="App-link" href="https://www.ypo.co.il/" target="_blank" rel="noopener noreferrer"> Young Professors Online (YPO)</a></p>
+          </PanelEnd>
+        </Panel>
       </footer>
     ];
   }
+
+  componentDidMount() {
+
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+
+  }
+
+  componentWillUnmount() {
+
+  }
+
+  // handleEditorChange () {
+
+  // }
+
+  editorDidMount (getter, editor) {
+    // editor.onDidChangeModelContent(this.handleEditorChange);
+    // editor.
+  }
+
+  // editorDidMount (editor, monaco) {
+  //   console.log('editorDidMount', editor);
+  //   editor.focus();
+  // }
+
+  onChange (newValue, e) {
+    console.log('onChange', newValue, e);
+  }
+
 }
 
 export default App;

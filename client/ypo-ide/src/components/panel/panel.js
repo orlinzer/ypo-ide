@@ -18,7 +18,8 @@ export class Panel extends React.Component {
 
   render () {
     return (
-      <div className="panel" orientation={ this.props.orientation === 'vertical' }>
+      // <div className="panel" orientation={ this.props.orientation === 'vertical' }>
+      <div className="panel">
         { this.props.children }
       </div>
     );
