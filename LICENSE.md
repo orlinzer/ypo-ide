@@ -1,6 +1,6 @@
 # Released under MIT License
 
-Copyright (c) 2021 [**Alef Levinsky management and consulting**](oleg@aleflevinsky.com).
+Copyright (c) 2021 [**Alef Levinsky management and consulting**](mailto://oleg@aleflevinsky.com).
 
 Copyright (c) 2021 [**Young Professors Online (YPO)**](https://www.ypo.co.il).
 
