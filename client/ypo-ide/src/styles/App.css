@@ -211,6 +211,10 @@ main>.end {
 
 /* #endregion editor */
 
+.end-open {
+  width: 300px;
+}
+
 /* #endregion main */
 
 /* #region footer */

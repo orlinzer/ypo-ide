@@ -18,6 +18,7 @@ import PanelStart from './components/panel/panel-start';
 import PanelMiddle from './components/panel/panel-middle';
 import PanelEnd from './components/panel/panel-end';
 import Button from './components/button/button';
+import CodeEditor from './components/editor/code-editor';
 
 // import { generateState } from './scripts/utils/react-helper';
 
@@ -63,6 +64,8 @@ export class App extends React.Component {
   //   }, []);
   }
 
+
+
   render () {
     return [
       <header key="1">
@@ -98,22 +101,13 @@ export class App extends React.Component {
             <div className="start-open-handle"></div>
           </PanelStart>
           <PanelMiddle>
-            <MonacoEditor
-              className="monaco-editor"
-              language="javascript"
-              theme="vs-dark"
-              value={this.state.code}
-              options={this.state.options}
-              height="100%"
-              width="100%"
-              // onChange={this.onChange}
-              // editorDidMount={() => React.useCallback(this.editorDidMount, [this.handleEditorChange])}
-              // editorDidMount={this.editorDidMount}
-            />
+            { <CodeEditor/> }
           </PanelMiddle>
           <PanelEnd>
             <div className="end-open-handle"></div>
-            <div className="end-open"></div>
+            <div className="end-open">
+              { <CodeEditor/> }
+            </div>
           </PanelEnd>
         </Panel>
       </main>,
@@ -142,24 +136,6 @@ export class App extends React.Component {
 
   componentWillUnmount() {
 
-  }
-
-  // handleEditorChange () {
-
-  // }
-
-  editorDidMount (getter, editor) {
-    // editor.onDidChangeModelContent(this.handleEditorChange);
-    // editor.
-  }
-
-  // editorDidMount (editor, monaco) {
-  //   console.log('editorDidMount', editor);
-  //   editor.focus();
-  // }
-
-  onChange (newValue, e) {
-    console.log('onChange', newValue, e);
   }
 
 }
