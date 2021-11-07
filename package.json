@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "author": "Or Linzer",
   "description": "A Web IDE running on browser for educational purposes",
+  "prettier": "./.rettierrc",
+  "homepage": "https://github.com/orlinzer/ypo-ide#readme",
+  "url": "https://github.com/orlinzer/ypo-ide/issues",
+  "email": "orlinzer@gmail.com",
   "scripts": {
   },
   "license": "MIT"
