@@ -1,0 +1,3 @@
+Font: 16 pt, Complex Script Font: 16 pt, Left-to-right, Style: Linked, Automatically update, Show in the Styles gallery
+    Based on: Formal
+    Following style: Formal
