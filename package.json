@@ -3,11 +3,65 @@
   "version": "1.0.0",
   "author": "Or Linzer",
   "description": "A Web IDE running on browser for educational purposes",
-  "prettier": "./.rettierrc",
+  "prettier": "./.rettierrc.json",
+  "eslint": "./.eslintrc.js",
+  "eslintConfig": {},
   "homepage": "https://github.com/orlinzer/ypo-ide#readme",
   "url": "https://github.com/orlinzer/ypo-ide/issues",
   "email": "orlinzer@gmail.com",
   "scripts": {
+    "lint": "eslint",
+
+    "pretest": "echo pretest",
+    "test": "echo test",
+    "posttest": "echo posttest",
+
+    "prestart": "echo prestart",
+    "start": "echo start",
+    "poststart": "echo poststart",
+
+    "prestop": "echo prestop",
+    "stop": "echo stop",
+    "poststop": "echo poststop",
+
+    "prerestart": "echo prerestart",
+    "restart": "echo restart",
+    "postrestart": "echo postrestart",
+
+    "prepublish": "echo prepublish",
+    "publish": "echo publish",
+    "postpublish": "echo postpublish",
+
+    "preuninstall": "echo preuninstall",
+    "uninstall": "echo uninstall",
+    "postuninstall": "echo postuninstall",
+
+    "preinstall": "echo preinstall",
+    "install": "echo install",
+    "postinstall": "echo postinstall",
+
+    "preversion": "echo preversion",
+    "version": "echo version",
+    "postversion": "echo postversion",
+
+    "postpack": "",
+    "prepack": "",
+    "prepare": "",
+    "prepublishOnly": "",
+    "vscode:prepublish": "",
+    "vscode:uninstall": "",
+
+    "serve": "echo serve",
+
+    "preupdate": "",
+    "update": "",
+    "postupdate": "",
+
+    "prebuild": "",
+    "build": "",
+    "postbuild": ""
   },
-  "license": "MIT"
+  "license": "MIT",
+  "private": false,
+  "preview": true
 }
