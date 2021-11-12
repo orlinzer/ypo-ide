@@ -1,0 +1,86 @@
+/* #region default */
+/* #endregion default */
+/* #region dark-theme */
+/* #endregion dark-theme */
+
+
+.menu-icon {
+  padding: 0;
+  border: 0;
+  outline: 0;
+  margin: 0;
+
+  width: 2em;
+  height: 2em;
+
+  position: relative;
+
+  background-color: transparent;
+}
+
+.menu-icon .a,
+.menu-icon .b,
+.menu-icon .c {
+  padding: 0;
+  border: 0;
+  outline: 0;
+  margin: 0;
+
+  position: absolute;
+
+  width: 75%;
+  height: 12.5%;
+  /* (100% / 8) */
+
+  /* left: 12.5%; */
+  x: 12.5%;
+
+  /* background-color: black; */
+
+  fill: #000;
+
+  transition-delay: 0s;
+  transition-duration: 0.25s;
+  transition-timing-function: linear;
+  transition-property: top, left, x, y, transform, transform-origin, opacity;
+  /* transition-property: top, left, x, y, transform, opacity; */
+}
+
+.menu-icon .a {
+  y: 18.75%;
+}
+
+.menu-icon .b {
+  y: 43.75%;
+}
+
+.menu-icon .c {
+  y: 68.75%;
+}
+
+body.menu-open .menu-icon .a {
+  transform-origin: 50% 25%;
+  transform: translateY(25%) rotate(45deg);
+}
+
+body.menu-open .menu-icon .b {
+  opacity: 0;
+}
+
+body.menu-open .menu-icon .c {
+  transform-origin: 50% 75%;
+  transform: translateY(-25%) rotate(-45deg);
+}
+
+
+body.dark-theme .menu-icon .a {
+  fill: #dcdcdc;
+}
+
+body.dark-theme .menu-icon .b {
+  fill: #dcdcdc;
+}
+
+body.dark-theme .menu-icon .c {
+  fill: #dcdcdc;
+}

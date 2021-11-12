@@ -4,6 +4,12 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
+  color: inherit;
+  /* fill: inherit;
+  stroke: inherit; */
+
+  background-color: transparent;
 }
 
 :root,
@@ -39,6 +45,24 @@ body,
   gap: 0;
 
   overflow: hidden;
+
+  transition-duration: 0.25s;
+  transition-delay: 0s;
+  transition-timing-function: linear;
+  transition-property: background-color, color, fill, stroke;
+
+  background-color: #fff;
+  color: #000;
+  /* fill: #000;
+  stroke: #000; */
+}
+
+body.dark-theme,
+.dark-theme > .root {
+  background-color: #303030;
+  color: #dcdcdc;
+  /* fill: #dcdcdc;
+  stroke: #dcdcdc; */
 }
 
 header,

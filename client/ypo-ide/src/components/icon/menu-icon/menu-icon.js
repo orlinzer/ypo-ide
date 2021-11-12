@@ -2,6 +2,8 @@ import React from 'react';
 
 import './styles/menu-icon.css';
 
+import Icon from '../icon';
+
 export class MenuIcon extends React.Component {
 
   constructor (props) {
@@ -26,11 +28,17 @@ export class MenuIcon extends React.Component {
 
   render() {
     return (
-      <div className={'menu-icon ' + (this.state.open?'open ':' ') + (this.state.theme + ' ')} onClick={() => {this.onClick()}}>
+      <Icon className="menu-icon">
+      {/* <div className={'icon menu-icon ' + (this.state.open?'open ':' ') + (this.state.theme + ' ')} onClick={() => {this.onClick()}}>
         <div className="a"></div>
         <div className="b"></div>
         <div className="c"></div>
-      </div>
+      </div> */}
+
+        <rect className="a" />
+        <rect className="b" />
+        <rect className="c" />
+      </Icon>
     );
   }
 

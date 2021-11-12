@@ -1,4 +1,3 @@
-
 // Images
 import logo from './logo.svg';
 
@@ -7,12 +6,11 @@ import 'normalize.css';
 import './styles/App.css';
 
 import React from 'react';
-// import MonacoEditor from 'react-monaco-editor';
-import MonacoEditor from '@monaco-editor/react';
+
 // import CodeLibrary from './components/code-library/code-library';
-import MenuIcon from './components/menu-icon/menu-icon'
-import ThemeIcon from './components/theme-icon/theme-icon';
-import LanguageIcon from './components/language-icon/language-icon';
+import MenuIcon from './components/icon/menu-icon/menu-icon';
+import ThemeIcon from './components/icon/theme-icon/theme-icon';
+import LanguageIcon from './components/icon/language-icon/language-icon';
 import Panel from './components/panel/panel';
 import PanelStart from './components/panel/panel-start';
 import PanelMiddle from './components/panel/panel-middle';
@@ -28,8 +26,7 @@ import CodeEditor from './components/editor/code-editor';
 // import * as FS from './scripts/file-system/file-system';
 
 export class App extends React.Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -53,26 +50,34 @@ export class App extends React.Component {
     //   // this.state
     // }
 
-  //   this.handleEditorChange = useCallback(_ => {
-  //     const countOfLines = valueGetter.current().split("\n").length;
-  //     if (countOfLines >= MIN_COUNT_OF_LINES) {
-  //       const currentHeight = countOfLines * LINE_HEIGHT;
-  //       if (MAX_HEIGHT > currentHeight) {
-  //         setHeight(currentHeight);
-  //       }
-  //     }
-  //   }, []);
+    //   this.handleEditorChange = useCallback(_ => {
+    //     const countOfLines = valueGetter.current().split("\n").length;
+    //     if (countOfLines >= MIN_COUNT_OF_LINES) {
+    //       const currentHeight = countOfLines * LINE_HEIGHT;
+    //       if (MAX_HEIGHT > currentHeight) {
+    //         setHeight(currentHeight);
+    //       }
+    //     }
+    //   }, []);
   }
 
+  toggleTheme () {
+    document.body.classList.toggle('dark-theme');
+    this.setState((prev) => (
+      {
+        // theme: prev.theme === 'vs-dark'?'light':'vs-dark'
+        theme: document.body.classList.contains('dark-theme')?'vs-dark':'light'
+      }
+    ))
+  }
 
-
-  render () {
+  render() {
     return [
       <header key="1">
         <Panel
-        theme={ this.state.theme }
-        direction={ this.state.direction }
-        language={ this.state.language }>
+          theme={this.state.theme}
+          direction={this.state.direction}
+          language={this.state.language}>
           <PanelStart>
             <Button>
               <a className="logo icon" href="/">
@@ -82,15 +87,18 @@ export class App extends React.Component {
                 <h1>YPO IDE</h1>
               </a>
             </Button>
-            <Button>button</Button>
           </PanelStart>
-          <PanelMiddle>
-
-          </PanelMiddle>
+          <PanelMiddle></PanelMiddle>
           <PanelEnd>
-            <LanguageIcon />
-            <ThemeIcon />
-            <MenuIcon />
+            <Button onClick={ () => { document.body.classList.toggle('language-menu-open') } }>
+              <LanguageIcon />
+            </Button>
+            <Button onClick={ () => { this.toggleTheme() } }>
+              <ThemeIcon />
+            </Button>
+            <Button onClick={ () => { document.body.classList.toggle('menu-open') } }>
+              <MenuIcon />
+            </Button>
           </PanelEnd>
         </Panel>
       </header>,
@@ -100,44 +108,65 @@ export class App extends React.Component {
             <div className="start-open"></div>
             <div className="start-open-handle"></div>
           </PanelStart>
-          <PanelMiddle>
-            { <CodeEditor/> }
-          </PanelMiddle>
+          <PanelMiddle><CodeEditor theme={ this.state.theme } /></PanelMiddle>
           <PanelEnd>
             <div className="end-open-handle"></div>
-            <div className="end-open">
-              { <CodeEditor/> }
-            </div>
+            <div className="end-open">{<CodeEditor />}</div>
           </PanelEnd>
         </Panel>
       </main>,
       <footer key="3">
         <Panel>
           <PanelStart>
-            <p>Created by <a className="App-link" href="mailto://orlinzer@gmail.com" title="orlinzer@gmail.com" target="_blank" rel="noopener noreferrer">Or Linzer</a></p>
+            <p>
+              Created by{' '}
+              <a
+                className="App-link"
+                href="mailto://orlinzer@gmail.com"
+                title="orlinzer@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer">
+                Or Linzer
+              </a>
+            </p>
           </PanelStart>
-          <PanelMiddle>
-          </PanelMiddle>
+          <PanelMiddle></PanelMiddle>
           <PanelEnd>
-            <p>Copyright by <a className="App-link" href="https://www.ypo.co.il/" target="_blank" rel="noopener noreferrer"> Young Professors Online (YPO)</a></p>
+            <p>
+              Copyright by{' '}
+              <a
+                className="App-link"
+                href="https://www.ypo.co.il/"
+                target="_blank"
+                rel="noopener noreferrer">
+                {' '}
+                Young Professors Online (YPO)
+              </a>
+            </p>
           </PanelEnd>
         </Panel>
-      </footer>
+      </footer>,
     ];
   }
 
-  componentDidMount() {
+  componentDidMount() {}
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // if (document.body.classList.contains('dark-theme')) {
+    //   this.setState({
+    //     theme: 'vs-dark'
+    //   })
+    //   console.log("this.state", this.state);
+    // } else {
+    //   this.setState({
+    //     theme: 'light'
+    //   })
+    // }
+
+    console.log('app updated');
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
-
-  }
-
-  componentWillUnmount() {
-
-  }
-
+  componentWillUnmount() {}
 }
 
 export default App;

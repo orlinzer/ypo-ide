@@ -1,0 +1,66 @@
+/* #region default */
+
+.language-icon {
+  padding: 0;
+  border: 0;
+  outline: 0;
+  margin: 0;
+
+  width: 2em;
+  height: 2em;
+
+  position: relative;
+
+  background-color: transparent;
+}
+
+.language-icon .a,
+.language-icon .b,
+.language-icon .c {
+  stroke: #000;
+
+  transition-delay: 0s;
+  transition-duration: 0.25s;
+  transition-timing-function: linear;
+  transition-property: transform, fill, stroke;
+}
+
+.language-icon .b {
+  transform: translateX(25%) rotateY(60deg);
+}
+
+.language-icon .c {
+  transform: translateX(75%) rotateY(120deg);
+}
+
+body.language-menu-open .language-icon .a {
+  transform: translateX(25%) rotateY(60deg);
+}
+
+body.language-menu-open .language-icon .b {
+  transform: translateX(75%) rotateY(120deg);
+}
+
+body.language-menu-open .language-icon .c {
+  transform: translateX(100%) rotateY(180deg);
+}
+
+/* #endregion default */
+
+/* #region dark-theme */
+
+body.dark-theme .main-circle {
+  fill: #dcdcdc;
+}
+
+body.dark-theme .main-circle,
+body.dark-theme .line-a,
+body.dark-theme .line-b,
+body.dark-theme .language-icon .a,
+body.dark-theme .language-icon .b,
+body.dark-theme .language-icon .c {
+  stroke: #dcdcdc;
+}
+
+
+/* #endregion dark-theme */
