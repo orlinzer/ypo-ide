@@ -1,3 +1,3 @@
-Font: 14 pt, Complex Script Font: 14 pt, Left-to-right, Style: Automatically update, Show in the Styles gallery
+Font: 14 pt, Complex Script Font: 14 pt, Kern at 14 pt, Right-to-left, Style: Linked, Automatically update, Show in the Styles gallery
     Based on: Formal
     Following style: Formal

@@ -8,7 +8,7 @@ import './styles/code-editor.css';
 
 export class CodeEditor extends React.Component {
 
-  constructor (props) {
+  constructor(props: any) {
     super(props);
   }
 
@@ -78,7 +78,7 @@ export class CodeEditor extends React.Component {
          *
          * @type { enum: 'light', 'vs-dark' }
          */
-        // theme={ (typeof this.props === 'object') && (typeof this.props.theme === 'string') ? this.props.theme : 'light' }
+        // theme={this.props.theme || 'light'}
 
         // /**
         //  * @description The line to jump on it
@@ -161,64 +161,64 @@ export class CodeEditor extends React.Component {
           */
         className='code-editor'
 
-        // /**
-        //   * @description Props applied to the wrapper element
-        //   *
-        //   * @default {}
-        //   *
-        //   * @type { object }
-        //   */
-        // wrapperProps={''}
+      // /**
+      //   * @description Props applied to the wrapper element
+      //   *
+      //   * @default {}
+      //   *
+      //   * @type { object }
+      //   */
+      // wrapperProps={''}
 
-        // /**
-        //   * @description Signature: function(monaco: Monaco) => void. An event is emitted before the editor is mounted. It gets the monaco instance as a first argument
-        //   *
-        //   * @default noop
-        //   *
-        //   * @type { function }
-        //   */
-        // beforeMount={''}
+      // /**
+      //   * @description Signature: function(monaco: Monaco) => void. An event is emitted before the editor is mounted. It gets the monaco instance as a first argument
+      //   *
+      //   * @default noop
+      //   *
+      //   * @type { function }
+      //   */
+      // beforeMount={''}
 
-        // /**
-        //   * @description Signature: function(editor: monaco.editor.IStandaloneCodeEditor, monaco: Monaco) => void. An event is emitted when the editor is mounted. It gets the editor instance as a first argument and the monaco instance as a second
-        //   *
-        //   * @default noop
-        //   *
-        //   * @type { function }
-        //   */
-        // onMount={''}
+      // /**
+      //   * @description Signature: function(editor: monaco.editor.IStandaloneCodeEditor, monaco: Monaco) => void. An event is emitted when the editor is mounted. It gets the editor instance as a first argument and the monaco instance as a second
+      //   *
+      //   * @default noop
+      //   *
+      //   * @type { function }
+      //   */
+      // onMount={''}
 
-        // /**
-        //   * @description Signature: function(value: string | undefined, ev: monaco.editor.IModelContentChangedEvent) => void. An event is emitted when the content of the current model is changed
-        //   *
-        //   * @default undefined
-        //   *
-        //   * @type { function }
-        //   */
-        // onChange={''}
+      // /**
+      //   * @description Signature: function(value: string | undefined, ev: monaco.editor.IModelContentChangedEvent) => void. An event is emitted when the content of the current model is changed
+      //   *
+      //   * @default undefined
+      //   *
+      //   * @type { function }
+      //   */
+      // onChange={''}
 
-        // /**
-        //   * @description Signature: function(markers: monaco.editor.IMarker[]) => void. An event is emitted when the content of the current model is changed and the current model markers are ready
-        //   *
-        //   * @default noop
-        //   *
-        //   * @type { function }
-        //   */
-        // onValidate={''}
+      // /**
+      //   * @description Signature: function(markers: monaco.editor.IMarker[]) => void. An event is emitted when the content of the current model is changed and the current model markers are ready
+      //   *
+      //   * @default noop
+      //   *
+      //   * @type { function }
+      //   */
+      // onValidate={''}
 
       />
     );
   }
 
-  editorDidMount () {
+  editorDidMount() {
 
   }
 
-  editorDidUpdate () {
+  editorDidUpdate() {
 
   }
 
-  editorWillUnmount () {
+  editorWillUnmount() {
 
   }
 
@@ -227,10 +227,10 @@ export class CodeEditor extends React.Component {
   }
 
   // componentDidUpdate(prevProps, prevState, snapshot) {
-    // this.setState({
-    //   theme: this.props.theme
-    // });
-    // console.log('code-editor updated');
+  // this.setState({
+  //   theme: this.props.theme
+  // });
+  // console.log('code-editor updated');
   // }
 
   componentWillUnmount() {

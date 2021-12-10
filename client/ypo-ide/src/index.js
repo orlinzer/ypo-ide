@@ -1,14 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.css';
-import App from './App';
+import * as ReactRouter from 'react-router-dom';
+
+// import './styles/index.css';
+// import App from './App';
 import reportWebVitals from './scripts/utils/reportWebVitals';
+
+// import App from './App2';
+import App from './pages/App.tsx';
+import SignIn from './pages/SignInPage.tsx';
+import SignUp from './pages/SignUpPage';
+import Album from './pages/AlbumPage';
+
+// const app = <App />;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  // document.body
+    <ReactRouter.BrowserRouter>
+      {/* <ReactRouter.Router> */}
+      {/* <ReactRouter.Switch> */}
+          <ReactRouter.Routes>
+            <ReactRouter.Route exact path='/' element={ <App /> } />
+            <ReactRouter.Route path='/signin' element={ <SignIn /> } />
+            <ReactRouter.Route path='/signup' element={ <SignUp /> } />
+            <ReactRouter.Route path='/album' element={ <Album /> } />
+          </ReactRouter.Routes>
+      {/* </ReactRouter.Switch> */}
+      {/* </ReactRouter.Router> */}
+    </ReactRouter.BrowserRouter>
+  </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 
