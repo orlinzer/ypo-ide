@@ -1,3 +1,0 @@
-Font: 22 pt, Complex Script Font: 22 pt, Right-to-left, Style: Automatically update, Show in the Styles gallery
-    Based on: Formal
-    Following style: Formal

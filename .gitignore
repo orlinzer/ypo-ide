@@ -24,6 +24,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Docker
+Dockerfile
+.dockerignore
+
+
 # vscode
 .vscode
 
@@ -31,4 +36,5 @@ yarn-error.log*
 ~*
 
 # Private
-הצעה לפרויקט גמר.docx
+temp
+docs

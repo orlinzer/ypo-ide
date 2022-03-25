@@ -1,3 +1,0 @@
-Font: (Default) Symbol, 12 pt, Not Bold, Not Italic, No underline, Font color: Text 1, Not Strikethrough, Not Outline, Not Shadow, Not Emboss, Not Engrave, Not Small caps, Not All caps, Not Hidden, Not Superscript/ Subscript, Not Double strikethrough, Complex Script Font: Times New Roman, 12 pt, Not Bold, Not Italic, Not Raised by / Lowered by , Not Expanded by / Condensed by , Kern at 12 pt, Character scale: 100%, Indent:
-    Before:  0 cm
-    Hanging:  0.63 cm, Outline numbered + Level: 1 + Numbering Style: Bullet + Aligned at:  0 cm + Indent at:  0.63 cm, Priority: 100

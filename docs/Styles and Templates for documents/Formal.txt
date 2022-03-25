@@ -1,2 +1,0 @@
-Font: (Default) Times New Roman, 12 pt, Font color: Text 1, English (United States), Complex Script Font: David, 12 pt, Left-to-right, Right
-    Line spacing:  1.5 lines, Widow/Orphan control, Style: Linked, Automatically update, Show in the Styles gallery
