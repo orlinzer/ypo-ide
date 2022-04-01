@@ -205,7 +205,10 @@ export default function Header() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <AppBar component='header' position='relative' >
+        <AppBar
+          component='header'
+          position='relative'
+        >
           <Toolbar sx={{ gap: '0.5em' }}>
             <IconButton
               onClick={toggleDrawer('left', true)}
@@ -220,22 +223,14 @@ export default function Header() {
               alt="Logo"
             />
 
-            <Typography variant="h6">
-              YPO-IDE
-            </Typography>
-
             <Breadcrumbs aria-label="breadcrumb" sx={{ flexGrow: 1 }}>
-              <Link underline="hover" color="inherit" href="/">
-                MUI
+              <Link variant="h6" underline="hover" color="inherit" href="/">
+                YPO-IDE
               </Link>
-              <Link
-                underline="hover"
-                color="inherit"
-                href="/getting-started/installation/"
-              >
-                Core
+              <Link variant="subtitle1" underline="hover" color="inherit" href="/">
+                User Name
               </Link>
-              <Typography color="text.primary">Breadcrumbs</Typography>
+              <Typography variant="subtitle2" color="text.primary">Project Name</Typography>
             </Breadcrumbs>
 
             <Box>
