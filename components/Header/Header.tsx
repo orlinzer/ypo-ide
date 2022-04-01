@@ -44,7 +44,7 @@ import { string } from "prop-types";
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 interface HeaderProps {
-  children: JSX.Element;
+  // children: JSX.Element;
   // children?: any;
   // children: IntrinsicAttributes;
 }
@@ -59,7 +59,8 @@ interface HeaderState {
   mode?: string;
 }
 
-export default function Header({ children }: HeaderProps) {
+// export default function Header({ children }: HeaderProps) {
+export default function Header() {
   const [state, setState] = useState({
     top: false,
     left: false,
