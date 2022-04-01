@@ -14,7 +14,7 @@ interface MainState {
   height?: number;
 }
 
-export default function Main<MainProps, MainState>({ children }: MainProps) {
+export default function Main({ children }: MainProps) {
   return (
     <main>
       {children}
