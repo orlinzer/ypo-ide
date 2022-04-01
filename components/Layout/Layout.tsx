@@ -1,3 +1,4 @@
+import { Box, Grid } from "@mui/material";
 import Head from "next/head";
 import { Fragment, ReactNode, useState } from "react";
 import * as rdd from 'react-device-detect'
@@ -61,17 +62,26 @@ export default function Layout({ children }: LayoutProps) {
         <link rel="icon" href="/logo.svg" type="image/svg+xml" />
       </Head>
 
-      <Header />
+      <Box sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        flexWrap: "nowrap",
+        alignItems: ""
+      }}>
 
-      <Main>
-        {console.log(rdd)}
-        {console.log(rdd.isMobile)}
-        {children}
-        {/* {children(rdd)} */}
-        {/* {props.children(rdd)} */}
-      </Main>
+        <Header />
 
-      <Footer />
+        <Main>
+          {/* {console.log(rdd)} */}
+          {/* {console.log(rdd.isMobile)} */}
+          {children}
+          {/* {children(rdd)} */}
+          {/* {props.children(rdd)} */}
+        </Main>
+
+        <Footer />
+      </Box>
     </Fragment>
   )
 }

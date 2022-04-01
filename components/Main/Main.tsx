@@ -1,8 +1,11 @@
+import { Box } from "@mui/material";
+import { ReactNode } from "react";
 
 interface MainProps {
-  children: JSX.Element;
+  // children: JSX.Element;
   // children?: any;
   // children: IntrinsicAttributes;
+  children: ReactNode;
 }
 
 interface MainState {
@@ -16,8 +19,16 @@ interface MainState {
 
 export default function Main({ children }: MainProps) {
   return (
-    <main>
+    <Box
+      component="main"
+      sx={{
+        display: "flex",
+        flexWrap: "nowrap",
+        flexDirection: "column",
+        flexGrow: 1,
+        alignItems: "center"
+      }}>
       {children}
-    </main>
+    </Box>
   )
 }
