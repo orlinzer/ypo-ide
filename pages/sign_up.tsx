@@ -55,17 +55,37 @@ export default function SignUpPage() {
 
     //   <main>
     <Layout>
-      <Paper sx={{
-        padding: '0.5em 1em',
+      <Paper
+        elevation={10}
+        sx={{
+          padding: '1em 2em',
+          margin: 'auto 0',
 
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'nowrap',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-      }}>
+          width: "80%",
+          // minWidth: ""
+
+          display: 'flex',
+          flexDirection: 'column',
+          flexWrap: 'nowrap',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+
+          // justifySelf: "center"
+        }}
+      >
         <Typography variant='h5' >Sign Up</Typography>
-        <form>
+        <Box
+          component='form'
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'nowrap',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+          }}
+        >
+
+          {/* <form> */}
           <TextField
             id='user-name'
             label='Name'
@@ -232,7 +252,7 @@ export default function SignUpPage() {
           <Button variant="text" endIcon={<Delete />}>
             Reset
           </Button>
-        </form>
+        </Box>
         <Box
           sx={{
             display: 'flex',
