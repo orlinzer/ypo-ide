@@ -1,29 +1,57 @@
 import { AddPhotoAlternate, Delete, Send, Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Link, Paper, TextField, Typography } from "@mui/material";
-import { GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import { GetUserResult, User } from "../types/User";
 import imageLoader from "../utils/ImageLoader";
-import { server } from "./config";
+// import { server } from "./config";
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch(`${server}/api/v1/get_users`);
-  // const { results }: GetUserResult = await res.json();
-  const result: GetUserResult = await res.json();
+// // Next.js will pre-render this page on each request using the data returned by 'getServerSideProps'
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   // Fetch data from external API
+//   const res = await fetch(`${server}/api/v1/get_users`);
+//   const data: GetUserResult = await res.json();
 
-  // console.log(result);
+//   // Pass data to the page via props
+//   return {
+//     props: {
+//       users: data,
+//     }
+//   };
+// };
 
-  // return result;
+// // If a page has Dynamic Routes and uses 'getStaticProps',
+// // it needs to define a list of paths to be statically generated.
+// // When you export a function called 'getStaticPaths'(Static Site Generation)
+// // from a page that uses dynamic routes,
+// // Next.js will statically pre - render all the paths specified by 'getStaticPaths'.
+// export const getStaticPaths: GetStaticPaths = async () {
+//   return {
+//     paths: [
+//       { params: { id: '1', name: 'name 1' } },
+//       { params: { id: '2', name: 'name 2' } },
+//     ],
+//     fallback: true // false or 'blocking'
+//   };
+// };
 
-  return {
-    props: {
-      // users: results,
-      users: result,
-    },
-  }
-}
+// // Next.js will pre-render this page at build time using the props returned by 'getStaticProps'
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   // Fetch data from external API
+//   // const res = await fetch(`${server}/api/v1/get_users`);
+//   // const { results }: GetUserResult = await res.json();
+//   const result: GetUserResult = await res.json();
+
+//   // Pass data to the page via props
+//   return {
+//     props: {
+//       // users: results,
+//       users: result,
+//     },
+//   }
+// };
 
 export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
 
@@ -41,6 +69,7 @@ export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
 
     setState({ ...state, [anchor]: open });
   };
+
   const [values, setValues] = useState({
     amount: '',
     password: '',
@@ -65,6 +94,20 @@ export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
   const handleMouseDownPassword = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
   };
+
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+
+  // Load dynamic data
+  useEffect(() => {
+    setLoading(true);
+    fetch('api/profile-data')
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+        setLoading(false)
+      });
+  }, []);
 
   return (
     <Layout>
