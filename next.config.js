@@ -6,7 +6,7 @@ const nextConfig = {
     domains:[
 
     ],
-    loader: 'custom',
+    // loader: 'custom',
     path: '/utils'
   },
   pageExtensions: ['tsx'],

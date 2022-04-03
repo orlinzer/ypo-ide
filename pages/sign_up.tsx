@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import { GetUserResult, User } from "../types/User";
 import imageLoader from "../utils/ImageLoader";
-// import { server } from "./config";
+// import { server } from "../config";
 
 // // Next.js will pre-render this page on each request using the data returned by 'getServerSideProps'
 // export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -98,16 +98,16 @@ export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
-  // Load dynamic data
-  useEffect(() => {
-    setLoading(true);
-    fetch('api/profile-data')
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data)
-        setLoading(false)
-      });
-  }, []);
+  // // Load dynamic data
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch('api/profile-data')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setData(data);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   return (
     <Layout>
