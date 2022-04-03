@@ -1,5 +1,5 @@
-import { useSession } from "next-auth/react"
-import Layout from "../../components/layout/layout"
+import { useSession } from "next-auth/react";
+import Layout from "../../components/Layout/Layout";
 
 export default function Page() {
   const { data: session } = useSession();

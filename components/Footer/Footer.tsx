@@ -14,7 +14,8 @@ interface HeaderState {
   height?: number;
 }
 
-export default function Footer<HeaderProps, HeaderState>({ children }: HeaderProps) {
+// export default function Footer<HeaderProps, HeaderState>({ children }: HeaderProps) {
+export default function Footer() {
   return (
     <footer>
 

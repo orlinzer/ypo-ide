@@ -1,4 +1,3 @@
-import { Head } from "next/document";
 import Layout from "../components/Layout/Layout";
 import dynamic from 'next/dynamic';
 

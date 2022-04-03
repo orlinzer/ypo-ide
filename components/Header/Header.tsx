@@ -8,7 +8,7 @@ import {
   Drawer,
   IconButton,
   InputBase,
-  Link,
+  Link as MUILink,
   List,
   ListItem,
   ListItemIcon,
@@ -36,9 +36,12 @@ import {
   Search as SearchIcon
 } from "@mui/icons-material";
 import Image from "next/image";
-import React, { useState } from "react";
+import React,
+{
+  useState,
+} from "react";
 import { string } from "prop-types";
-
+import NextLink from 'next/link';
 
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
@@ -145,7 +148,7 @@ export default function Header() {
     <Box
       sx={{ width: 250 }}
       role="presentation"
-      onClick={toggleDrawer('right', false)}
+    // onClick={toggleDrawer('right', false)}
     // onKeyDown={toggleDrawer('right', false)}
     >
       <List>
@@ -156,12 +159,16 @@ export default function Header() {
           <ListItemText primary='Sign In' />
         </ListItem>
 
-        <ListItem button key='sign-up'>
-          <ListItemIcon>
-            <PersonAddIcon />
-          </ListItemIcon>
-          <ListItemText primary='Sign Up' />
-        </ListItem>
+        <NextLink href='/sign_up' passHref>
+          <ListItem button component='a' key='sign-up'>
+            <ListItemIcon>
+              {/* <Link href="/sign_up"> */}
+              <PersonAddIcon />
+              {/* </Link> */}
+            </ListItemIcon>
+            <ListItemText primary='Sign Up' />
+          </ListItem>
+        </NextLink>
 
         <ListItem button key='password-recovery'>
           <ListItemIcon>
@@ -209,27 +216,30 @@ export default function Header() {
           component='header'
           position='relative'
         >
-          <Toolbar sx={{ gap: '0.5em' }}>
+          <Toolbar sx={{
+            gap: '0.5em',
+          }}>
             <IconButton
               onClick={toggleDrawer('left', true)}
             >
               <MenuIcon sx={{ color: '#000', fontSize: 32 }} />
             </IconButton>
 
-            <Image
-              src="/logo.svg"
-              width={32}
-              height={32}
-              alt="Logo"
-            />
-
             <Breadcrumbs aria-label="breadcrumb" sx={{ flexGrow: 1 }}>
-              <Link variant="h6" underline="hover" color="inherit" href="/">
+              <MUILink variant="h6" underline="hover" color="inherit" href="/">
+                <IconButton>
+                  <Image
+                    src="/logo.svg"
+                    width={32}
+                    height={32}
+                    alt="Logo"
+                  />
+                </IconButton>
                 YPO-IDE
-              </Link>
-              <Link variant="subtitle1" underline="hover" color="inherit" href="/">
+              </MUILink>
+              <MUILink variant="subtitle1" underline="hover" color="inherit" href="/">
                 User Name
-              </Link>
+              </MUILink>
               <Typography variant="subtitle2" color="text.primary">Project Name</Typography>
             </Breadcrumbs>
 

@@ -8,18 +8,18 @@ import "normalize.css";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>
-      {Component.auth ? (
-        <Auth>
-          <Component {...pageProps} />
-        </Auth>
-      ) : (
+      {/* {Component.auth ? ( */}
+      <Auth>
         <Component {...pageProps} />
-      )}
+      </Auth>
+      {/* ) : ( */}
+      {/* <Component {...pageProps} /> */}
+      {/* )} */}
     </SessionProvider>
   )
 }
 
-function Auth({ children }) {
+function Auth({ children }: any) {
   const { data: session, status } = useSession({ required: true })
   const isUser = session?.user
 
