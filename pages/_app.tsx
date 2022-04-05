@@ -7,15 +7,18 @@ import "normalize.css";
 // `useSession()` anywhere in your application to access the `session` object.
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    // <SessionProvider session={pageProps.session} refetchInterval={0}>
-    // {/* {Component.auth ? ( */ }
-    // <Auth>
-    < Component {...pageProps} />
-    // </Auth>
-    // {/* ) : ( */ }
-    // {/* <Component {...pageProps} /> */ }
-    // {/* )} */ }
-    // </SessionProvider>
+    // < Component {...pageProps} />
+    <SessionProvider
+      session={pageProps.session}>
+      {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
+      {/* {Component.auth ? ( */}
+      {/* <Auth> */}
+      < Component {...pageProps} />
+      {/* </Auth> */}
+      {/* ) : ( */}
+      {/* <Component {...pageProps} /> */}
+      {/* )} */}
+    </SessionProvider>
   )
 }
 

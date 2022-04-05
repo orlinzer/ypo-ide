@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import { GetUserResult, User } from "../types/User";
 import imageLoader from "../utils/ImageLoader";
+import { useSession } from 'next-auth/react'
 // import { server } from "../config";
 
 // // Next.js will pre-render this page on each request using the data returned by 'getServerSideProps'
@@ -108,6 +109,28 @@ export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
   //       setLoading(false);
   //     });
   // }, []);
+
+  const [content, setContent] = useState('');
+  const { data: session, status } = useSession();
+
+  const loading = status === 'loading';
+
+  useEffect(() => {
+    setContent('content');
+    const fetchData = async () => {
+      const res = await fetch('/api/v1/get_user')
+      const json = await res.json()
+      if (json.content) { setContent(json.content) }
+    }
+    fetchData()
+  }, [session]);
+
+  // When rendering client side don't display anything until loading is complete
+  if (typeof window !== 'undefined' && loading) return null;
+
+  // If no session exists, display access denied message
+  // if (!session) { return <p>AccessDenied</p> }
+  return <p>Content: {content}</p>;
 
   return (
     <Layout>
@@ -322,7 +345,7 @@ export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
 
           {/* TODO: REMOVE ME */}
           {/* {JSON.stringify(users)} */}
-          {(<ul>
+          {/* {(<ul>
             {users.map((user, index) => {
               return (
                 <li key={`user_${index}`}>
@@ -341,7 +364,7 @@ export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
               );
             })}
           </ul>
-          )}
+          )} */}
         </Box>
       </Paper>
     </Layout>

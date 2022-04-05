@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images:{
+  // images:{
     // Theared party domains to take images from
-    domains:[
+    // domains:[
 
-    ],
+    // ],
     // loader: 'custom',
-    path: '/utils'
-  },
-  pageExtensions: ['tsx'],
+    // path: '/utils'
+  // },
+  // pageExtensions: ['tsx'],
 
 }
 
