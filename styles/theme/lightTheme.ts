@@ -1,25 +1,18 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
+// import './Theme';
 
-declare module '@mui/material/styles' {
-  interface Theme {
-    status: {
-      danger: string;
-    };
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    status?: {
-      danger?: string;
-    };
-  }
-};
-
-export const lightTheme = createTheme({
+export const lightTheme: Theme = createTheme({
   status: {
     danger: '#f77',
   },
   palette: {
     mode: 'light',
+    primary: {
+      main: '#77f',
+    },
+    // text: {
+
+    // }
   },
 });
 

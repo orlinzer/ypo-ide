@@ -4,6 +4,9 @@ import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import { createContext, Fragment, FunctionComponent, ReactNode, useContext, useState } from "react";
 import * as rdd from 'react-device-detect'
+import { Theme } from '@mui/material/styles';
+// import '../../styles/theme/Theme';
+import darkTheme from "../../styles/theme/darkTheme";
 import lightTheme from "../../styles/theme/lightTheme";
 import AppContext from "../../utils/AppContext";
 
@@ -35,23 +38,21 @@ export interface LayoutState {
 // export default function Layout({ children }: LayoutProps) {
 export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
 
-  // const { session, loading } = useSession();
-  // const [session, loading] = useSession();
   const { data, status } = useSession();
 
-  const context = useContext(AppContext);
+  // const context = useContext(AppContext);
 
-  const [state, setState] = useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-    // width: window.innerWidth,
-    // height: window.innerHeight
-  });
+  // const [state, setState] = useState({
+  //   top: false,
+  //   left: false,
+  //   bottom: false,
+  //   right: false,
+  //   // width: window.innerWidth,
+  //   // height: window.innerHeight
+  // });
 
-  const setPartialState = (obj: Partial<typeof state>) =>
-    setState({ ...state, ...obj });
+  // const setPartialState = (obj: Partial<typeof state>) =>
+  //   setState({ ...state, ...obj });
 
   // const isMobile = window.innerWidth <= 500;
   // const isTablet = window.innerWidth <= 800;
@@ -65,15 +66,24 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
 
   // if (isTablet) {}
 
-  const getInitialProps = async (context: NextPageContext) => {
-    return {
-      session: await getSession(context)
-    };
-  }
+  // const getInitialProps = async (context: NextPageContext) => {
+  //   return {
+  //     session: await getSession(context)
+  //   };
+  // }
+
+  const [theme, setTheme] = useState(lightTheme);
+  const toggleTheme = () => setTheme((oldTheme: Theme) => {
+    if (oldTheme.palette.mode === 'dark') {
+      return lightTheme;
+    }
+    return darkTheme;
+  });
 
   return (
     // <ThemeContext.Provider theme={theme}></ThemeContext.Provider>
-    <ThemeProvider theme={lightTheme}>
+    // <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={theme}>
       <Fragment>
         <Head>
           <title>YPO IDE</title>
@@ -89,7 +99,7 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
           alignItems: ""
         }}>
 
-          <Header />
+          <Header themeToggler={toggleTheme} />
 
           <Main>
             {/* {console.log(rdd)} */}

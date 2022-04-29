@@ -1,8 +1,15 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
+// import './Theme';
 
-const darkTheme = createTheme({
+export const darkTheme: Theme = createTheme({
+  status: {
+    danger: '#f77',
+  },
   palette: {
     mode: 'dark',
+    primary: {
+      main: '#007',
+    }
   },
 });
 

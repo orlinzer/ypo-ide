@@ -3,7 +3,6 @@ import {
   Avatar,
   Box,
   Breadcrumbs,
-  createTheme,
   Divider,
   Drawer,
   IconButton,
@@ -13,7 +12,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ThemeProvider,
   Toolbar,
   Typography,
   useTheme
@@ -39,20 +37,25 @@ import {
 import Image from "next/image";
 import React,
 {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
   useState,
 } from "react";
 import { string } from "prop-types";
 import NextLink from 'next/link';
 import Link, { ListLink } from "../Link/Link";
 import LinearBuffer from "../LinearBuffer/LinearBuffer";
-
+import { NextPage } from "next";
+import AppBarLabel from "../AppBarLabel/AppBarLabel";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 interface HeaderProps {
-  // children: JSX.Element;
-  // children?: any;
-  // children: IntrinsicAttributes;
+  children?: ReactNode;
+  // themeToggler?: Dispatch<SetStateAction<Theme>>;
+  // themeToggler?: (value: SetStateAction<Theme>) => void;
+  themeToggler?: () => void;
 }
 
 interface HeaderState {
@@ -65,64 +68,20 @@ interface HeaderState {
   mode?: string;
 }
 
-// export default function Header({ children }: HeaderProps) {
-export default function Header() {
-  const [state, setState] = useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-    mode: string
-  });
+export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: HeaderProps) => {
+  // TODO: Make component for the menus
+  const [navMenuDrawerOpen, setNavMenuDrawerOpen] = useState(false);
+  // const toggleNavMenuDrawerOpen = setNavMenuDrawerOpen((oldNavMenuDrawerOpen: boolean) => !oldNavMenuDrawerOpen);
 
-  const setPartialState = (obj: Partial<typeof state>) =>
-    setState({ ...state, ...obj });
+  const [userMenuDrawerOpen, setUserMenuDrawerOpen] = useState(false);
+  // const toggleUserMenuDrawerOpen = setUserMenuDrawerOpen((oldUserMenuDrawerOpen: boolean) => !oldUserMenuDrawerOpen);
 
-  const theme = useTheme();
-  const colorMode = React.useContext(ColorModeContext);
-
-  // TODO
-  // const colorMode = React.useMemo(
-  // () => ({
-  // toggleColorMode: () => {
-  //   setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-  // },
-  // }),
-  // [],
-  // );
-
-  // TODO
-  // const theme = React.useMemo(
-  // () => createTheme({
-  //   palette: {
-  //     mode: string,
-  //   },
-  // }),
-  // [mode],
-  // );
-
-  const toggleDrawer = (anchor: string, open: boolean) => (event: React.MouseEvent) => {
-    if (event.type === 'keydown' && (event.ctrlKey || event.shiftKey)) {
-      // if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    // if (anchor === 'left') {
-    //   setPartialState({ left: open });
-    // } else if (anchor === 'right') {
-    //   setPartialState({ right: open });
-    // }
-
-
-    setState({ ...state, [anchor]: open });
-  };
-
-  const leftList = () => (
+  const NavMenu = () => (
     <Box
       component='nav'
       sx={{ width: 250 }}
       role="presentation"
-      onClick={toggleDrawer('left', false)}
+      onClick={() => setNavMenuDrawerOpen(false)}
     // onKeyDown={toggleLefDrawer(false)}
     >
 
@@ -156,7 +115,7 @@ export default function Header() {
     </Box>
   );
 
-  const userMenuList = () => (
+  const UserMenu = () => (
     <Box
       sx={{ width: 250 }}
       role="presentation"
@@ -175,107 +134,112 @@ export default function Header() {
     </Box >
   );
 
+  const theme = useTheme();
+
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <AppBar
-          component='header'
-          position='relative'
+    <AppBar
+      component='header'
+      position='relative'
+
+      // on dark theme the color property dont have effect
+      // enableColorOnDark
+      color="primary"
+    >
+      {/* TODO: brake the AppBar to contain components of Toolbars. */}
+      {/* <AppBarLabel label="YPO-IDE" /> */}
+      <Toolbar sx={{
+        gap: '0.5em',
+      }}>
+        <IconButton
+          onClick={() => setNavMenuDrawerOpen(true)}
         >
-          <Toolbar sx={{
-            gap: '0.5em',
-          }}>
-            <IconButton
-              onClick={toggleDrawer('left', true)}
-            >
-              <MenuIcon sx={{ color: '#000', fontSize: 32 }} />
-            </IconButton>
+          <MenuIcon sx={{ color: '#000', fontSize: 32 }} />
+        </IconButton>
 
-            <Breadcrumbs aria-label="breadcrumb" sx={{ flexGrow: 1 }}>
-              <MUILink variant="h6" underline="hover" color="inherit" href="/">
-                <IconButton>
-                  <Image
-                    src="/logo.svg"
-                    width={32}
-                    height={32}
-                    alt="Logo"
-                  />
-                </IconButton>
-                YPO-IDE
-              </MUILink>
-              <MUILink variant="subtitle1" underline="hover" color="inherit" href="/">
-                User Name
-              </MUILink>
-              <Typography variant="subtitle2" color="text.primary">Project Name</Typography>
-            </Breadcrumbs>
-
-            <Box>
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-              <InputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-                sx={{
-                  color: 'inherit',
-                  '& .MuiInputBase-input': {
-                    // padding: theme.spacing(1, 1, 1, 0),
-                    padding: '1 1 1 0',
-                    // vertical padding + font size from searchIcon
-                    // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-                    paddingLeft: `calc(1em + 4)`,
-                    // transition: theme.transitions.create('width'),
-                    transition: 'width',
-                    width: '100%',
-                    // [theme.breakpoints.up('sm')]: {
-                    //   width: '12ch',
-                    //   '&:focus': {
-                    //     width: '20ch',
-                    //   },
-                    // },
-                  },
-                }}
-              />
-            </Box>
-
-            <IconButton
-              sx={{ ml: 1 }}
-              onClick={colorMode.toggleColorMode}
-              color="inherit"
-            >
-              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-
+        <Breadcrumbs aria-label="breadcrumb" sx={{ flexGrow: 1 }}>
+          <MUILink variant="h6" underline="hover" color="inherit" href="/">
             <IconButton>
-              <Avatar
-                alt='User Image'
-                // src='/public/images/...'
-                onClick={toggleDrawer('right', true)}
-              ></Avatar>
+              <Image
+                src="/logo.svg"
+                width={32}
+                height={32}
+                alt="Logo"
+              />
             </IconButton>
-          </Toolbar>
+            YPO-IDE
+          </MUILink>
+          <MUILink variant="subtitle1" underline="hover" color="inherit" href="/">
+            User Name
+          </MUILink>
+          <Typography variant="subtitle2" color="text.primary">Project Name</Typography>
+        </Breadcrumbs>
 
-          <Drawer
-            anchor={'left'}
-            open={state['left']}
-            onClose={toggleDrawer('left', false)}
-          >
-            {leftList()}
-          </Drawer>
+        <Box>
+          <IconButton>
+            <SearchIcon />
+          </IconButton>
+          <InputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+            sx={{
+              color: 'inherit',
+              '& .MuiInputBase-input': {
+                // padding: theme.spacing(1, 1, 1, 0),
+                padding: '1 1 1 0',
+                // vertical padding + font size from searchIcon
+                // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+                paddingLeft: `calc(1em + 4)`,
+                // transition: theme.transitions.create('width'),
+                transition: 'width',
+                width: '100%',
+                // [theme.breakpoints.up('sm')]: {
+                //   width: '12ch',
+                //   '&:focus': {
+                //     width: '20ch',
+                //   },
+                // },
+              },
+            }}
+          />
+        </Box>
 
-          <Drawer
-            anchor={'right'}
-            open={state['right']}
-            onClose={toggleDrawer('right', false)}
-          >
-            {userMenuList()}
-          </Drawer>
+        <IconButton
+          sx={{ ml: 1 }}
+          onClick={themeToggler}
+          color="inherit"
+        >
+          {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
 
-          {/* TODO */}
-          <LinearBuffer />
+        <IconButton>
+          <Avatar
+            alt='User Image'
+            // src='/public/images/...'
+            onClick={() => setUserMenuDrawerOpen(true)}
+          ></Avatar>
+        </IconButton>
+      </Toolbar>
 
-        </AppBar>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-  )
-}
+      <Drawer
+        anchor={'left'}
+        open={navMenuDrawerOpen}
+        onClose={() => setNavMenuDrawerOpen(false)}
+      >
+        {NavMenu()}
+      </Drawer>
+
+      <Drawer
+        anchor={'right'}
+        open={userMenuDrawerOpen}
+        onClose={() => setUserMenuDrawerOpen(false)}
+      >
+        {UserMenu()}
+      </Drawer>
+
+      {/* TODO */}
+      <LinearBuffer />
+    </AppBar>
+  );
+};
+
+export default Header;
