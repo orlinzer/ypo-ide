@@ -233,18 +233,20 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
       {/* NavMenu */}
       <Menu
         open={navMenuDrawerOpen}
-        direction={'left'}
+        anchor={'left'}
         sections={NavMenuSections}
         onClose={() => setNavMenuDrawerOpen(false)}
+        onOpen={() => setNavMenuDrawerOpen(true)}
         component='nav'
       />
 
       {/* UserMenu */}
       <Menu
         open={userMenuDrawerOpen}
-        direction={'right'}
+        anchor={'right'}
         sections={UserMenuSections}
         onClose={() => setUserMenuDrawerOpen(false)}
+        onOpen={() => setUserMenuDrawerOpen(true)}
         component='menu'
       />
 

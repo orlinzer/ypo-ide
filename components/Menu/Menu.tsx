@@ -1,6 +1,6 @@
-import { Box, Divider, Drawer, List } from "@mui/material";
+import { Box, Divider, Drawer, List, SwipeableDrawer } from "@mui/material";
 import { NextPage } from "next";
-import { ElementType, Fragment, ReactNode, useState } from "react";
+import { ElementType, Fragment, ReactEventHandler, ReactNode, useState } from "react";
 import { ListLink } from "../Link/Link";
 
 export interface MenuElement {
@@ -13,13 +13,14 @@ export type MenuSection = MenuElement[];
 
 export interface MenuProps {
   open: boolean,
-  direction: 'left' | 'right' | 'top' | 'bottom',
+  anchor: 'left' | 'right' | 'top' | 'bottom',
   sections: MenuSection[],
-  onClose: ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void),
+  onClose: ReactEventHandler<{}>,
+  onOpen: ReactEventHandler<{}>,
   component?: any
 }
 
-export const Menu: NextPage<MenuProps> = ({ open = false, direction = 'left', sections = [], onClose, component }: MenuProps) => {
+export const Menu: NextPage<MenuProps> = ({ open = false, anchor = 'left', sections = [], onClose, onOpen, component }: MenuProps) => {
 
   // const [open, setOpen] = useState(false);
   // const toggleOpen = () => setOpen((oldOpen) => !oldOpen);
@@ -29,10 +30,12 @@ export const Menu: NextPage<MenuProps> = ({ open = false, direction = 'left', se
   // const [elements, setElements] = useState([]);
 
   return (
-    <Drawer
-      anchor={direction}
+    <SwipeableDrawer
+      variant='temporary'
+      anchor={anchor}
       open={open}
       onClose={onClose}
+      onOpen={onOpen}
     >
       <Box
         sx={{ width: 250 }}
@@ -54,7 +57,7 @@ export const Menu: NextPage<MenuProps> = ({ open = false, direction = 'left', se
           </Fragment>
         ))}
       </Box>
-    </Drawer >
+    </SwipeableDrawer >
   );
 };
 
