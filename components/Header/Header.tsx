@@ -48,6 +48,7 @@ import Link, { ListLink } from "../Link/Link";
 import LinearBuffer from "../LinearBuffer/LinearBuffer";
 import { NextPage } from "next";
 import AppBarLabel from "../AppBarLabel/AppBarLabel";
+import Menu from "../Menu/Menu";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
@@ -76,63 +77,72 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
   const [userMenuDrawerOpen, setUserMenuDrawerOpen] = useState(false);
   // const toggleUserMenuDrawerOpen = setUserMenuDrawerOpen((oldUserMenuDrawerOpen: boolean) => !oldUserMenuDrawerOpen);
 
-  const NavMenu = () => (
-    <Box
-      component='nav'
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={() => setNavMenuDrawerOpen(false)}
-    // onKeyDown={toggleLefDrawer(false)}
-    >
+  const NavMenuSections = [
+    [
+      {
+        href: '/ide',
+        icon: < EditIcon />,
+        text: 'IDE',
+      },
+    ],
+    [
+      {
+        href: '/users',
+        icon: < PeopleAltRoundedIcon />,
+        text: 'Users',
+      },
+      {
+        href: '/projects',
+        icon: < CollectionsBookmarkIcon />,
+        text: 'Projects',
+      },
+    ],
+    [
+      {
+        href: '/contact_us',
+        icon: < ContactSupportIcon />,
+        text: 'Contact Us',
+      },
+    ],
+  ];
 
-      {/* <List>
-        {['Users', 'Projects'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index === 0 ? <PeopleAltRoundedIcon /> : <CollectionsBookmarkIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
-
-      <List>
-        <ListLink href="/ide" icon={<EditIcon />} text="IDE" />
-      </List>
-
-      <Divider />
-
-      <List>
-        <ListLink href="/users" icon={<PeopleAltRoundedIcon />} text="Users" />
-        <ListLink href="/projects" icon={<CollectionsBookmarkIcon />} text="Projects" />
-      </List>
-
-      <Divider />
-
-      <List>
-        <ListLink href="/contact_us" icon={<ContactSupportIcon />} text="Contact Us" />
-      </List>
-    </Box>
-  );
-
-  const UserMenu = () => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-    // onClick={toggleDrawer('right', false)}
-    // onKeyDown={toggleDrawer('right', false)}
-    >
-      <List>
-        <ListLink href="/sign_in" icon={<LoginIcon />} text="Sign In" />
-        <ListLink href="/sign_up" icon={<PersonAddIcon />} text="Sign Up" />
-        <ListLink href="/password_recovery" icon={<LockResetIcon />} text="Recover Password" />
-        <ListLink href="/user" icon={<AccountCircleIcon />} text="Account" />
-        <ListLink href="/user" icon={<ManageAccountsIcon />} text="Manage Account" />
-        <ListLink href="/sign_out" icon={<LogoutIcon />} text="Sign Out" />
-        {/* <ListLink href="/sign_out" icon={<PersonOffIcon />} text="Delete Account" /> */}
-      </List>
-    </Box >
-  );
+  const UserMenuSections = [[
+    {
+      href: '/sign_in',
+      icon: < LoginIcon />,
+      text: 'Sign In',
+    },
+    {
+      href: '/sign_up',
+      icon: < PersonAddIcon />,
+      text: 'Sign Up',
+    },
+    {
+      href: '/password_recovery',
+      icon: < LockResetIcon />,
+      text: 'Recover Password',
+    },
+    {
+      href: '/user',
+      icon: < AccountCircleIcon />,
+      text: 'Account',
+    },
+    {
+      href: '/user',
+      icon: < ManageAccountsIcon />,
+      text: 'Manage Account',
+    },
+    {
+      href: '/sign_out',
+      icon: < LogoutIcon />,
+      text: 'Sign Out',
+    },
+    // {
+    //   href: '/sign_out',
+    //   icon: < PersonOffIcon />,
+    //   text: 'Delete Account',
+    // },
+  ]];
 
   const theme = useTheme();
 
@@ -220,21 +230,23 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
         </IconButton>
       </Toolbar>
 
-      <Drawer
-        anchor={'left'}
+      {/* NavMenu */}
+      <Menu
         open={navMenuDrawerOpen}
+        direction={'left'}
+        sections={NavMenuSections}
         onClose={() => setNavMenuDrawerOpen(false)}
-      >
-        {NavMenu()}
-      </Drawer>
+        component='nav'
+      />
 
-      <Drawer
-        anchor={'right'}
+      {/* UserMenu */}
+      <Menu
         open={userMenuDrawerOpen}
+        direction={'right'}
+        sections={UserMenuSections}
         onClose={() => setUserMenuDrawerOpen(false)}
-      >
-        {UserMenu()}
-      </Drawer>
+        component='menu'
+      />
 
       {/* TODO */}
       <LinearBuffer />
