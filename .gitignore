@@ -56,3 +56,6 @@ Dockerfile
 # Private
 temp
 docs
+
+# tmp
+components/BlocklyWorkspace

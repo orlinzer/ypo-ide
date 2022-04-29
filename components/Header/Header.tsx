@@ -24,6 +24,7 @@ import {
   Brightness7 as Brightness7Icon,
   CollectionsBookmark as CollectionsBookmarkIcon,
   ContactSupport as ContactSupportIcon,
+  Edit as EditIcon,
   LockReset as LockResetIcon,
   Login as LoginIcon,
   Logout as LogoutIcon,
@@ -42,6 +43,8 @@ import React,
 } from "react";
 import { string } from "prop-types";
 import NextLink from 'next/link';
+import Link, { ListLink } from "../Link/Link";
+import LinearBuffer from "../LinearBuffer/LinearBuffer";
 
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
@@ -122,7 +125,8 @@ export default function Header() {
       onClick={toggleDrawer('left', false)}
     // onKeyDown={toggleLefDrawer(false)}
     >
-      <List>
+
+      {/* <List>
         {['Users', 'Projects'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
@@ -131,15 +135,23 @@ export default function Header() {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
-      <Divider />
+      </List> */}
+
       <List>
-        <ListItem button key={'Contact Us'}>
-          <ListItemIcon>
-            <ContactSupportIcon />
-          </ListItemIcon>
-          <ListItemText primary='Contact Us' />
-        </ListItem>
+        <ListLink href="/ide" icon={<EditIcon />} text="IDE" />
+      </List>
+
+      <Divider />
+
+      <List>
+        <ListLink href="/users" icon={<PeopleAltRoundedIcon />} text="Users" />
+        <ListLink href="/projects" icon={<CollectionsBookmarkIcon />} text="Projects" />
+      </List>
+
+      <Divider />
+
+      <List>
+        <ListLink href="/contact_us" icon={<ContactSupportIcon />} text="Contact Us" />
       </List>
     </Box>
   );
@@ -152,61 +164,15 @@ export default function Header() {
     // onKeyDown={toggleDrawer('right', false)}
     >
       <List>
-        <ListItem button key='sign-in'>
-          <ListItemIcon>
-            <LoginIcon />
-          </ListItemIcon>
-          <ListItemText primary='Sign In' />
-        </ListItem>
-
-        <NextLink href='/sign_up' passHref>
-          <ListItem button component='a' key='sign-up'>
-            <ListItemIcon>
-              {/* <Link href="/sign_up"> */}
-              <PersonAddIcon />
-              {/* </Link> */}
-            </ListItemIcon>
-            <ListItemText primary='Sign Up' />
-          </ListItem>
-        </NextLink>
-
-        <ListItem button key='password-recovery'>
-          <ListItemIcon>
-            <LockResetIcon />
-          </ListItemIcon>
-          <ListItemText primary='Recover Password' />
-        </ListItem>
-
-        <ListItem button key='account'>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary='Account' />
-        </ListItem>
-
-        <ListItem button key='manage'>
-          <ListItemIcon>
-            <ManageAccountsIcon />
-          </ListItemIcon>
-          <ListItemText primary='Manage Account' />
-        </ListItem>
-
-        <ListItem button key='sign-out'>
-          <ListItemIcon>
-            <LogoutIcon />
-          </ListItemIcon>
-          <ListItemText primary='Sign Out' />
-        </ListItem>
-
-        <ListItem button key='delete'>
-          <ListItemIcon>
-            <PersonOffIcon />
-            {/* <SearchIcon /> */}
-          </ListItemIcon>
-          <ListItemText primary='Delete Account' />
-        </ListItem>
+        <ListLink href="/sign_in" icon={<LoginIcon />} text="Sign In" />
+        <ListLink href="/sign_up" icon={<PersonAddIcon />} text="Sign Up" />
+        <ListLink href="/password_recovery" icon={<LockResetIcon />} text="Recover Password" />
+        <ListLink href="/user" icon={<AccountCircleIcon />} text="Account" />
+        <ListLink href="/user" icon={<ManageAccountsIcon />} text="Manage Account" />
+        <ListLink href="/sign_out" icon={<LogoutIcon />} text="Sign Out" />
+        {/* <ListLink href="/sign_out" icon={<PersonOffIcon />} text="Delete Account" /> */}
       </List>
-    </Box>
+    </Box >
   );
 
   return (
@@ -304,6 +270,9 @@ export default function Header() {
           >
             {userMenuList()}
           </Drawer>
+
+          {/* TODO */}
+          <LinearBuffer />
 
         </AppBar>
       </ThemeProvider>

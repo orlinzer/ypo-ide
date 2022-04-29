@@ -6,19 +6,9 @@ import Link from "../components/Link/Link";
 
 // export const Device = dynamic(() => import('../components/Layout/Layout'), { ssr: false });
 
-export default function IndexPage() {
+export default function ContactUsPage() {
   return (
     <Layout>
-      {/* <Device> */}
-      {/* {({ isMobile }: any): JSX.Element => {
-        if (isMobile) {
-          return <div>My Mobile View</div>;
-        }
-        return <div>My Desktop View</div>;
-      }} */}
-      {/* <div>hello</div> */}
-      {/* </Device> */}
-
       <Paper
         elevation={10}
         sx={{
@@ -33,13 +23,12 @@ export default function IndexPage() {
           gap: 1
         }}
       >
-        <Typography variant='h1'>YPO-IDE</Typography>
+        <Typography variant='h1'>Contact Us</Typography>
         <Typography variant='body1'>
-          Wellcom to YPO-IDE. This is a Web IDE disign to teach children to program.
-          In here you can create websites, games and more.
+          Website: <Link href='https://www.ypo.co.il/'>YPO Website "www.ypo.co.il"</Link>
         </Typography>
-        <Typography variant='body2'>
-          If you want to know more about <Link href='https://www.ypo.co.il/'>YPO Website</Link>
+        <Typography variant='body1'>
+          Mail: <Link href='mailto://info@ypo.co.il/'>YPO Mail "info@ypo.co.il"</Link>
         </Typography>
       </Paper>
     </Layout>

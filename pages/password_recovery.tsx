@@ -6,7 +6,7 @@ import Form from "../components/Form/Form";
 import Layout from "../components/Layout/Layout";
 import Link from "../components/Link/Link";
 
-export const signInPage: NextPage = () => {
+export const PasswordRecoveryPage: NextPage = () => {
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -58,8 +58,9 @@ export const signInPage: NextPage = () => {
         justifyContent: 'flex-start',
         alignItems: 'center'
       }}>
-        <Typography variant='h5' >Sign In</Typography>
+        <Typography variant='h5' >Password Recovery</Typography>
         {/* <Form> */}
+
         <TextField
           id='user-name'
           label='Name'
@@ -79,47 +80,27 @@ export const signInPage: NextPage = () => {
         // onChange={handleChange}
         />
 
-        <FormControl sx={{ m: 1, width: '25ch' }} variant="standard" required>
-          <InputLabel htmlFor="user-password">Password</InputLabel>
-          <Input
-            id='user-password'
-            type={values.showPassword ? 'text' : 'password'}
+        <TextField
+          id='user-email'
+          label='Email'
+          // helperText='Use only a-z, A-Z, 0-9'
+          // placeholder=''
+          // value={value}
+          // defaultValue="Default Value"
 
-            value={values.password}
-            // defaultValue="Default Value"
+          variant='standard'
+          required
+        // InputProps={{
+        //   readOnly: true,
+        // }}
+        // disabled
+        // error
 
-            // variant='standard'
-            // error
-            // size='small'
-            // margin='dense'
-            // fullWidth
-            // color=''
-
-            // InputProps={{
-            //   readOnly: true,
-            // }}
-            // disabled
-            // onChange={handleChange('password')}
-            autoComplete="current-password"
-
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  // onClick={handleClickShowPassword}
-                  // onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          {/* <FormHelperText id="password-helper-text"></FormHelperText> */}
-        </FormControl>
+        // onChange={handleChange}
+        />
 
         <Button variant="text" endIcon={<Send />}>
-          Sign In
+          Recover Password
         </Button>
         <Button variant="text" endIcon={<Delete />}>
           Reset
@@ -133,12 +114,12 @@ export const signInPage: NextPage = () => {
             '& .MuiTextField-root': { m: 1, width: '25ch' },
           }}
         >
+          <Link href='#'>Sign In</Link>
           <Link href='#'>Sign Up</Link>
-          <Link href='#'>I Forgot My Password</Link>
         </Box>
       </Paper>
     </Layout>
   );
 };
 
-export default signInPage;
+export default PasswordRecoveryPage;

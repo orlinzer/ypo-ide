@@ -110,27 +110,27 @@ export const SignUpPage: NextPage<{ users: User[] }> = ({ users }) => {
   //     });
   // }, []);
 
-  const [content, setContent] = useState('');
-  const { data: session, status } = useSession();
+  // const [content, setContent] = useState('');
+  // const { data: session, status } = useSession();
 
-  const loading = status === 'loading';
+  // const loading = status === 'loading';
 
-  useEffect(() => {
-    setContent('content');
-    const fetchData = async () => {
-      const res = await fetch('/api/v1/get_user')
-      const json = await res.json()
-      if (json.content) { setContent(json.content) }
-    }
-    fetchData()
-  }, [session]);
+  // useEffect(() => {
+  //   setContent('content');
+  //   const fetchData = async () => {
+  //     const res = await fetch('/api/v1/get_user')
+  //     const json = await res.json()
+  //     if (json.content) { setContent(json.content) }
+  //   }
+  //   fetchData()
+  // }, [session]);
 
   // When rendering client side don't display anything until loading is complete
-  if (typeof window !== 'undefined' && loading) return null;
+  // if (typeof window !== 'undefined' && loading) return null;
 
   // If no session exists, display access denied message
   // if (!session) { return <p>AccessDenied</p> }
-  return <p>Content: {content}</p>;
+  // return <p>Content: {content}</p>;
 
   return (
     <Layout>
