@@ -32,15 +32,12 @@ export const Menu: NextPage<MenuProps> = ({ open = false, direction = 'left', se
     <Drawer
       anchor={direction}
       open={open}
-      // onClose={() => setOpen(false)}
       onClose={onClose}
     >
       <Box
         sx={{ width: 250 }}
         role="presentation"
         component={component}
-      // onClick={toggleDrawer('right', false)}
-      // onKeyDown={toggleDrawer('right', false)}
       >
         {sections.map((elements, index: number) => (
           <Fragment>
