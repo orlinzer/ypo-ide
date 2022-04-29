@@ -163,11 +163,11 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
         <IconButton
           onClick={() => setNavMenuDrawerOpen(true)}
         >
-          <MenuIcon sx={{ color: '#000', fontSize: 32 }} />
+          <MenuIcon sx={{ fontSize: 32 }} />
         </IconButton>
 
         <Breadcrumbs aria-label="breadcrumb" sx={{ flexGrow: 1 }}>
-          <MUILink variant="h6" underline="hover" color="inherit" href="/">
+          <MUILink variant="h6" underline="hover" color="text.secondary" href="/">
             <IconButton>
               <Image
                 src="/logo.svg"
@@ -178,10 +178,10 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
             </IconButton>
             YPO-IDE
           </MUILink>
-          <MUILink variant="subtitle1" underline="hover" color="inherit" href="/">
+          <MUILink variant="subtitle1" underline="hover" color="text.secondary" href="/">
             User Name
           </MUILink>
-          <Typography variant="subtitle2" color="text.primary">Project Name</Typography>
+          <Typography variant="subtitle2" color="text.secondary">Project Name</Typography>
         </Breadcrumbs>
 
         <Box>
@@ -216,7 +216,6 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
         <IconButton
           sx={{ ml: 1 }}
           onClick={themeToggler}
-          color="inherit"
         >
           {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
@@ -225,6 +224,7 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
           <Avatar
             alt='User Image'
             // src='/public/images/...'
+            sx={{ bgcolor: 'text.secondary' }}
             onClick={() => setUserMenuDrawerOpen(true)}
           ></Avatar>
         </IconButton>
