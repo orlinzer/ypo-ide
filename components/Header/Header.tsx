@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Breadcrumbs,
+  Button,
   Divider,
   Drawer,
   IconButton,
@@ -38,6 +39,7 @@ import Image from "next/image";
 import React,
 {
   Dispatch,
+  Fragment,
   ReactNode,
   SetStateAction,
   useState,
@@ -49,6 +51,7 @@ import LinearBuffer from "../LinearBuffer/LinearBuffer";
 import { NextPage } from "next";
 import AppBarLabel from "../AppBarLabel/AppBarLabel";
 import Menu from "../Menu/Menu";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
@@ -106,22 +109,7 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
     ],
   ];
 
-  const UserMenuSections = [[
-    {
-      href: '/sign_in',
-      icon: < LoginIcon />,
-      text: 'Sign In',
-    },
-    {
-      href: '/sign_up',
-      icon: < PersonAddIcon />,
-      text: 'Sign Up',
-    },
-    {
-      href: '/password_recovery',
-      icon: < LockResetIcon />,
-      text: 'Recover Password',
-    },
+  const SignedUserMenuSections = [[
     {
       href: '/user',
       icon: < AccountCircleIcon />,
@@ -137,14 +125,33 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
       icon: < LogoutIcon />,
       text: 'Sign Out',
     },
-    // {
-    //   href: '/sign_out',
-    //   icon: < PersonOffIcon />,
-    //   text: 'Delete Account',
-    // },
+    {
+      href: '/sign_out',
+      icon: < PersonOffIcon />,
+      text: 'Delete Account',
+    },
+  ]];
+
+  const UnsignedUserMenuSections = [[
+    {
+      href: '/sign_in',
+      icon: < LoginIcon />,
+      text: 'Sign In',
+    },
+    {
+      href: '/sign_up',
+      icon: < PersonAddIcon />,
+      text: 'Sign Up',
+    },
+    {
+      href: '/password_recovery',
+      icon: < LockResetIcon />,
+      text: 'Recover Password',
+    },
   ]];
 
   const theme = useTheme();
+  const { data: session, status } = useSession();
 
   return (
     <AppBar
@@ -220,13 +227,35 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
           {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
 
+        {
+          (session) ?
+            <Button
+              color='secondary'
+              onClick={() => { signOut() }}
+            >
+              Sign Out
+            </Button> :
+            <Button
+              color='secondary'
+              onClick={() => { signIn() }}
+            >
+              Sign In
+            </Button>
+        }
+
         <IconButton>
           <Avatar
             alt='User Image'
             // src='/public/images/...'
-            sx={{ bgcolor: 'text.secondary' }}
+            // sx={{ bgcolor: 'blue' }}
             onClick={() => setUserMenuDrawerOpen(true)}
-          ></Avatar>
+          >
+            {
+              (session) ?
+                session.user.name :
+                null
+            }
+          </Avatar>
         </IconButton>
       </Toolbar>
 
@@ -244,7 +273,7 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
       <Menu
         open={userMenuDrawerOpen}
         anchor={'right'}
-        sections={UserMenuSections}
+        sections={(session) ? SignedUserMenuSections : UnsignedUserMenuSections}
         onClose={() => setUserMenuDrawerOpen(false)}
         onOpen={() => setUserMenuDrawerOpen(true)}
         component='menu'

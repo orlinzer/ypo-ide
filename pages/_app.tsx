@@ -10,7 +10,7 @@ import AppContext from "../utils/AppContext";
 
 // Use of the <SessionProvider> is mandatory to allow components that call
 // `useSession()` anywhere in your application to access the `session` object.
-export const App: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
+export const App: NextPage<AppProps> = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -37,11 +37,10 @@ export const App: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
 
     // < Component {...pageProps} />
     <SessionProvider
-      session={pageProps.session}
+      session={session}
     // option={{ site: process.env.SITE }}
     >
       <AppContext.Provider value={{
-
         // state: {
         // languages: languageObject[languageSelected],
         // languageSelected: languageSelected,
