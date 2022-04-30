@@ -6,6 +6,7 @@ import React, { EventHandler, ReactEventHandler, useState } from "react";
 import BlocklyEditor from "../components/BlocklyWorkspace/BlocklyEditor";
 import BlocklyWorkspace from "../components/BlocklyWorkspace/BlocklyWorkspace";
 import Layout from "../components/Layout/Layout";
+import TreeView, { RenderTree } from "../components/TreeView/TreeView";
 
 // TODO
 // TabPanel.propTypes = {
@@ -13,6 +14,27 @@ import Layout from "../components/Layout/Layout";
 //   index: PropTypes.number.isRequired,
 //   value: PropTypes.number.isRequired,
 // };
+
+export const data: RenderTree = {
+  id: 'root',
+  name: 'Parent',
+  children: [
+    {
+      id: '1',
+      name: 'Child - 1',
+    },
+    {
+      id: '3',
+      name: 'Child - 3',
+      children: [
+        {
+          id: '4',
+          name: 'Child - 4',
+        },
+      ],
+    },
+  ],
+};
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -150,6 +172,9 @@ export const userPage: NextPage = () => {
             Bbbbbbbb
           </AccordionDetails>
         </Accordion>
+
+        <TreeView nodes={[data]} />
+
         <Grid item xs={12} sx={{
           flexGrow: 1,
           display: 'flex',

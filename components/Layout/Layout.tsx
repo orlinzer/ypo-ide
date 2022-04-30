@@ -104,10 +104,10 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
           <Main>
             {/* {console.log(rdd)} */}
             {/* {console.log(rdd.isMobile)} */}
-            {/* {children} */}
+            {children}
             {/* {children(rdd)} */}
             {/* {props.children(rdd)} */}
-            <p>
+            {/* <p>
               {!data && <>
                 Not signed in <br />
                 <a href="/api/auth/signin">Sign in</a>
@@ -116,7 +116,7 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
                 Signed in as {data.user.email} <br />
                 <a href="/api/auth/signout">Sign out</a>
               </>}
-            </p>
+            </p> */}
           </Main>
 
           <Footer />
