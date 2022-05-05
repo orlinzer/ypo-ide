@@ -156,24 +156,8 @@ export const userPage: NextPage = () => {
       <Grid container sx={{
         flexGrow: 1
       }}>
-        <Accordion>
-          <AccordionSummary>
-            a
-          </AccordionSummary>
-          <AccordionDetails>
-            Aaaaaaaaaaaa
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary>
-            b
-          </AccordionSummary>
-          <AccordionDetails>
-            Bbbbbbbb
-          </AccordionDetails>
-        </Accordion>
 
-        <TreeView nodes={[data]} />
+        {/* <TreeView nodes={[data]} /> */}
 
         <Grid item xs={12} sx={{
           flexGrow: 1,

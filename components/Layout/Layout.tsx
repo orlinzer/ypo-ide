@@ -10,23 +10,43 @@ import darkTheme from "../../styles/theme/darkTheme";
 import lightTheme from "../../styles/theme/lightTheme";
 import AppContext from "../../utils/AppContext";
 
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
+import Footer, { BottomBar } from "../BottomBar/BottomBar";
+import Header, { TopBar } from "../TopBar/TopBar";
 import Main from "../Main/Main";
+import {
+  AccountCircle as AccountCircleIcon,
+  CollectionsBookmark as CollectionsBookmarkIcon,
+  ContactSupport as ContactSupportIcon,
+  Edit as EditIcon,
+  LockReset as LockResetIcon,
+  Login as LoginIcon,
+  Logout as LogoutIcon,
+  ManageAccounts as ManageAccountsIcon,
+  PeopleAltRounded as PeopleAltRoundedIcon,
+  PersonAdd as PersonAddIcon,
+  PersonOff as PersonOffIcon
+} from "@mui/icons-material";
+import MenuBar from "../MenuBar/MenuBar";
+import ActivityBar from "../ActivityBar/ActivityBar";
+import PrimarySideBar from "../PrimarySideBar/PrimarySideBar";
+import Panel from "../Panel/Panel";
+import StatusBar from "../StatusBar/StatusBar";
+import SecondarySideBar from "../SecondarySideBar/SecondarySideBar";
+import NotificationBar from "../NotificationBar/NotificationBar";
 
 // export interface LayoutProps extends React.ComponentPropsWithoutRef<Layout> {
 export interface LayoutProps {
   children: ReactNode;
 }
 
-export interface LayoutState {
-  top?: boolean;
-  left?: boolean;
-  bottom?: boolean;
-  right?: boolean;
-  width?: number;
-  height?: number;
-}
+// export interface LayoutState {
+//   top?: boolean;
+//   left?: boolean;
+//   bottom?: boolean;
+//   right?: boolean;
+//   width?: number;
+//   height?: number;
+// }
 
 // Use ThemeContext of MUI
 // const ThemeContext = createContext('light');
@@ -37,6 +57,86 @@ export interface LayoutState {
 // export default function Layout(props: LayoutProps) {
 // export default function Layout({ children }: LayoutProps) {
 export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
+  // Menu Components
+  const [menuBarOpen, setMenuBarOpen] = useState(false);
+  const [activityBarOpen, setActivityBarOpen] = useState(false);
+  const [primarySideBarOpen, setPrimarySideBarOpen] = useState(false);
+  const [secondarySideBarOpen, setSecondarySideBarOpen] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(false);
+  const [statusBarOpen, setStatusBarOpen] = useState(false);
+  const [primarySide, setPrimarySide] = useState<'left' | 'right'>('left');
+  const [panelAlignment, setPanelAlignment] = useState<'left' | 'right' | 'center' | 'justify'>('center');
+  const [mode, setMode] = useState<{ fullScreen?: boolean; zenMode?: boolean; centeredLayout?: boolean }>({});
+
+  const NavMenuSections = [
+    [
+      {
+        href: '/ide',
+        icon: < EditIcon />,
+        text: 'IDE',
+      },
+    ],
+    [
+      {
+        href: '/users',
+        icon: < PeopleAltRoundedIcon />,
+        text: 'Users',
+      },
+      {
+        href: '/projects',
+        icon: < CollectionsBookmarkIcon />,
+        text: 'Projects',
+      },
+    ],
+    [
+      {
+        href: '/contact_us',
+        icon: < ContactSupportIcon />,
+        text: 'Contact Us',
+      },
+    ],
+  ];
+
+  const SignedUserMenuSections = [[
+    {
+      href: '/user',
+      icon: < AccountCircleIcon />,
+      text: 'Account',
+    },
+    {
+      href: '/user',
+      icon: < ManageAccountsIcon />,
+      text: 'Manage Account',
+    },
+    {
+      href: '/sign_out',
+      icon: < LogoutIcon />,
+      text: 'Sign Out',
+    },
+    {
+      href: '/sign_out',
+      icon: < PersonOffIcon />,
+      text: 'Delete Account',
+    },
+  ]];
+
+  const UnsignedUserMenuSections = [[
+    {
+      href: '/sign_in',
+      icon: < LoginIcon />,
+      text: 'Sign In',
+    },
+    {
+      href: '/sign_up',
+      icon: < PersonAddIcon />,
+      text: 'Sign Up',
+    },
+    {
+      href: '/password_recovery',
+      icon: < LockResetIcon />,
+      text: 'Recover Password',
+    },
+  ]];
 
   const { data, status } = useSession();
 
@@ -80,6 +180,8 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
     return darkTheme;
   });
 
+
+
   return (
     // <ThemeContext.Provider theme={theme}></ThemeContext.Provider>
     // <ThemeProvider theme={lightTheme}>
@@ -94,19 +196,33 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
         <Box sx={{
           minHeight: "100vh",
           display: "flex",
-          flexDirection: "column",
+          // flexDirection: "column",
+          flexDirection: "row",
           flexWrap: "nowrap",
           alignItems: ""
         }}>
 
-          <Header themeToggler={toggleTheme} />
+          {/* <NotificationBar /> */}
+          {/* <NavBar /> */}
+          {/* <ToolBar /> */}
+          {/* <MenuBar /> */}
+          {/* <ActivityBar /> */}
+          {/* <PrimarySideBar /> */}
+          {/* <SecondarySideBar /> */}
+          {/* TODO: rename Panel to PanelBar  */}
+          {/* <Panel /> */}
+          {/* <StatusBar /> */}
+
+          <TopBar
+          // themeToggler={toggleTheme}
+          // navMenuDrawerOpen={navMenuDrawerOpen}
+          // userMenuDrawerOpen={userMenuDrawerOpen}
+          // setNavMenuDrawerOpen={setNavMenuDrawerOpen}
+          // setUserMenuDrawerOpen={setUserMenuDrawerOpen}
+          />
 
           <Main>
-            {/* {console.log(rdd)} */}
-            {/* {console.log(rdd.isMobile)} */}
             {children}
-            {/* {children(rdd)} */}
-            {/* {props.children(rdd)} */}
             {/* <p>
               {!data && <>
                 Not signed in <br />
@@ -119,7 +235,7 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
             </p> */}
           </Main>
 
-          <Footer />
+          {/* <BottomBar /> */}
         </Box>
       </Fragment>
     </ThemeProvider>

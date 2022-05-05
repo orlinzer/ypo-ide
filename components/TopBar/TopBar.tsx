@@ -53,128 +53,70 @@ import AppBarLabel from "../AppBarLabel/AppBarLabel";
 import Menu from "../Menu/Menu";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+// const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
-interface HeaderProps {
-  children?: ReactNode;
-  // themeToggler?: Dispatch<SetStateAction<Theme>>;
-  // themeToggler?: (value: SetStateAction<Theme>) => void;
-  themeToggler?: () => void;
+interface TopBarProps {
+  // children?: ReactNode;
+  // // themeToggler?: Dispatch<SetStateAction<Theme>>;
+  // // themeToggler?: (value: SetStateAction<Theme>) => void;
+  // themeToggler?: () => void;
+  // navMenuDrawerOpen: boolean;
+  // userMenuDrawerOpen: boolean;
+  // setNavMenuDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  // setUserMenuDrawerOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-interface HeaderState {
-  top?: boolean;
-  left?: boolean;
-  bottom?: boolean;
-  right?: boolean;
-  width?: number;
-  height?: number;
-  mode?: string;
-}
+// interface HeaderState {
+//   top?: boolean;
+//   left?: boolean;
+//   bottom?: boolean;
+//   right?: boolean;
+//   width?: number;
+//   height?: number;
+//   mode?: string;
+// }
 
-export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: HeaderProps) => {
-  // TODO: Make component for the menus
-  const [navMenuDrawerOpen, setNavMenuDrawerOpen] = useState(false);
-  // const toggleNavMenuDrawerOpen = setNavMenuDrawerOpen((oldNavMenuDrawerOpen: boolean) => !oldNavMenuDrawerOpen);
-
-  const [userMenuDrawerOpen, setUserMenuDrawerOpen] = useState(false);
-  // const toggleUserMenuDrawerOpen = setUserMenuDrawerOpen((oldUserMenuDrawerOpen: boolean) => !oldUserMenuDrawerOpen);
-
-  const NavMenuSections = [
-    [
-      {
-        href: '/ide',
-        icon: < EditIcon />,
-        text: 'IDE',
-      },
-    ],
-    [
-      {
-        href: '/users',
-        icon: < PeopleAltRoundedIcon />,
-        text: 'Users',
-      },
-      {
-        href: '/projects',
-        icon: < CollectionsBookmarkIcon />,
-        text: 'Projects',
-      },
-    ],
-    [
-      {
-        href: '/contact_us',
-        icon: < ContactSupportIcon />,
-        text: 'Contact Us',
-      },
-    ],
-  ];
-
-  const SignedUserMenuSections = [[
-    {
-      href: '/user',
-      icon: < AccountCircleIcon />,
-      text: 'Account',
-    },
-    {
-      href: '/user',
-      icon: < ManageAccountsIcon />,
-      text: 'Manage Account',
-    },
-    {
-      href: '/sign_out',
-      icon: < LogoutIcon />,
-      text: 'Sign Out',
-    },
-    {
-      href: '/sign_out',
-      icon: < PersonOffIcon />,
-      text: 'Delete Account',
-    },
-  ]];
-
-  const UnsignedUserMenuSections = [[
-    {
-      href: '/sign_in',
-      icon: < LoginIcon />,
-      text: 'Sign In',
-    },
-    {
-      href: '/sign_up',
-      icon: < PersonAddIcon />,
-      text: 'Sign Up',
-    },
-    {
-      href: '/password_recovery',
-      icon: < LockResetIcon />,
-      text: 'Recover Password',
-    },
-  ]];
-
+// export const Header: NextPage<HeaderProps> = ({
+//   children,
+//   themeToggler,
+//   navMenuDrawerOpen,
+//   userMenuDrawerOpen,
+//   setNavMenuDrawerOpen,
+//   setUserMenuDrawerOpen,
+// }: HeaderProps) => {
+export const TopBar: NextPage<TopBarProps> = ({ }: TopBarProps) => {
   const theme = useTheme();
   const { data: session, status } = useSession();
 
   return (
     <AppBar
       component='header'
-      position='relative'
+      // position='relative'
+      position='fixed'
 
       // on dark theme the color property dont have effect
       // enableColorOnDark
       color="primary"
+      sx={{
+        // zIndex: theme.zIndex.,
+        // mixin
+      }}
     >
       {/* TODO: brake the AppBar to contain components of Toolbars. */}
       {/* <AppBarLabel label="YPO-IDE" /> */}
-      <Toolbar sx={{
-        gap: '0.5em',
-      }}>
+      <Toolbar
+        sx={{
+          gap: '0.5em',
+        }}
+      >
         <IconButton
-          onClick={() => setNavMenuDrawerOpen(true)}
+        // onClick={() => setNavMenuDrawerOpen(true)}
         >
           <MenuIcon sx={{ fontSize: 32 }} />
         </IconButton>
 
-        <Breadcrumbs aria-label="breadcrumb" sx={{ flexGrow: 1 }}>
-          <MUILink variant="h6" underline="hover" color="text.secondary" href="/">
+        <Breadcrumbs aria-label="breadcrumb" sx={{ display: 'flex', flexWrap: 'nowrap', flexGrow: 1 }}>
+          <MUILink noWrap variant="h6" underline="hover" color="text.secondary" href="/">
             <IconButton>
               <Image
                 src="/logo.svg"
@@ -185,10 +127,10 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
             </IconButton>
             YPO-IDE
           </MUILink>
-          <MUILink variant="subtitle1" underline="hover" color="text.secondary" href="/">
+          <MUILink noWrap variant="subtitle1" underline="hover" color="text.secondary" href="/">
             User Name
           </MUILink>
-          <Typography variant="subtitle2" color="text.secondary">Project Name</Typography>
+          <Typography noWrap variant="subtitle2" color="text.secondary">Project Name</Typography>
         </Breadcrumbs>
 
         <Box>
@@ -222,7 +164,7 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
 
         <IconButton
           sx={{ ml: 1 }}
-          onClick={themeToggler}
+        // onClick={themeToggler}
         >
           {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
@@ -246,9 +188,9 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
         <IconButton>
           <Avatar
             alt='User Image'
-            // src='/public/images/...'
-            // sx={{ bgcolor: 'blue' }}
-            onClick={() => setUserMenuDrawerOpen(true)}
+          // src='/public/images/...'
+          // sx={{ bgcolor: 'blue' }}
+          // onClick={() => setUserMenuDrawerOpen(true)}
           >
             {
               (session) ?
@@ -260,29 +202,29 @@ export const Header: NextPage<HeaderProps> = ({ children, themeToggler }: Header
       </Toolbar>
 
       {/* NavMenu */}
-      <Menu
+      {/* <Menu
         open={navMenuDrawerOpen}
         anchor={'left'}
         sections={NavMenuSections}
         onClose={() => setNavMenuDrawerOpen(false)}
         onOpen={() => setNavMenuDrawerOpen(true)}
         component='nav'
-      />
+      /> */}
 
       {/* UserMenu */}
-      <Menu
+      {/* <Menu
         open={userMenuDrawerOpen}
         anchor={'right'}
         sections={(session) ? SignedUserMenuSections : UnsignedUserMenuSections}
         onClose={() => setUserMenuDrawerOpen(false)}
         onOpen={() => setUserMenuDrawerOpen(true)}
         component='menu'
-      />
+      /> */}
 
       {/* TODO */}
       <LinearBuffer />
-    </AppBar>
+    </AppBar >
   );
 };
 
-export default Header;
+export default TopBar;

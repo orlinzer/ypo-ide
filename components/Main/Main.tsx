@@ -1,34 +1,32 @@
-import { Box } from "@mui/material";
+import { AppBar, Box, Toolbar } from "@mui/material";
+import { NextPage } from "next";
 import { ReactNode } from "react";
+import PrimarySideBar from "../PrimarySideBar/PrimarySideBar";
+import SecondarySideBar from "../SecondarySideBar/SecondarySideBar";
 
-interface MainProps {
-  // children: JSX.Element;
-  // children?: any;
-  // children: IntrinsicAttributes;
-  children: ReactNode;
+export interface MainProps {
+
 }
 
-interface MainState {
-  top?: boolean;
-  left?: boolean;
-  bottom?: boolean;
-  right?: boolean;
-  width?: number;
-  height?: number;
-}
-
-export default function Main({ children }: MainProps) {
+export const Main: NextPage<MainProps> = ({ }: MainProps) => {
   return (
     <Box
       component="main"
+      position='relative'
       sx={{
         display: "flex",
         flexWrap: "nowrap",
-        flexDirection: "column",
+        flexDirection: "row",
         flexGrow: 1,
-        alignItems: "center"
+        alignItems: "stretch"
       }}>
-      {children}
+
+      <PrimarySideBar />
+      <SecondarySideBar />
+      {/* {children} */}
+
     </Box>
   )
 }
+
+export default Main;

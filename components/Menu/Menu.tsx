@@ -1,6 +1,6 @@
-import { Box, Divider, Drawer, List, SwipeableDrawer } from "@mui/material";
+import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer } from "@mui/material";
 import { NextPage } from "next";
-import { ElementType, Fragment, ReactEventHandler, ReactNode, useState } from "react";
+import React, { ElementType, Fragment, ReactEventHandler, ReactNode, useState } from "react";
 import { ListLink } from "../Link/Link";
 
 export interface MenuElement {
@@ -20,7 +20,7 @@ export interface MenuProps {
   component?: any
 }
 
-export const Menu: NextPage<MenuProps> = ({ open = false, anchor = 'left', sections = [], onClose, onOpen, component }: MenuProps) => {
+export const Menu: NextPage<MenuProps> = ({ open = true, anchor = 'left', sections = [], onClose, onOpen, component }: MenuProps) => {
 
   // const [open, setOpen] = useState(false);
   // const toggleOpen = () => setOpen((oldOpen) => !oldOpen);
@@ -46,11 +46,19 @@ export const Menu: NextPage<MenuProps> = ({ open = false, anchor = 'left', secti
           <Fragment>
             <List>
               {elements.map(element => (
-                <ListLink
-                  href={element.href}
-                  icon={element.icon}
-                  text={element.text}
-                />
+                // <ListItem>
+                // </ListItem>
+
+                <ListItemButton>
+                  <ListItemIcon>{element.icon}</ListItemIcon>
+                  <ListItemText>{element.text}</ListItemText>
+                </ListItemButton>
+
+                // <ListLink
+                //   href={element.href}
+                //   icon={element.icon}
+                //   text={element.text}
+                // />
               ))}
             </List>
             {(index !== sections.length - 1) ? <Divider /> : null}
