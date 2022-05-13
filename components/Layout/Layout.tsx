@@ -221,7 +221,7 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
             primarySideBarOpen={primarySideBarOpen}
             setPrimarySideBarOpen={setPrimarySideBarOpen}
 
-            sections={NavMenuSections}
+            primarySections={NavMenuSections}
           >
             {children}
             {/* <p>

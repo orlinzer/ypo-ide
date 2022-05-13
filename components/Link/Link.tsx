@@ -42,10 +42,10 @@ export const ListLink = (props: ListLinkProps) => {
       {/* <Tooltip title={text} {props.tooltipPlace ? `placement={ ${props.tooltipPlace} }` : null}> */}
       <Tooltip title={text} placement={tooltipPlace} arrow>
         <ListItem button key={text.replaceAll('\s', '_')} component='a'>
-          <ListItemIcon>
-            {icon}
-          </ListItemIcon>
-          <ListItemText primary={text} />
+          {/* <ListItemButton key={text.replaceAll('\s', '_')} component='a'> */}
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText>{text}</ListItemText>
+          {/* </ListItemButton> */}
         </ListItem>
       </Tooltip>
     </NextLink >

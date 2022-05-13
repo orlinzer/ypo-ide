@@ -8,7 +8,7 @@ const minDrawerWidth = 50;
 const maxDrawerWidth = 1000;
 
 export interface MenuElement {
-  href: string,
+  href?: string,
   icon: ReactNode,
   text: string,
 }
@@ -104,19 +104,24 @@ export const Menu: NextPage<MenuProps> = ({
           <Fragment>
             <List>
               {elements.map(element => (
-                // <ListItem>
-                // </ListItem>
+                element.href ?
+                  (
+                    // <ListItemButton>
+                    //   <ListItemIcon>{element.icon}</ListItemIcon>
+                    //   <ListItemText>{element.text}</ListItemText>
+                    // </ListItemButton>
 
-                <ListItemButton>
-                  <ListItemIcon>{element.icon}</ListItemIcon>
-                  <ListItemText>{element.text}</ListItemText>
-                </ListItemButton>
+                    <ListLink
+                      href={element.href}
+                      icon={element.icon}
+                      text={element.text}
+                    />
+                  ) :
+                  (<ListItemButton>
+                    <ListItemIcon>{element.icon}</ListItemIcon>
+                    <ListItemText>{element.text}</ListItemText>
+                  </ListItemButton>)
 
-                // <ListLink
-                //   href={element.href}
-                //   icon={element.icon}
-                //   text={element.text}
-                // />
               ))}
             </List>
             {(index !== sections.length - 1) ? <Divider /> : null}

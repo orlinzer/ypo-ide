@@ -9,14 +9,14 @@ export interface MainProps {
   primarySideBarOpen: boolean;
   setPrimarySideBarOpen: Dispatch<SetStateAction<boolean>>;
 
-  sections?: MenuSection[];
+  primarySections?: MenuSection[];
 }
 
 export const Main: NextPage<MainProps> = ({
   primarySideBarOpen,
   setPrimarySideBarOpen,
 
-  sections = [],
+  primarySections = [],
 }: MainProps) => {
 
   return (
@@ -34,7 +34,7 @@ export const Main: NextPage<MainProps> = ({
       <PrimarySideBar
         open={primarySideBarOpen}
         setOpen={setPrimarySideBarOpen}
-        sections={sections}
+        sections={primarySections}
       />
       <SecondarySideBar />
       {/* {children} */}
