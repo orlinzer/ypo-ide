@@ -142,6 +142,8 @@ export default NextAuth({
       },
       authorize: (credentials) => {
 
+        console.log(credentials); // DBG
+
         // TODO: Add database lookup
 
         if (credentials?.username === 'or' &&
@@ -158,6 +160,13 @@ export default NextAuth({
       }
     }),
   ],
+  pages: {
+    signIn: '/auth/sign_in',
+    signOut: '/auth/sign_out',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/verify-request', // (used for check email message)
+    newUser: '/auth/new_user', // New users will be directed here on first sign in (leave the property out if not of interest)
+  },
   callbacks: {
     jwt: ({ token, user }) => {
       // first time jwt callback is run, user object is available
