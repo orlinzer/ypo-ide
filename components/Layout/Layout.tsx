@@ -108,7 +108,7 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
       text: 'Manage Account',
     },
     {
-      href: '/sign_out',
+      href: '/auth/sign_out',
       icon: < LogoutIcon />,
       text: 'Sign Out',
     },
@@ -121,12 +121,12 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
 
   const UnsignedUserMenuSections = [[
     {
-      href: '/sign_in',
+      href: '/auth/sign_in',
       icon: < LoginIcon />,
       text: 'Sign In',
     },
     {
-      href: '/sign_up',
+      href: '/auth/sign_up',
       icon: < PersonAddIcon />,
       text: 'Sign Up',
     },

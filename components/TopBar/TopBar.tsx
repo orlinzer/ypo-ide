@@ -192,21 +192,6 @@ export const TopBar: NextPage<TopBarProps> = ({
           {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
 
-        {
-          (session) ?
-            <Button
-              color='secondary'
-              onClick={() => { signOut() }}
-            >
-              Sign Out
-            </Button> :
-            <Button
-              color='secondary'
-              onClick={() => { signIn() }}
-            >
-              Sign In
-            </Button>
-        }
 
         <IconButton
           onClick={handleUserMenu}
