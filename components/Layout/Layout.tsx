@@ -58,15 +58,16 @@ export interface LayoutProps {
 // export default function Layout({ children }: LayoutProps) {
 export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
   // Menu Components
-  const [menuBarOpen, setMenuBarOpen] = useState(false);
-  const [activityBarOpen, setActivityBarOpen] = useState(false);
   const [primarySideBarOpen, setPrimarySideBarOpen] = useState(false);
-  const [secondarySideBarOpen, setSecondarySideBarOpen] = useState(false);
-  const [panelOpen, setPanelOpen] = useState(false);
-  const [statusBarOpen, setStatusBarOpen] = useState(false);
-  const [primarySide, setPrimarySide] = useState<'left' | 'right'>('left');
-  const [panelAlignment, setPanelAlignment] = useState<'left' | 'right' | 'center' | 'justify'>('center');
-  const [mode, setMode] = useState<{ fullScreen?: boolean; zenMode?: boolean; centeredLayout?: boolean }>({});
+  const togglePrimarySideBarOpen = () => setPrimarySideBarOpen((oldOpen) => !oldOpen);
+  // const [secondarySideBarOpen, setSecondarySideBarOpen] = useState(false);
+  // const [panelOpen, setPanelOpen] = useState(false);
+  // const [statusBarOpen, setStatusBarOpen] = useState(false);
+  // const [primarySide, setPrimarySide] = useState<'left' | 'right'>('left');
+  // const [panelAlignment, setPanelAlignment] = useState<'left' | 'right' | 'center' | 'justify'>('center');
+  // const [mode, setMode] = useState<{ fullScreen?: boolean; zenMode?: boolean; centeredLayout?: boolean }>({});
+
+
 
   const NavMenuSections = [
     [
@@ -180,8 +181,6 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
     return darkTheme;
   });
 
-
-
   return (
     // <ThemeContext.Provider theme={theme}></ThemeContext.Provider>
     // <ThemeProvider theme={lightTheme}>
@@ -214,14 +213,16 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
           {/* <StatusBar /> */}
 
           <TopBar
-          // themeToggler={toggleTheme}
-          // navMenuDrawerOpen={navMenuDrawerOpen}
-          // userMenuDrawerOpen={userMenuDrawerOpen}
-          // setNavMenuDrawerOpen={setNavMenuDrawerOpen}
-          // setUserMenuDrawerOpen={setUserMenuDrawerOpen}
+            primarySideBarToggler={togglePrimarySideBarOpen}
+            themeToggler={toggleTheme}
           />
 
-          <Main>
+          <Main
+            primarySideBarOpen={primarySideBarOpen}
+            setPrimarySideBarOpen={setPrimarySideBarOpen}
+
+            sections={NavMenuSections}
+          >
             {children}
             {/* <p>
               {!data && <>

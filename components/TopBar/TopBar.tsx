@@ -59,10 +59,11 @@ interface TopBarProps {
   // children?: ReactNode;
   // // themeToggler?: Dispatch<SetStateAction<Theme>>;
   // // themeToggler?: (value: SetStateAction<Theme>) => void;
-  // themeToggler?: () => void;
-  // navMenuDrawerOpen: boolean;
+  themeToggler?: () => void;
+  // primarySideBarOpen: boolean;
   // userMenuDrawerOpen: boolean;
-  // setNavMenuDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  // setPrimarySideBarOpen: Dispatch<SetStateAction<boolean>>;
+  primarySideBarToggler?: () => void;
   // setUserMenuDrawerOpen: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -84,21 +85,26 @@ interface TopBarProps {
 //   setNavMenuDrawerOpen,
 //   setUserMenuDrawerOpen,
 // }: HeaderProps) => {
-export const TopBar: NextPage<TopBarProps> = ({ }: TopBarProps) => {
+export const TopBar: NextPage<TopBarProps> = ({
+  themeToggler,
+  // primarySideBarOpen,
+  // setPrimarySideBarOpen,
+  primarySideBarToggler,
+}: TopBarProps) => {
   const theme = useTheme();
   const { data: session, status } = useSession();
 
   return (
     <AppBar
       component='header'
-      // position='relative'
-      position='fixed'
+      // position='fixed'
 
       // on dark theme the color property dont have effect
       // enableColorOnDark
       color="primary"
       sx={{
-        // zIndex: theme.zIndex.,
+        zIndex: theme.zIndex.appBar,
+        mixin: theme.mixins.toolbar,
         // mixin
       }}
     >
@@ -110,7 +116,8 @@ export const TopBar: NextPage<TopBarProps> = ({ }: TopBarProps) => {
         }}
       >
         <IconButton
-        // onClick={() => setNavMenuDrawerOpen(true)}
+          // onClick={() => setPrimarySideBarOpen(true)}
+          onClick={primarySideBarToggler}
         >
           <MenuIcon sx={{ fontSize: 32 }} />
         </IconButton>
@@ -162,9 +169,10 @@ export const TopBar: NextPage<TopBarProps> = ({ }: TopBarProps) => {
           />
         </Box>
 
+        {/* Theme Toggle Button */}
         <IconButton
           sx={{ ml: 1 }}
-        // onClick={themeToggler}
+          onClick={themeToggler}
         >
           {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
