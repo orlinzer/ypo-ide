@@ -13,6 +13,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
   useTheme
@@ -50,8 +52,9 @@ import Link, { ListLink } from "../Link/Link";
 import LinearBuffer from "../LinearBuffer/LinearBuffer";
 import { NextPage } from "next";
 import AppBarLabel from "../AppBarLabel/AppBarLabel";
-import Menu from "../Menu/Menu";
 import { signIn, signOut, useSession } from "next-auth/react";
+// import Menu from "../Menu/Menu";
+import { MenuSection } from "../Menu/Menu";
 
 // const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
@@ -65,6 +68,8 @@ interface TopBarProps {
   // setPrimarySideBarOpen: Dispatch<SetStateAction<boolean>>;
   primarySideBarToggler?: () => void;
   // setUserMenuDrawerOpen: Dispatch<SetStateAction<boolean>>;
+
+  userSections?: MenuSection[];
 }
 
 // interface HeaderState {
@@ -90,9 +95,19 @@ export const TopBar: NextPage<TopBarProps> = ({
   // primarySideBarOpen,
   // setPrimarySideBarOpen,
   primarySideBarToggler,
+  userSections,
 }: TopBarProps) => {
   const theme = useTheme();
   const { data: session, status } = useSession();
+
+  const [userMenu, setUserMenu] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(userMenu);
+  const handleUserMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setUserMenu(event.currentTarget);
+  };
+  const closeUserMenu = () => {
+    setUserMenu(null);
+  };
 
   return (
     <AppBar
@@ -193,12 +208,13 @@ export const TopBar: NextPage<TopBarProps> = ({
             </Button>
         }
 
-        <IconButton>
+        <IconButton
+          onClick={handleUserMenu}
+        >
           <Avatar
             alt='User Image'
           // src='/public/images/...'
           // sx={{ bgcolor: 'blue' }}
-          // onClick={() => setUserMenuDrawerOpen(true)}
           >
             {
               (session) ?
@@ -208,6 +224,26 @@ export const TopBar: NextPage<TopBarProps> = ({
           </Avatar>
         </IconButton>
       </Toolbar>
+
+      {/* User Menu */}
+      <Menu
+        id="user-menu"
+        anchorEl={userMenu}
+        open={open}
+        onClose={closeUserMenu}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {userSections?.map((section) => (
+          section.map((item) => (
+            <MenuItem onClick={closeUserMenu}>
+              {item.icon}
+              {item.text}
+            </MenuItem>
+          ))
+        ))}
+      </Menu>
 
       {/* NavMenu */}
       {/* <Menu

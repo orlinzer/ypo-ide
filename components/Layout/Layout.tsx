@@ -67,8 +67,6 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
   // const [panelAlignment, setPanelAlignment] = useState<'left' | 'right' | 'center' | 'justify'>('center');
   // const [mode, setMode] = useState<{ fullScreen?: boolean; zenMode?: boolean; centeredLayout?: boolean }>({});
 
-
-
   const NavMenuSections = [
     [
       {
@@ -139,7 +137,7 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
     },
   ]];
 
-  const { data, status } = useSession();
+  const { data: session, status } = useSession();
 
   // const context = useContext(AppContext);
 
@@ -215,6 +213,9 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
           <TopBar
             primarySideBarToggler={togglePrimarySideBarOpen}
             themeToggler={toggleTheme}
+            userSections={(session) ?
+              SignedUserMenuSections :
+              UnsignedUserMenuSections}
           />
 
           <Main
