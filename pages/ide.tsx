@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { Close as CloseIcon } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, IconButton, Tab, Tabs, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, IconButton, Tab, Tabs, Typography, useTheme } from "@mui/material";
 import { NextPage } from "next";
 import React, { EventHandler, ReactEventHandler, useState } from "react";
 import BlocklyEditor from "../components/BlocklyWorkspace/BlocklyEditor";
@@ -151,8 +151,15 @@ export const userPage: NextPage = () => {
     setValue(newValue);
   };
 
+  const theme = useTheme();
+
   return (
     <Layout>
+      {/* Spacing to be below the toolbar */}
+      <div style={theme.mixins.toolbar} />
+      {/* Spacing to be below the toolbar */}
+      <div style={theme.mixins.toolbar} />
+
       <Grid container sx={{
         flexGrow: 1
       }}>

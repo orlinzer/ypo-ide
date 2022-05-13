@@ -10,6 +10,7 @@ export interface MainProps {
   setPrimarySideBarOpen: Dispatch<SetStateAction<boolean>>;
 
   primarySections?: MenuSection[];
+  children?: ReactNode;
 }
 
 export const Main: NextPage<MainProps> = ({
@@ -17,6 +18,7 @@ export const Main: NextPage<MainProps> = ({
   setPrimarySideBarOpen,
 
   primarySections = [],
+  children,
 }: MainProps) => {
 
   return (
@@ -37,7 +39,7 @@ export const Main: NextPage<MainProps> = ({
         sections={primarySections}
       />
       <SecondarySideBar />
-      {/* {children} */}
+      {children}
 
     </Box>
   )
