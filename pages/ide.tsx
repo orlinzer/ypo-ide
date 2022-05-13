@@ -155,10 +155,6 @@ export const userPage: NextPage = () => {
 
   return (
     <Layout>
-      {/* Spacing to be below the toolbar */}
-      <div style={theme.mixins.toolbar} />
-      {/* Spacing to be below the toolbar */}
-      <div style={theme.mixins.toolbar} />
 
       <Grid container sx={{
         flexGrow: 1

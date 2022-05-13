@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { AppBar, Box, Toolbar, useTheme } from "@mui/material";
 import { NextPage } from "next";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { MenuSection } from "../Menu/Menu";
@@ -21,6 +21,7 @@ export const Main: NextPage<MainProps> = ({
   children,
 }: MainProps) => {
 
+  const theme = useTheme();
   return (
     <Box
       component="main"
@@ -28,7 +29,8 @@ export const Main: NextPage<MainProps> = ({
       sx={{
         display: "flex",
         flexWrap: "nowrap",
-        flexDirection: "row",
+        // flexDirection: "row",
+        flexDirection: "column",
         flexGrow: 1,
         alignItems: "stretch"
       }}>
@@ -39,6 +41,10 @@ export const Main: NextPage<MainProps> = ({
         sections={primarySections}
       />
       <SecondarySideBar />
+
+      {/* Spacing to be below the toolbar */}
+      <div style={theme.mixins.toolbar} />
+
       {children}
 
     </Box>
