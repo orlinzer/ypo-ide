@@ -6,6 +6,7 @@ import React, { CSSProperties } from "react";
 import loader from '@monaco-editor/loader';
 
 import { ClassNames } from "@emotion/react";
+// This is OK! It is not an Error
 import { Theme, Toolbox, WorkspaceSvg } from "blockly";
 import { editor } from "monaco-editor";
 import Blockly from 'blockly';
