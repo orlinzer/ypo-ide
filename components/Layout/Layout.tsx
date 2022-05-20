@@ -124,7 +124,7 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
       text: 'Sign In',
     },
     {
-      href: '/auth/sign_up',
+      href: '/auth/new_user',
       icon: < PersonAddIcon />,
       text: 'Sign Up',
     },
