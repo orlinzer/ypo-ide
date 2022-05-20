@@ -120,7 +120,6 @@ export const TopBar: NextPage<TopBarProps> = ({
       sx={{
         zIndex: theme.zIndex.appBar,
         mixin: theme.mixins.toolbar,
-        // mixin
       }}
     >
       {/* TODO: brake the AppBar to contain components of Toolbars. */}
@@ -253,7 +252,7 @@ export const TopBar: NextPage<TopBarProps> = ({
       /> */}
 
       {/* TODO */}
-      <LinearBuffer />
+      {/* <LinearBuffer /> */}
     </AppBar >
   );
 };

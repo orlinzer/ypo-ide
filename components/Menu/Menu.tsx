@@ -7,13 +7,15 @@ export const defaultDrawerWidth = 240;
 const minDrawerWidth = 50;
 const maxDrawerWidth = 1000;
 
-export interface MenuElement {
-  href?: string,
-  icon: ReactNode,
-  text: string,
-}
+// export interface MenuElement {
+//   href?: string,
+//   icon?: ReactNode,
+//   text: string,
+// }
 
-export type MenuSection = MenuElement[];
+// export type MenuSection = MenuElement[];
+export type MenuSection = ReactNode[];
+// export type MenuSection = Element[];
 
 export interface MenuProps {
   open?: boolean;
@@ -21,10 +23,11 @@ export interface MenuProps {
 
   // open: boolean,
   anchor?: 'left' | 'right' | 'top' | 'bottom',
-  sections: MenuSection[],
+  sections?: MenuSection[],
   // onClose: ReactEventHandler<{}>,
   // onOpen: ReactEventHandler<{}>,
-  component?: any
+  component?: any,
+  children?: ReactNode,
 }
 
 export const Menu: NextPage<MenuProps> = ({
@@ -34,6 +37,7 @@ export const Menu: NextPage<MenuProps> = ({
   anchor = 'left',
   sections = [],
   component,
+  children
 }: MenuProps) => {
 
   const theme = useTheme();
@@ -64,14 +68,17 @@ export const Menu: NextPage<MenuProps> = ({
 
   return (
     <SwipeableDrawer
-      variant='temporary'
+      // variant='temporary'
+      // variant='permanent'
+      variant='persistent'
       anchor={anchor}
       open={open}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
 
       elevation={16}
-      hideBackdrop={true}
+      // hideBackdrop={true}
+      hideBackdrop={false}
 
       sx={{ flexShrink: 0 }}
       PaperProps={{ style: { width: width } }}
@@ -89,6 +96,7 @@ export const Menu: NextPage<MenuProps> = ({
         borderTop: "1px solid #ddd",
         position: "absolute",
         top: 0,
+        // TODO: change
         right: 0,
         bottom: 0,
         zIndex: 100,
@@ -100,33 +108,7 @@ export const Menu: NextPage<MenuProps> = ({
         role="presentation"
         component={component}
       >
-        {sections.map((elements, index: number) => (
-          <Fragment>
-            <List>
-              {elements.map(element => (
-                element.href ?
-                  (
-                    // <ListItemButton>
-                    //   <ListItemIcon>{element.icon}</ListItemIcon>
-                    //   <ListItemText>{element.text}</ListItemText>
-                    // </ListItemButton>
-
-                    <ListLink
-                      href={element.href}
-                      icon={element.icon}
-                      text={element.text}
-                    />
-                  ) :
-                  (<ListItemButton>
-                    <ListItemIcon>{element.icon}</ListItemIcon>
-                    <ListItemText>{element.text}</ListItemText>
-                  </ListItemButton>)
-
-              ))}
-            </List>
-            {(index !== sections.length - 1) ? <Divider /> : null}
-          </Fragment>
-        ))}
+        {children}
       </Box>
     </SwipeableDrawer >
   );

@@ -26,8 +26,6 @@ import {
   PersonAdd as PersonAddIcon,
   PersonOff as PersonOffIcon
 } from "@mui/icons-material";
-import MenuBar from "../MenuBar/MenuBar";
-import ActivityBar from "../ActivityBar/ActivityBar";
 import PrimarySideBar from "../PrimarySideBar/PrimarySideBar";
 import Panel from "../Panel/Panel";
 import StatusBar from "../StatusBar/StatusBar";
@@ -193,10 +191,8 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
         <Box sx={{
           minHeight: "100vh",
           display: "flex",
-          // flexDirection: "column",
           flexDirection: "row",
           flexWrap: "nowrap",
-          alignItems: ""
         }}>
 
           {/* <NotificationBar /> */}
@@ -225,16 +221,6 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
             primarySections={NavMenuSections}
           >
             {children}
-            {/* <p>
-              {!data && <>
-                Not signed in <br />
-                <a href="/api/auth/signin">Sign in</a>
-              </>}
-              {data && <>
-                Signed in as {data.user.email} <br />
-                <a href="/api/auth/signout">Sign out</a>
-              </>}
-            </p> */}
           </Main>
 
           {/* <BottomBar /> */}

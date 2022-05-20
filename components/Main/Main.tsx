@@ -2,14 +2,14 @@ import { AppBar, Box, Toolbar, useTheme } from "@mui/material";
 import { NextPage } from "next";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { MenuSection } from "../Menu/Menu";
-import PrimarySideBar from "../PrimarySideBar/PrimarySideBar";
+import PrimarySideBar, { PrimaryMenuSection } from "../PrimarySideBar/PrimarySideBar";
 import SecondarySideBar from "../SecondarySideBar/SecondarySideBar";
 
 export interface MainProps {
   primarySideBarOpen: boolean;
   setPrimarySideBarOpen: Dispatch<SetStateAction<boolean>>;
 
-  primarySections?: MenuSection[];
+  primarySections?: PrimaryMenuSection[];
   children?: ReactNode;
 }
 
@@ -29,16 +29,16 @@ export const Main: NextPage<MainProps> = ({
       sx={{
         display: "flex",
         flexWrap: "nowrap",
-        // flexDirection: "row",
         flexDirection: "column",
         flexGrow: 1,
-        alignItems: "stretch"
+        alignItems: "stretch",
+        backgroundColor: 'background.default',
       }}>
 
       <PrimarySideBar
         open={primarySideBarOpen}
         setOpen={setPrimarySideBarOpen}
-        sections={primarySections}
+      // sections={primarySections}
       />
       <SecondarySideBar />
 

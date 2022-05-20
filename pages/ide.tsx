@@ -1,12 +1,33 @@
-import Editor from "@monaco-editor/react";
+// import Editor from "@monaco-editor/react";
+import MonacoEditor, { editor } from 'monaco-editor';
+
 import { Close as CloseIcon } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, IconButton, Tab, Tabs, Typography, useTheme } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Tab,
+  Tabs,
+  Typography,
+  useTheme
+} from "@mui/material";
 import { NextPage } from "next";
-import React, { EventHandler, ReactEventHandler, useState } from "react";
+import React,
+{
+  EventHandler,
+  ReactEventHandler,
+  useState
+} from "react";
 import BlocklyEditor from "../components/BlocklyWorkspace/BlocklyEditor";
 import BlocklyWorkspace from "../components/BlocklyWorkspace/BlocklyWorkspace";
 import Layout from "../components/Layout/Layout";
-import TreeView, { RenderTree } from "../components/TreeView/TreeView";
+import TreeView,
+{ RenderTree } from "../components/TreeView/TreeView";
+import Editor from '../components/Editor/Editor';
 
 // TODO
 // TabPanel.propTypes = {
@@ -49,9 +70,19 @@ function TabPanel(props: TabPanelProps) {
     <Box
       hidden={value !== index}
       sx={{
-        p: 3,
+        p: 0,
         flexGrow: 1
       }}
+      component='div'
+    // onDrop={() => {
+    //   console.log('drop');
+    // }}
+    // onDropCapture={() => {
+
+    // }}
+    // onDragOver={() => {
+    //   console.log('dragOver');
+    // }}
     >
       {children}
     </Box>
@@ -100,7 +131,9 @@ function FileTab(props: FileTabProps) {
             flexDirection: 'row',
             alignItems: 'center',
             p: 0,
-            m: 0
+            m: 0,
+            color: 'text.primary',
+            background: 'background.default'
           }}
         >
           <Typography sx={{ textTransform: 'none' }}>{fileName}</Typography>
@@ -117,33 +150,24 @@ function FileTab(props: FileTabProps) {
 
 export const userPage: NextPage = () => {
   const [value, setValue] = useState(0);
+
+  const theme = useTheme();
+
   const [files, setFiles] = useState([
     {
       name: 'index.html',
       type: 'html',
-      view: (
-        <Editor
-          defaultLanguage='html'
-        />
-      )
+      value: '',
     },
     {
       name: 'common.css',
       type: 'css',
-      view: (
-        <Editor
-          defaultLanguage='css'
-        />
-      )
+      value: '',
     },
     {
       name: 'main.js',
       type: 'javascript',
-      view: (
-        <Editor
-          defaultLanguage='javascript'
-        />
-      )
+      value: '',
     }
   ]);
 
@@ -151,14 +175,22 @@ export const userPage: NextPage = () => {
     setValue(newValue);
   };
 
-  const theme = useTheme();
+  console.log(theme.palette.mode);
+
+  return (
+    <Layout>
+      <Editor />
+    </Layout>
+  );
 
   return (
     <Layout>
 
-      <Grid container sx={{
-        flexGrow: 1
-      }}>
+      <Grid
+        container sx={{
+          flexGrow: 1
+        }}
+      >
 
         {/* <TreeView nodes={[data]} /> */}
 
@@ -171,12 +203,17 @@ export const userPage: NextPage = () => {
           alignItems: 'stretch',
           justifyContent: 'start'
         }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Box
+            sx={{
+              borderBottom: 1,
+              // borderColor: 'divider'
+            }}
+          >
             <Tabs
               value={value}
               onChange={handleChange}
-              textColor="primary"
-              indicatorColor="primary"
+              // textColor="primary"
+              // indicatorColor="primary"
               variant="scrollable"
               scrollButtons="auto"
               selectionFollowsFocus
@@ -184,19 +221,23 @@ export const userPage: NextPage = () => {
             >
               {files.map((file, index) => (
                 <FileTab
+                  key={file.name}
                   index={index}
                   fileName={file.name}
                   onClick={() => setValue(index)}
-                  onClose={() => {
-                    setFiles((oldFiles) => oldFiles.filter((oldFile) => oldFile.name !== file.name))
-                  }}
+                  onClose={() => setFiles((oldFiles) => oldFiles.filter((oldFile) => oldFile.name !== file.name))}
                 />
               ))}
             </Tabs>
           </Box>
           {files.map((file, index) => (
-            <TabPanel value={value} index={index}>
-              {file.view}
+            <TabPanel key={file.name} value={value} index={index}>
+              <Editor />
+              {/* <Editor
+                defaultLanguage={file.type}
+                theme={theme.palette.mode === 'dark' ? 'vs-dark' : 'light'}
+                value={file.value}
+              /> */}
             </TabPanel>
           ))}
         </Grid>
