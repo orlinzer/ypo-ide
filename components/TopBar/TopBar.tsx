@@ -254,7 +254,7 @@ export const TopBar: NextPage<TopBarProps> = ({
       >
         {navSections?.map((section) => (
           section.map((item) => (
-            <MenuItem onClick={closeUserMenu}>
+            <MenuItem onClick={closeNavMenu}>
               <Link href={item.href ? item.href : ''}>
                 {item.icon}
                 {item.text}
