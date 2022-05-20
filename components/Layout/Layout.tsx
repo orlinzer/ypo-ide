@@ -207,11 +207,14 @@ export const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
           {/* <StatusBar /> */}
 
           <TopBar
-            primarySideBarToggler={togglePrimarySideBarOpen}
+            // primarySideBarToggler={togglePrimarySideBarOpen}
             themeToggler={toggleTheme}
-            userSections={(session) ?
-              SignedUserMenuSections :
-              UnsignedUserMenuSections}
+            userSections={
+              (session) ?
+                SignedUserMenuSections :
+                UnsignedUserMenuSections
+            }
+            navSections={NavMenuSections}
           />
 
           <Main

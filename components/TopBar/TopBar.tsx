@@ -70,6 +70,7 @@ interface TopBarProps {
   // setUserMenuDrawerOpen: Dispatch<SetStateAction<boolean>>;
 
   userSections?: MenuSection[];
+  navSections?: MenuSection[];
 }
 
 // interface HeaderState {
@@ -96,17 +97,27 @@ export const TopBar: NextPage<TopBarProps> = ({
   // setPrimarySideBarOpen,
   primarySideBarToggler,
   userSections,
+  navSections,
 }: TopBarProps) => {
   const theme = useTheme();
   const { data: session, status } = useSession();
 
   const [userMenu, setUserMenu] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(userMenu);
+  const userMenuOpen = Boolean(userMenu);
   const handleUserMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setUserMenu(event.currentTarget);
   };
   const closeUserMenu = () => {
     setUserMenu(null);
+  };
+
+  const [navMenu, setNavMenu] = React.useState<null | HTMLElement>(null);
+  const navMenuOpen = Boolean(navMenu);
+  const handleNavMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setNavMenu(event.currentTarget);
+  };
+  const closeNavMenu = () => {
+    setNavMenu(null);
   };
 
   return (
@@ -131,7 +142,7 @@ export const TopBar: NextPage<TopBarProps> = ({
       >
         <IconButton
           // onClick={() => setPrimarySideBarOpen(true)}
-          onClick={primarySideBarToggler}
+          onClick={handleNavMenu}
         >
           <MenuIcon sx={{ fontSize: 32 }} />
         </IconButton>
@@ -213,7 +224,7 @@ export const TopBar: NextPage<TopBarProps> = ({
       <Menu
         id="user-menu"
         anchorEl={userMenu}
-        open={open}
+        open={userMenuOpen}
         onClose={closeUserMenu}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
@@ -232,6 +243,28 @@ export const TopBar: NextPage<TopBarProps> = ({
       </Menu>
 
       {/* NavMenu */}
+      <Menu
+        id="nav-menu"
+        anchorEl={navMenu}
+        open={navMenuOpen}
+        onClose={closeNavMenu}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {navSections?.map((section) => (
+          section.map((item) => (
+            <MenuItem onClick={closeUserMenu}>
+              <Link href={item.href ? item.href : ''}>
+                {item.icon}
+                {item.text}
+              </Link>
+            </MenuItem>
+          ))
+        ))}
+      </Menu>
+
+      {/* Old NavMenu */}
       {/* <Menu
         open={navMenuDrawerOpen}
         anchor={'left'}
@@ -240,8 +273,7 @@ export const TopBar: NextPage<TopBarProps> = ({
         onOpen={() => setNavMenuDrawerOpen(true)}
         component='nav'
       /> */}
-
-      {/* UserMenu */}
+      {/* Old UserMenu */}
       {/* <Menu
         open={userMenuDrawerOpen}
         anchor={'right'}
