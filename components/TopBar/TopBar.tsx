@@ -99,8 +99,13 @@ export const TopBar: NextPage<TopBarProps> = ({
   userSections,
   navSections,
 }: TopBarProps) => {
+
   const theme = useTheme();
+
+  // For user data
   const { data: session, status } = useSession();
+  console.log('session', session); // DBG
+
 
   const [userMenu, setUserMenu] = React.useState<null | HTMLElement>(null);
   const userMenuOpen = Boolean(userMenu);

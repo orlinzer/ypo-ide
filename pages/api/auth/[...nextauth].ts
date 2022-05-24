@@ -8,7 +8,7 @@ import GithubProvider from "next-auth/providers/github";
 import TwitterProvider from "next-auth/providers/twitter";
 import Auth0Provider from "next-auth/providers/auth0";
 import EmailProvider from "next-auth/providers/email";
-import { JWT } from "next-auth/jwt";
+import { JWT, JWTDecodeParams, JWTEncodeParams } from "next-auth/jwt";
 import { NextApiRequest, NextApiResponse } from 'next';
 import Credentials from 'next-auth/providers/credentials';
 import { userInfo } from 'os';
@@ -156,6 +156,7 @@ export default NextAuth({
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
+
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
@@ -171,40 +172,31 @@ export default NextAuth({
           type: "password"
         }
       },
-      async authorize(credentials, req) {
+      authorize: async (credentials, req) => {
         // console.log(credentials); // DBG
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" }
 
+        const admin = { id: 1, name: "Or Linzer", email: "orlinzer@gmail.com" };
+
+        if (
+          credentials?.username === 'admin' &&
+          credentials?.password === 'admin'
+        ) {
+          return admin;
+        }
+
+        // TODO: database lookup
+        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" }
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
-          return user
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+          return user;
         }
+
+        // If you return null then an error will be displayed advising the user to check their details.
+        // Login failed
+        return null;
       }
     }),
-    // CredentialProvider({
-    //   authorize: (credentials) => {
-
-    //     // TODO: Add database lookup
-
-    //     if (credentials?.username === 'or' &&
-    //       credentials?.password === '123') {
-    //       return {
-    //         id: 2,
-    //         name: 'or',
-    //         email: 'orlinzer@gmail.com',
-    //       };
-    //     }
-
-    //     // Login failed
-    //     return null;
-    //   }
-    // }),
   ],
   pages: {
     signIn: '/auth/sign_in',
@@ -214,7 +206,7 @@ export default NextAuth({
     newUser: '/auth/new_user', // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   callbacks: {
-    jwt: ({ token, user }) => {
+    jwt: async ({ token, user, account, isNewUser, profile }) => {
       // first time jwt callback is run, user object is available
       if (user) {
         token.idToken = user.id;
@@ -222,7 +214,8 @@ export default NextAuth({
 
       return token;
     },
-    session: ({ session, token }) => {
+    session: ({ session, token, user }) => {
+      // to save the token to the session
       if (token) {
         session.id = token.idToken;
       }
@@ -232,9 +225,14 @@ export default NextAuth({
   },
   secret: 'test',
   jwt: {
-    secret: 'test',
-    // encryption: true,
+    maxAge: 30 * 24 * 30 * 60, // 30 days
+    // TODO:
+    // decode: (params: JWTDecodeParams) => {
+    //   return null;
+    //   // TODO: return Awaitable<JWT | null>
+    // },
+    // encode: (params: JWTEncodeParams) => {
+    //   // TODO: return Awaitable < string >
+    // },
   }
-})
-
-// export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options);
+});

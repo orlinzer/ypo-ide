@@ -1,18 +1,39 @@
+import { Box, Grid, ThemeProvider } from "@mui/material";
 import { NextPage } from "next";
 import { SessionProvider, useSession } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { useRouter } from 'next/router';
 import "normalize.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import darkTheme from "../styles/theme/darkTheme";
+import lightTheme from "../styles/theme/lightTheme";
 import AppContext from "../utils/AppContext";
+import { Theme } from '@mui/material/styles';
 // import { Provider } from 'next-auth/client';
 // import "./styles.css"
+
+export let toggleTheme: () => void;
 
 // Use of the <SessionProvider> is mandatory to allow components that call
 // `useSession()` anywhere in your application to access the `session` object.
 export const App: NextPage<AppProps> = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const router = useRouter();
 
+  const [theme, setTheme] = useState(lightTheme);
+  // const toggleTheme = () => setTheme((oldTheme: Theme) => {
+  toggleTheme = () => setTheme((oldTheme: Theme) => {
+    if (oldTheme.palette.mode === 'dark') {
+      return lightTheme;
+    }
+    return darkTheme;
+  });
+  // Session
+  // useEffect(() => {
+  //   const localTheme = window.localStorage.getItem('theme');
+  //   localTheme && setTheme(localTheme);
+  // }, []);
+
+  // For Loading
   useEffect(() => {
     const handleStart = (url: string) => {
       console.log(`Loading: ${url}`)
@@ -34,31 +55,35 @@ export const App: NextPage<AppProps> = ({ Component, pageProps: { session, ...pa
   }, [router]);
 
   return (
-
+    // Old
     // < Component {...pageProps} />
-    <SessionProvider
-      session={session}
-    // option={{ site: process.env.SITE }}
-    >
-      <AppContext.Provider value={{
-        // state: {
-        // languages: languageObject[languageSelected],
-        // languageSelected: languageSelected,
-        // },
-        // setLanguageSelected: setLanguageSelected,
-        // setLanguageSelected: setLanguageSelected,
-      }}
+
+    // This is for the user authentication
+    <ThemeProvider theme={theme}>
+      <SessionProvider
+        session={session}
+      // option={{ site: process.env.SITE }}
       >
-        {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
-        {/* {Component.auth ? ( */}
-        {/* <Auth> */}
-        < Component {...pageProps} />
-        {/* </Auth> */}
-        {/* ) : ( */}
-        {/* <Component {...pageProps} /> */}
-        {/* )} */}
-      </AppContext.Provider>
-    </SessionProvider >
+        <AppContext.Provider value={{
+          // state: {
+          // languages: languageObject[languageSelected],
+          // languageSelected: languageSelected,
+          // },
+          // setLanguageSelected: setLanguageSelected,
+          // setLanguageSelected: setLanguageSelected,
+        }}
+        >
+          {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
+          {/* {Component.auth ? ( */}
+          {/* <Auth> */}
+          < Component {...pageProps} />
+          {/* </Auth> */}
+          {/* ) : ( */}
+          {/* <Component {...pageProps} /> */}
+          {/* )} */}
+        </AppContext.Provider>
+      </SessionProvider >
+    </ThemeProvider>
   )
 }
 
