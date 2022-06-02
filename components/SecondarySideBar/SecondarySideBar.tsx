@@ -24,7 +24,7 @@ export const SecondarySideBar: NextPage<SecondarySideBarProps> = ({
 
   const sections = [[
     {
-      href: '/auth/sign_in',
+      href: '/auth',
       // icon: < LoginIcon />,
       text: 'bla bla bla',
     }

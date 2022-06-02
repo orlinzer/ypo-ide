@@ -4,11 +4,12 @@ import { SessionProvider, useSession } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { useRouter } from 'next/router';
 import "normalize.css";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import darkTheme from "../styles/theme/darkTheme";
 import lightTheme from "../styles/theme/lightTheme";
 import AppContext from "../utils/AppContext";
 import { Theme } from '@mui/material/styles';
+import { AuthContextProvider } from "../stores/AuthContext";
 // import { Provider } from 'next-auth/client';
 // import "./styles.css"
 
@@ -19,24 +20,63 @@ export let toggleTheme: () => void;
 export const App: NextPage<AppProps> = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const router = useRouter();
 
+  // const getLocalTheme = () => {
+  //   return (
+  //     typeof window !== 'undefined' &&
+  //     localStorage.getItem('theme') === 'dark'
+  //   ) ?
+  //     darkTheme :
+  //     lightTheme;
+  // };
+  // const [theme, setTheme] = useState(getLocalTheme);
   const [theme, setTheme] = useState(lightTheme);
-  // const toggleTheme = () => setTheme((oldTheme: Theme) => {
+  // const setLocalTheme = (value: SetStateAction<Theme>) => {
+  //   setTheme(value);
+  //   // console.log('Theme', theme); // DBG
+  //   if (theme?.palette?.mode === 'dark') {
+  //     localStorage.setItem('theme', 'dark');
+  //   } else {
+  //     localStorage.setItem('theme', 'light');
+  //   }
+
+  //   // console.log(getLocalTheme); // DBG
+
+  // };
+  useEffect(() => {
+    // const handleThemeChange = (theme: Theme) => {
+    setTheme(theme);
+    if (theme.palette?.mode === 'dark') {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+    // }
+
+    // const localTheme = localStorage.getItem('theme');
+
+    // return () => {
+    //   localTheme &&
+    //     // setLocalTheme(
+    //     (
+    //       localTheme === 'dark' ?
+    //         darkTheme :
+    //         lightTheme
+    //     );
+    // };
+  }, [theme]);
+  // Set a global toggleTheme
+  // toggleTheme = () => setLocalTheme((oldTheme: Theme) => {
   toggleTheme = () => setTheme((oldTheme: Theme) => {
     if (oldTheme.palette.mode === 'dark') {
       return lightTheme;
     }
     return darkTheme;
   });
-  // Session
-  // useEffect(() => {
-  //   const localTheme = window.localStorage.getItem('theme');
-  //   localTheme && setTheme(localTheme);
-  // }, []);
 
   // For Loading
   useEffect(() => {
     const handleStart = (url: string) => {
-      console.log(`Loading: ${url}`)
+      console.log(`Loading: ${url}`); // DBG
       // NProgressBar.start()
     }
     const handleStop = () => {
@@ -55,49 +95,18 @@ export const App: NextPage<AppProps> = ({ Component, pageProps: { session, ...pa
   }, [router]);
 
   return (
-    // Old
-    // < Component {...pageProps} />
-
-    // This is for the user authentication
-    <ThemeProvider theme={theme}>
-      <SessionProvider
-        session={session}
-      // option={{ site: process.env.SITE }}
-      >
-        <AppContext.Provider value={{
-          // state: {
-          // languages: languageObject[languageSelected],
-          // languageSelected: languageSelected,
-          // },
-          // setLanguageSelected: setLanguageSelected,
-          // setLanguageSelected: setLanguageSelected,
-        }}
-        >
-          {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
-          {/* {Component.auth ? ( */}
-          {/* <Auth> */}
-          < Component {...pageProps} />
-          {/* </Auth> */}
-          {/* ) : ( */}
-          {/* <Component {...pageProps} /> */}
-          {/* )} */}
-        </AppContext.Provider>
-      </SessionProvider >
-    </ThemeProvider>
+    <SessionProvider
+      session={session}
+    // option={{ site: process.env.SITE }}
+    // refetchInterval={0}
+    >
+      {/* <AuthContextProvider> */}
+      <ThemeProvider theme={theme}>
+        < Component {...pageProps} />
+      </ThemeProvider>
+      {/* </AuthContextProvider> */}
+    </SessionProvider >
   )
-}
-
-function Auth({ children }: any) {
-  const { data: session, status } = useSession({ required: true })
-  const isUser = session?.user
-
-  if (isUser) {
-    return children
-  }
-
-  // Session is being fetched, or no user.
-  // If no user, useEffect() will redirect.
-  return <div>Loading...</div>
 }
 
 export default App;

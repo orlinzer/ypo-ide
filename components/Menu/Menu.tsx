@@ -13,9 +13,7 @@ const maxDrawerWidth = 1000;
 //   text: string,
 // }
 
-// export type MenuSection = MenuElement[];
 export type MenuSection = ReactNode[];
-// export type MenuSection = Element[];
 
 export interface MenuProps {
   open?: boolean;

@@ -178,10 +178,8 @@ export default NextAuth({
 
         const admin = { id: 1, name: "Or Linzer", email: "orlinzer@gmail.com" };
 
-        if (
-          credentials?.username === 'admin' &&
-          credentials?.password === 'admin'
-        ) {
+        if (credentials?.username === 'admin' &&
+          credentials?.password === 'admin') {
           return admin;
         }
 
@@ -199,20 +197,26 @@ export default NextAuth({
     }),
   ],
   pages: {
-    signIn: '/auth/sign_in',
-    signOut: '/auth/sign_out',
-    error: '/auth/error', // Error code passed in query string as ?error=
-    verifyRequest: '/auth/verify-request', // (used for check email message)
-    newUser: '/auth/new_user', // New users will be directed here on first sign in (leave the property out if not of interest)
+    // signIn: '/auth/sign_in',
+    // signOut: '/auth/sign_out',
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // (used for check email message)
+    // newUser: '/auth/new_user', // New users will be directed here on first sign in (leave the property out if not of interest)
+    signIn: '/auth',
+    signOut: '/auth',
+    error: '/auth', // Error code passed in query string as ?error=
+    verifyRequest: '/auth', // (used for check email message)
+    newUser: '/auth', // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   callbacks: {
-    jwt: async ({ token, user, account, isNewUser, profile }) => {
-      // first time jwt callback is run, user object is available
-      if (user) {
-        token.idToken = user.id;
-      }
+    // control how can sign in
+    signIn: async ({ user, account, profile, email, credentials }) => {
+      console.log(user);
 
-      return token;
+      return true;
+    },
+    redirect: async ({ url, baseUrl }) => {
+      return baseUrl;
     },
     session: ({ session, token, user }) => {
       // to save the token to the session
@@ -221,6 +225,14 @@ export default NextAuth({
       }
 
       return session;
+    },
+    jwt: async ({ token, user, account, isNewUser, profile }) => {
+      // first time jwt callback is run, user object is available
+      if (user) {
+        token.idToken = user.id;
+      }
+
+      return token;
     },
   },
   secret: 'test',

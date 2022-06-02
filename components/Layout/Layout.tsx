@@ -1,6 +1,6 @@
 import { Box, Grid, ThemeProvider, useTheme } from "@mui/material";
 import { NextComponentType, NextPage, NextPageContext } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { createContext, Fragment, FunctionComponent, ReactNode, useContext, useState } from "react";
 import * as rdd from 'react-device-detect'
@@ -28,6 +28,7 @@ import StatusBar from "../StatusBar/StatusBar";
 import SecondarySideBar from "../SecondarySideBar/SecondarySideBar";
 import NotificationBar from "../NotificationBar/NotificationBar";
 import { toggleTheme } from "../../pages/_app";
+import Link from "../Link/Link";
 
 // export interface LayoutProps extends React.ComponentPropsWithoutRef<Layout> {
 export interface LayoutProps {
@@ -106,22 +107,23 @@ export const Layout: NextPage<LayoutProps> = ({
 
   const SignedUserMenuSections = [[
     {
-      href: '/user',
+      href: '/auth',
       icon: < AccountCircleIcon />,
       text: 'Account',
     },
     {
-      href: '/user',
+      href: '/auth',
       icon: < ManageAccountsIcon />,
       text: 'Manage Account',
     },
     {
-      href: '/auth/sign_out',
+      href: '/auth',
       icon: < LogoutIcon />,
       text: 'Sign Out',
     },
     {
-      href: '/sign_out',
+      // href: '/auth',
+      onClick: () => signOut(),
       icon: < PersonOffIcon />,
       text: 'Delete Account',
     },
@@ -129,17 +131,17 @@ export const Layout: NextPage<LayoutProps> = ({
 
   const UnsignedUserMenuSections = [[
     {
-      href: '/auth/sign_in',
+      href: '/auth',
       icon: < LoginIcon />,
       text: 'Sign In',
     },
     {
-      href: '/auth/new_user',
+      href: '/auth',
       icon: < PersonAddIcon />,
       text: 'Sign Up',
     },
     {
-      href: '/password_recovery',
+      href: '/auth',
       icon: < LockResetIcon />,
       text: 'Recover Password',
     },
