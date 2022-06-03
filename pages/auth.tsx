@@ -59,7 +59,6 @@ export const AuthPage: NextPage<AuthPageProps> = ({
             csrfToken={csrfToken}
           />
         </Card>
-        {/* </Dialog> */}
       </Paper>
 
       {/* Error Message */}
