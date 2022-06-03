@@ -2,7 +2,7 @@ import { Delete, Send, Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
 import { NextPage } from "next";
 import { BuiltInProviderType } from "next-auth/providers";
-import { ClientSafeProvider, getProviders, LiteralUnion, signIn } from "next-auth/react";
+import { ClientSafeProvider, getProviders, LiteralUnion, signIn, signOut } from "next-auth/react";
 import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
 
 export interface SignOutFormProps {
@@ -25,11 +25,12 @@ export const SignOutForm: NextPage<SignOutFormProps> = ({
       onSubmit={(e: SyntheticEvent) => {
         e.preventDefault();
 
-        getProviders().then((value) => {
-          // TODO make it work
-          // signIn(CredentialsProvider.name, { username: username, password: password, redirect: false });
-          // signIn(value?.credentials.id, { username: username, password: password, redirect: false });
-        });
+        // getProviders().then((value) => {
+        // TODO make it work
+        // signIn(CredentialsProvider.name, { username: username, password: password, redirect: false });
+        // signIn(value?.credentials.id, { username: username, password: password, redirect: false });
+        // });
+        signOut();
 
         return false;
       }}
