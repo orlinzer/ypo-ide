@@ -392,7 +392,7 @@ export const TopBar: NextPage<TopBarProps> = ({
           >
             {
               (session) ?
-                session.user.name.split(' ').map(word => word[0]).join('') :
+                session.user?.name?.split(' ').map(word => word[0]).join('') :
                 null
             }
           </Avatar>

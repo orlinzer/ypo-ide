@@ -2,22 +2,39 @@ import { AddPhotoAlternate, Delete, Send, Visibility, VisibilityOff } from "@mui
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Tab, Tabs, TextField } from "@mui/material";
 import { NextPage } from "next";
 import { BuiltInProviderType } from "next-auth/providers";
-import { ClientSafeProvider, getProviders, LiteralUnion, signIn } from "next-auth/react";
+import { ClientSafeProvider, getProviders, LiteralUnion, signIn, useSession } from "next-auth/react";
 import { FormEvent, SyntheticEvent, useState } from "react";
+import SignOut from "../../../pages/auth_old/sign_out";
+import DeleteUserForm from "./DeleteUserForm/DeleteUserForm";
+import ManageAccountForm from "./ManageAccountForm/ManageAccountForm";
+import RecoverPasswordForm from "./RecoverPasswordForm/RecoverPasswordForm";
 import SignInForm from "./SignInForm/SignInForm";
+import SignOutForm from "./SignOutForm/SignOutForm";
 import SignUpForm from "./SignUpForm/SignUpForm";
 
 export interface AuthFormProps {
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
   csrfToken: string;
+  tab?: 'sign_in' | 'sign_up' | 'recover_password' | 'manage_account' | 'sign_out' | 'delete_account'
 }
 
 export const AuthForm: NextPage<AuthFormProps> = ({
   providers,
   csrfToken,
+  tab,
 }) => {
 
-  const [signTab, setSignTab] = useState(0);
+  const { data: session, status } = useSession();
+
+  const [signTab, setSignTab] = useState<number>(() => {
+    if (session) {
+      if (tab === 'sign_out') { return 1; }
+      if (tab === 'delete_account') { return 2; }
+    }
+    if (tab === 'sign_up') { return 1; }
+    if (tab === 'recover_password') { return 2; }
+    return 0;
+  });
 
   const [username, setUsername] = useState('');
   const handleUsernameChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -91,23 +108,54 @@ export const AuthForm: NextPage<AuthFormProps> = ({
             setSignTab(newValue);
           }}
         >
-          <Tab label={'Sign In'} />
-          <Tab label={'Sign Up'} />
-          <Tab label={'Reset Password'} />
+          {session ? [
+            <Tab key={0} label={'Manage Account'} />,
+            <Tab key={1} label={'Sign Out'} />,
+            <Tab key={2} label={'Delete User'} />,
+          ] : [
+            <Tab key={0} label={'Sign In'} />,
+            <Tab key={1} label={'Sign Up'} />,
+            <Tab key={2} label={'Recover Password'} />,
+          ]}
         </Tabs>
+      </Box>
 
-        {/* <IconButton
-              onClick={() => setSignInDialogOpen(false)}
-            >
-              <Close />
-            </IconButton> */}
-      </Box >
+      {session && signTab === 0 &&
+        <ManageAccountForm
+          providers={providers}
+          csrfToken={csrfToken}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          about={about}
+          setAbout={setAbout}
+          email={email}
+          setEmail={setEmail}
+          phone={phone}
+          setPhone={setPhone}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
+        />
+      }
 
-      {/* <DialogTitle>Sign In</DialogTitle> */}
+      {session && signTab === 1 &&
+        <SignOutForm
+          providers={providers}
+          csrfToken={csrfToken}
+        />
+      }
 
-      {/* <input name='csrfToken' type='hidden' defaultValue={csrfToken} /> */}
+      {session && signTab === 2 &&
+        <DeleteUserForm
+          providers={providers}
+          csrfToken={csrfToken}
+          username={username}
+          setUsername={setUsername}
+        />
+      }
 
-      {signTab === 0 &&
+      {!session && signTab === 0 &&
         <SignInForm
           providers={providers}
           csrfToken={csrfToken}
@@ -117,7 +165,8 @@ export const AuthForm: NextPage<AuthFormProps> = ({
           setPassword={setPassword}
         />
       }
-      {signTab === 1 &&
+
+      {!session && signTab === 1 &&
         <SignUpForm
           providers={providers}
           csrfToken={csrfToken}
@@ -133,6 +182,15 @@ export const AuthForm: NextPage<AuthFormProps> = ({
           setPhone={setPhone}
           confirmPassword={confirmPassword}
           setConfirmPassword={setConfirmPassword}
+        />
+      }
+
+      {!session && signTab === 2 &&
+        <RecoverPasswordForm
+          providers={providers}
+          csrfToken={csrfToken}
+          username={username}
+          setUsername={setUsername}
         />
       }
 

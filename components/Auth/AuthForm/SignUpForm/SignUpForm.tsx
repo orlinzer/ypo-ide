@@ -36,7 +36,7 @@ export const SignUpForm: NextPage<SignUpFormProps> = ({
   phone,
   setPhone,
   confirmPassword,
-  setConfirmPassword
+  setConfirmPassword,
 }) => {
 
   // const [username, setUsername] = useState('');

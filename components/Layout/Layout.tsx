@@ -107,23 +107,25 @@ export const Layout: NextPage<LayoutProps> = ({
 
   const SignedUserMenuSections = [[
     {
+      // TODO: Reference to user page
       href: '/auth',
       icon: < AccountCircleIcon />,
       text: 'Account',
     },
     {
-      href: '/auth',
+      href: '/auth#manage_account',
       icon: < ManageAccountsIcon />,
       text: 'Manage Account',
     },
     {
-      href: '/auth',
+      // href: '/auth?operation=sign_out',
+      href: '/auth#sign_out',
       icon: < LogoutIcon />,
       text: 'Sign Out',
     },
     {
-      // href: '/auth',
-      onClick: () => signOut(),
+      // href: '/auth#delete_account',
+      onClick: () => signOut(), // DBG
       icon: < PersonOffIcon />,
       text: 'Delete Account',
     },
@@ -131,17 +133,17 @@ export const Layout: NextPage<LayoutProps> = ({
 
   const UnsignedUserMenuSections = [[
     {
-      href: '/auth',
+      href: '/auth#sign_in',
       icon: < LoginIcon />,
       text: 'Sign In',
     },
     {
-      href: '/auth',
+      href: '/auth#sign_up',
       icon: < PersonAddIcon />,
       text: 'Sign Up',
     },
     {
-      href: '/auth',
+      href: '/auth#recover_password',
       icon: < LockResetIcon />,
       text: 'Recover Password',
     },

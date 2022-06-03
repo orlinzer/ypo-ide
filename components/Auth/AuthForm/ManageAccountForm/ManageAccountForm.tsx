@@ -5,22 +5,38 @@ import { BuiltInProviderType } from "next-auth/providers";
 import { ClientSafeProvider, getProviders, LiteralUnion, signIn } from "next-auth/react";
 import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
 
-export interface SignInFormProps {
+export interface ManageAccountFormProps {
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
   csrfToken: string;
   username: string;
   setUsername: Dispatch<SetStateAction<string>>;
   password: string;
   setPassword: Dispatch<SetStateAction<string>>;
+  about: string;
+  setAbout: Dispatch<SetStateAction<string>>;
+  email: string;
+  setEmail: Dispatch<SetStateAction<string>>;
+  phone: string;
+  setPhone: Dispatch<SetStateAction<string>>;
+  confirmPassword: string;
+  setConfirmPassword: Dispatch<SetStateAction<string>>;
 }
 
-export const SignInForm: NextPage<SignInFormProps> = ({
+export const ManageAccountForm: NextPage<ManageAccountFormProps> = ({
   providers,
   csrfToken,
   username,
   setUsername,
   password,
   setPassword,
+  about,
+  setAbout,
+  email,
+  setEmail,
+  phone,
+  setPhone,
+  confirmPassword,
+  setConfirmPassword,
 }) => {
 
   // const [username, setUsername] = useState('');
@@ -37,7 +53,29 @@ export const SignInForm: NextPage<SignInFormProps> = ({
     setShowPassword((oldShowPassword) => !oldShowPassword);
   }
 
-  // const [error, setError] = useState('');
+  // const [about, setAbout] = useState('');
+  const handleAboutChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setAbout(e.currentTarget.value);
+  };
+
+  // const [email, setEmail] = useState('');
+  const handleEmailChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setEmail(e.currentTarget.value);
+  };
+
+  // const [phone, setPhone] = useState('');
+  const handlePhoneChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setPhone(e.currentTarget.value);
+  };
+
+  // const [confirmPassword, setConfirmPassword] = useState('');
+  const handleConfirmPasswordChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setConfirmPassword(e.currentTarget.value);
+  };
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword((oldShowPassword) => !oldShowPassword);
+  };
 
   return (
     // {/* Sign In Form */ }
@@ -49,21 +87,10 @@ export const SignInForm: NextPage<SignInFormProps> = ({
       onSubmit={(e: SyntheticEvent) => {
         e.preventDefault();
 
-        console.log(username);
-        console.log(password);
-
         getProviders().then((value) => {
           // TODO make it work
           // signIn(CredentialsProvider.name, { username: username, password: password, redirect: false });
-          signIn(value?.credentials.id, { username: username, password: password })
-            .then((value) => {
-              console.log(value); // DBG
-              // setError(JSON.stringify(value)); // DBG
-            })
-            .catch((reason) => {
-              console.log(reason); // DBG
-              // setError(reason); // DBG
-            });
+          // signIn(value?.credentials.id, { username: username, password: password, redirect: false });
         });
 
         return false;
@@ -81,66 +108,8 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         p: '1em',
       }}
     >
-      {/* {error} */}
-
       {/* CSRF Token */}
       <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
-
-      {/* Username */}
-      <TextField
-        id='username'
-        name='username'
-        label='Name'
-        // helperText='Use only a-z, A-Z, 0-9'
-        // placeholder=''
-        // value={value}
-        // defaultValue="Default Value"
-
-        variant='standard'
-        // variant='outlined'
-        required
-        // InputProps={{
-        //   readOnly: true,
-        // }}
-        // disabled
-        // error
-
-        value={username}
-        onChange={handleUsernameChange}
-      />
-      {/* Password */}
-      <FormControl
-        sx={{
-          width: '25ch'
-        }}
-        // variant="outlined"
-        variant="standard"
-        required
-      >
-        <InputLabel htmlFor="user-password">Password</InputLabel>
-        <Input
-          id='password'
-          name='password'
-          type={showPassword ? 'text' : 'password'}
-
-          value={password}
-          onChange={handlePasswordChange}
-          autoComplete="current-password"
-
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleShowPassword}
-                // onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl >
 
       {/* Submit */}
       <Button
@@ -151,21 +120,10 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         endIcon={<Send />}
       // onClick={() => signIn(CredentialsProvider.name, { username: username, password: password })}
       >
-        Sign In
-      </Button >
-
-      {/* Reset */}
-      < Button
-        type="reset"
-        // form="signInForm"
-        variant="contained"
-        color="primary"
-        endIcon={<Delete />}
-      >
-        Reset
-      </Button >
-    </Box >
+        Sign Out
+      </Button>
+    </Box>
   );
 };
 
-export default SignInForm;
+export default ManageAccountForm;

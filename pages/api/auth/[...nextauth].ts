@@ -12,6 +12,7 @@ import { JWT, JWTDecodeParams, JWTEncodeParams } from "next-auth/jwt";
 import { NextApiRequest, NextApiResponse } from 'next';
 import Credentials from 'next-auth/providers/credentials';
 import { userInfo } from 'os';
+import jwt from "jsonwebtoken";
 
 // // For more information on each option (and a full list of options) go to
 // // https://next-auth.js.org/configuration/options
@@ -178,20 +179,26 @@ export default NextAuth({
 
         const admin = { id: 1, name: "Or Linzer", email: "orlinzer@gmail.com" };
 
+        if (credentials?.username !== 'admin') {
+          // return 'the user is not admin';
+          return { error: 'the user is not admin' };
+        }
+
         if (credentials?.username === 'admin' &&
           credentials?.password === 'admin') {
           return admin;
         }
 
         // TODO: database lookup
-        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" }
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        }
+        // const user = { id: 1, name: "J Smith", email: "jsmith@example.com" }
+        // if (user) {
+        // Any object returned will be saved in `user` property of the JWT
+        // return user;
+        // }
 
         // If you return null then an error will be displayed advising the user to check their details.
         // Login failed
+        // return null;
         return null;
       }
     }),
@@ -211,6 +218,10 @@ export default NextAuth({
   callbacks: {
     // control how can sign in
     signIn: async ({ user, account, profile, email, credentials }) => {
+      if (user.error) {
+        return `?error=${user.error}`;
+      }
+
       console.log(user);
 
       return true;
@@ -235,6 +246,7 @@ export default NextAuth({
       return token;
     },
   },
+  // secret: PLEASE USE process.env.NEXTAUTH_SECRET?
   secret: 'test',
   jwt: {
     maxAge: 30 * 24 * 30 * 60, // 30 days
@@ -246,5 +258,14 @@ export default NextAuth({
     // encode: (params: JWTEncodeParams) => {
     //   // TODO: return Awaitable < string >
     // },
+
+    // secret deprecated - Set the NEXTAUTH_SECRET environment vairable or use the top - level secret option instead
+    // secret: PLEASE USE process.env.NEXTAUTH_SECRET
+    encode: async ({ secret, token }) => {
+      return jwt.sign(token as any, secret);
+    },
+    decode: async ({ secret, token }) => {
+      return jwt.verify(token as string, secret) as any;
+    },
   }
 });

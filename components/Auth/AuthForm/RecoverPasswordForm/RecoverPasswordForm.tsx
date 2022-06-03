@@ -5,39 +5,24 @@ import { BuiltInProviderType } from "next-auth/providers";
 import { ClientSafeProvider, getProviders, LiteralUnion, signIn } from "next-auth/react";
 import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
 
-export interface SignInFormProps {
+export interface RecoverPasswordFormProps {
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
   csrfToken: string;
   username: string;
   setUsername: Dispatch<SetStateAction<string>>;
-  password: string;
-  setPassword: Dispatch<SetStateAction<string>>;
 }
 
-export const SignInForm: NextPage<SignInFormProps> = ({
+export const RecoverPasswordForm: NextPage<RecoverPasswordFormProps> = ({
   providers,
   csrfToken,
   username,
   setUsername,
-  password,
-  setPassword,
 }) => {
 
   // const [username, setUsername] = useState('');
   const handleUsernameChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setUsername(e.currentTarget.value);
   };
-
-  // const [password, setPassword] = useState('');
-  const handlePasswordChange = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setPassword(e.currentTarget.value);
-  };
-  const [showPassword, setShowPassword] = useState(false);
-  const handleShowPassword = () => {
-    setShowPassword((oldShowPassword) => !oldShowPassword);
-  }
-
-  // const [error, setError] = useState('');
 
   return (
     // {/* Sign In Form */ }
@@ -50,20 +35,11 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         e.preventDefault();
 
         console.log(username);
-        console.log(password);
 
         getProviders().then((value) => {
           // TODO make it work
           // signIn(CredentialsProvider.name, { username: username, password: password, redirect: false });
-          signIn(value?.credentials.id, { username: username, password: password })
-            .then((value) => {
-              console.log(value); // DBG
-              // setError(JSON.stringify(value)); // DBG
-            })
-            .catch((reason) => {
-              console.log(reason); // DBG
-              // setError(reason); // DBG
-            });
+          // signIn(value?.credentials.id, { username: username, password: password, redirect: false });
         });
 
         return false;
@@ -81,8 +57,6 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         p: '1em',
       }}
     >
-      {/* {error} */}
-
       {/* CSRF Token */}
       <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
 
@@ -108,39 +82,6 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         value={username}
         onChange={handleUsernameChange}
       />
-      {/* Password */}
-      <FormControl
-        sx={{
-          width: '25ch'
-        }}
-        // variant="outlined"
-        variant="standard"
-        required
-      >
-        <InputLabel htmlFor="user-password">Password</InputLabel>
-        <Input
-          id='password'
-          name='password'
-          type={showPassword ? 'text' : 'password'}
-
-          value={password}
-          onChange={handlePasswordChange}
-          autoComplete="current-password"
-
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleShowPassword}
-                // onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl >
 
       {/* Submit */}
       <Button
@@ -151,11 +92,11 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         endIcon={<Send />}
       // onClick={() => signIn(CredentialsProvider.name, { username: username, password: password })}
       >
-        Sign In
-      </Button >
+        Send Recovery Email
+      </Button>
 
       {/* Reset */}
-      < Button
+      <Button
         type="reset"
         // form="signInForm"
         variant="contained"
@@ -163,9 +104,9 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         endIcon={<Delete />}
       >
         Reset
-      </Button >
-    </Box >
+      </Button>
+    </Box>
   );
 };
 
-export default SignInForm;
+export default RecoverPasswordForm;
