@@ -61,6 +61,8 @@ export const AuthPage: NextPage<AuthPageProps> = ({
         </Card>
         {/* </Dialog> */}
       </Paper>
+
+      {/* Error Message */}
       {error &&
         <Alert
           severity="error"
