@@ -2,11 +2,11 @@ import axios from "axios";
 import { NextPage } from "next"
 import React, { useRef, useState } from "react";
 
-export interface DeletePageProps {
+export interface ListPageProps {
 
 }
 
-export const DeletePage: NextPage = ({ }: DeletePageProps) => {
+export const ListPage: NextPage = ({ }: ListPageProps) => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -21,7 +21,7 @@ export const DeletePage: NextPage = ({ }: DeletePageProps) => {
   //     },
   //   };
 
-  //   const response = await axios.post('/api/v1/fs/delete', formData, config);
+  //   const response = await axios.post('/api/v1/filesystem/list', formData, config);
 
   //   console.log('response', response.data);
   // };
@@ -59,10 +59,10 @@ export const DeletePage: NextPage = ({ }: DeletePageProps) => {
     //   // },
     // };
 
-    // const response = await axios.post('/api/v1/fs/delete', { path: 'bla bla bla', ...e }, config);
-    // const response = await axios.post('/api/v1/fs/delete', e, config);
+    // const response = await axios.post('/api/v1/filesystem/list', { path: 'bla bla bla', ...e }, config);
+    // const response = await axios.post('/api/v1/filesystem/list', e, config);
     const myAxios = axios.create({
-      baseURL: '/api/v1/fs/delete',
+      baseURL: '/api/v1/filesystem/list',
       method: 'POST',
       timeout: 3600,
       headers: { 'content-type': 'application/json' },
@@ -75,7 +75,7 @@ export const DeletePage: NextPage = ({ }: DeletePageProps) => {
       //   Authorization: 'Bearer accesstoken'
       // }
     });
-    // const response = await axios.post('/api/v1/fs/delete', { path: 'bla bla bla' }, config);
+    // const response = await axios.post('/api/v1/filesystem/list', { path: 'bla bla bla' }, config);
 
     // console.log('response', response);
     console.log('response', response.data);
@@ -86,7 +86,7 @@ export const DeletePage: NextPage = ({ }: DeletePageProps) => {
       ref={formRef}
       onSubmit={onSubmit}
     // method={'POST'}
-    // action={'/api/v1/fs/delete'}
+    // action={'/api/v1/filesystem/list'}
     >
       <input
         type={'text'}
@@ -98,10 +98,10 @@ export const DeletePage: NextPage = ({ }: DeletePageProps) => {
       <button
         type={'submit'}
       >
-        {'Delete Single File'}
+        {'List Single File'}
       </button>
       {/* <button type="button" onClick={onClickHandler}>
-        {'Delete Single File'}
+        {'List Single File'}
       </button> */}
       {/* <input
         accept={''}
@@ -116,4 +116,4 @@ export const DeletePage: NextPage = ({ }: DeletePageProps) => {
   );
 }
 
-export default DeletePage;
+export default ListPage;

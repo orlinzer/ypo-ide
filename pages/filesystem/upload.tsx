@@ -17,7 +17,7 @@ export const UploadPage: NextPage = ({ }: UploadPageProps) => {
       },
     };
 
-    const response = await axios.post('/api/v1/fs/upload', formData, config);
+    const response = await axios.post('/api/v1/filesystem/upload', formData, config);
 
     console.log('response', response.data);
   };
