@@ -1,4 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+
 import NextAuth, { DefaultSession, NextAuthOptions } from 'next-auth';
+
 // import Providers from 'next-auth/providers';
 import CredentialsProvider from "next-auth/providers/credentials";
 import AppleProvider from "next-auth/providers/apple";
@@ -8,45 +11,23 @@ import GithubProvider from "next-auth/providers/github";
 import TwitterProvider from "next-auth/providers/twitter";
 import Auth0Provider from "next-auth/providers/auth0";
 import EmailProvider from "next-auth/providers/email";
+
 import { JWT, JWTDecodeParams, JWTEncodeParams } from "next-auth/jwt";
-import { NextApiRequest, NextApiResponse } from 'next';
-import Credentials from 'next-auth/providers/credentials';
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
 import { userInfo } from 'os';
+
 import jwt from "jsonwebtoken";
 
-// // For more information on each option (and a full list of options) go to
-// // https://next-auth.js.org/configuration/options
-// export default NextAuth({
-//   // https://next-auth.js.org/configuration/providers/oauth
-//   theme: {
-//     colorScheme: "light",
-//   },
-//   callbacks: {
-//     async jwt({ token, account }) {
-//       token.userRole = "admin";
-//       return token;
-
-//       // Persist the OAuth access_token to the token right after signin
-//       // if (account) {
-//       //   token.accessToken = account.access_token
-//       // }
-//       // return token
-//     },
-//     async session({ session, token, user }) {
-//       // Send properties to the client, like an access_token from a provider.
-//       session.accessToken = token.accessToken
-//       return session
-//     }
-//   },
-// });
+import { PrismaClient } from "@prisma/client";
 
 declare module "next-auth" {
-  /**
+  /*
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
     user: {
-      /** The user's postal address. */
+      /* The user's postal address. */
       address: string,
       name: string,
       email: string,
@@ -58,9 +39,9 @@ declare module "next-auth" {
 };
 
 declare module "next-auth/jwt" {
-  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
+  /* Returned by the `jwt` callback and `getToken`, when using JWT sessions */
   interface JWT {
-    /** OpenID ID Token */
+    /* OpenID ID Token */
     idToken?: string
   }
 };
@@ -152,11 +133,15 @@ export const options: NextAuthOptions = {
   // database: process.env.DATABASE_URL,
 };
 
+const prisma = new PrismaClient();
+
 export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
-      name: "Credentials",
+      // name: "Credentials",
+      name: "YPO-IDE",
 
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
@@ -171,23 +156,50 @@ export default NextAuth({
         password: {
           label: "Password",
           type: "password"
-        }
+        },
       },
       authorize: async (credentials, req) => {
         // console.log(credentials); // DBG
         // Add logic here to look up the user from the credentials supplied
 
-        const admin = { id: 1, name: "Or Linzer", email: "orlinzer@gmail.com" };
+        const payload = { username: credentials?.username, password: credentials?.password };
 
-        if (credentials?.username !== 'admin') {
-          // return 'the user is not admin';
-          return { error: 'the user is not admin' };
+        // Need to creat
+        const res = await fetch('http://localhost:5000/api/tokens', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            // tenant: credentials.tenantKey,
+            'Accept-Language': 'en-US',
+          },
+        });
+
+        const user = await res.json();
+        if (!res.ok) {
+          throw new Error(user.exception);
         }
 
-        if (credentials?.username === 'admin' &&
-          credentials?.password === 'admin') {
-          return admin;
+        // If no error and we have user data, return it
+        if (res.ok && user) {
+          return user;
         }
+
+        // Return null if user data could not be retrieved
+        return null;
+
+        // const admin = { id: 1, name: "Or Linzer", email: "orlinzer@gmail.com" };
+        // if (credentials?.username !== 'admin') {
+        //   // return 'the user is not admin';
+        //   return { error: 'the user is not admin' };
+        // }
+
+        // if (credentials?.username === 'admin' &&
+        //   credentials?.password === 'admin') {
+        //   return admin;
+        // }
+
+        // // // //
 
         // TODO: database lookup
         // const user = { id: 1, name: "J Smith", email: "jsmith@example.com" }
@@ -202,6 +214,7 @@ export default NextAuth({
         return null;
       }
     }),
+    // ...add more providers here
   ],
   pages: {
     // signIn: '/auth/sign_in',
@@ -229,25 +242,43 @@ export default NextAuth({
     redirect: async ({ url, baseUrl }) => {
       return baseUrl;
     },
-    session: ({ session, token, user }) => {
-      // to save the token to the session
-      if (token) {
-        session.id = token.idToken;
+
+    jwt: async ({ token, user, account, isNewUser, profile }) => {
+      if (account && user) {
+        return {
+          ...token,
+
+          // Defined in stores/AuthContext.tsx
+          accessToken: user.data.token,
+          refreshToken: user.data.refreshToken,
+        };
       }
 
-      return session;
-    },
-    jwt: async ({ token, user, account, isNewUser, profile }) => {
-      // first time jwt callback is run, user object is available
-      if (user) {
-        token.idToken = user.id;
-      }
+      // // first time jwt callback is run, user object is available
+      // if (user) {
+      //   token.idToken = user.id;
+      // }
 
       return token;
     },
+    session: async ({ session, token, user }) => {
+
+      // Defined in stores/AuthContext.tsx
+      session.user.accessToken = token.accessToken;
+      session.user.refreshToken = token.refreshToken;
+      session.user.accessTokenExpires = token.accessTokenExpires;
+
+      // // to save the token to the session
+      // if (token) {
+      //   session.id = token.idToken;
+      // }
+
+      return session;
+    },
   },
-  // secret: PLEASE USE process.env.NEXTAUTH_SECRET?
-  secret: 'test',
+  // secret: 'test',
+  // secret: process.env.JWT_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   jwt: {
     maxAge: 30 * 24 * 30 * 60, // 30 days
     // TODO:
@@ -267,5 +298,6 @@ export default NextAuth({
     decode: async ({ secret, token }) => {
       return jwt.verify(token as string, secret) as any;
     },
-  }
+  },
+  debug: process.env.NODE_ENV === 'development',
 });

@@ -53,8 +53,8 @@ export const SignInForm: NextPage<SignInFormProps> = ({
         console.log(password);
 
         getProviders().then((value) => {
-          // TODO make it work
-          // signIn(CredentialsProvider.name, { username: username, password: password, redirect: false });
+          // console.log(value); // DBG
+
           signIn(value?.credentials.id, { username: username, password: password })
             .then((value) => {
               console.log(value); // DBG

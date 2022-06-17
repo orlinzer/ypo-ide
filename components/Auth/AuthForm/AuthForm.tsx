@@ -15,7 +15,7 @@ import SignUpForm from "./SignUpForm/SignUpForm";
 export interface AuthFormProps {
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
   csrfToken: string;
-  tab?: 'sign_in' | 'sign_up' | 'recover_password' | 'manage_account' | 'sign_out' | 'delete_account'
+  tab?: 'sign_in' | 'sign_up' | 'recover_password' | 'manage_account' | 'sign_out' | 'delete_account' | string;
 }
 
 export const AuthForm: NextPage<AuthFormProps> = ({

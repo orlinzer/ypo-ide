@@ -315,7 +315,8 @@ export const TopBar: NextPage<TopBarProps> = ({
                 // color="text.secondary"
                 key={to}
               >
-                {value}
+                {value.split(/[?:#]/)[0]}
+                {/* {value} */}
               </Typography>
             ) : (
               <MUILink
@@ -327,7 +328,8 @@ export const TopBar: NextPage<TopBarProps> = ({
                 href={to}
                 key={to}
               >
-                {value}
+                {value.split(/[?:#]/)[0]}
+                {/* {value} */}
               </MUILink>
             );
           })}

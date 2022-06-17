@@ -32,16 +32,16 @@ export const AuthPage: NextPage<AuthPageProps> = ({
   const requestedTab = router.asPath.split('#')[1]?.split('?')[0];
 
   // if (operation === 'sign_out') {
-  //   console.log('Signing Out');
-  //   signOut();
+  //   // console.log('Signing Out'); // DBG
+  //   // signOut();
   // } else if (operation === 'sign_out') {
-  //   console.log('Signing Out');
-  //   signOut();
+  //   console.log('Signing Out'); // DBG
+  //   // signOut();
   // } else
 
   return (
     <Layout>
-      <Paper
+      <Box
         sx={{
           padding: '1em 2em',
 
@@ -53,13 +53,19 @@ export const AuthPage: NextPage<AuthPageProps> = ({
           alignItems: 'center',
         }}
       >
-        <Card>
+        <Card
+        // sx={{
+        //   backgroundColor:
+        // }}
+        >
           <AuthForm
             providers={providers}
             csrfToken={csrfToken}
+            // tab={requestedTab}
+            tab={router.asPath.split('#')[1]?.split('?')[0]}
           />
         </Card>
-      </Paper>
+      </Box>
 
       {/* Error Message */}
       {error &&
