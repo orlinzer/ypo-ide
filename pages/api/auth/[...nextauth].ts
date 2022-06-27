@@ -13,13 +13,11 @@ import Auth0Provider from "next-auth/providers/auth0";
 import EmailProvider from "next-auth/providers/email";
 
 import { JWT, JWTDecodeParams, JWTEncodeParams } from "next-auth/jwt";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { userInfo } from 'os';
 
 import jwt from "jsonwebtoken";
 
-import { PrismaClient } from "@prisma/client";
 
 declare module "next-auth" {
   /*
@@ -133,10 +131,8 @@ export const options: NextAuthOptions = {
   // database: process.env.DATABASE_URL,
 };
 
-const prisma = new PrismaClient();
 
 export default NextAuth({
-  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
