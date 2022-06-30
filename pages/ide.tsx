@@ -28,6 +28,7 @@ import Layout from "../components/Layout/Layout";
 import TreeView,
 { RenderTree } from "../components/TreeView/TreeView";
 import Editor from '../components/Editor/Editor';
+import FileExplorer from '../components/FileExplorer/FileExplorer';
 
 // TODO
 // TabPanel.propTypes = {
@@ -66,12 +67,16 @@ interface TabPanelProps {
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
+
   return (
     <Box
       hidden={value !== index}
       sx={{
         p: 0,
-        flexGrow: 1
+        flexGrow: 1,
+        minHeight: 0,
+        minWidth: 0,
+        // display: value !== index ? 'none' : 'block',
       }}
       component='div'
     // onDrop={() => {
@@ -177,32 +182,45 @@ export const userPage: NextPage = () => {
 
   console.log(theme.palette.mode);
 
-  return (
-    <Layout>
-      <Editor />
-    </Layout>
-  );
+  // Blockly editor
+  // return (
+  //   <Layout>
+  //     <Editor />
+  //   </Layout>
+  // );
 
   return (
     <Layout>
 
       <Grid
-        container sx={{
-          flexGrow: 1
+        container
+        sx={{
+          flexGrow: 1,
         }}
       >
 
         {/* <TreeView nodes={[data]} /> */}
+        <Grid
+          item
+          xs={2}
+        >
+          <FileExplorer url={'/'} />
+        </Grid>
 
-        <Grid item xs={12} sx={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-          alignContent: 'stretch',
-          alignItems: 'stretch',
-          justifyContent: 'start'
-        }}>
+        <Grid
+          item
+          // xs={12}
+          xs={10}
+          sx={{
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'nowrap',
+            alignContent: 'stretch',
+            alignItems: 'stretch',
+            justifyContent: 'start'
+          }}
+        >
           <Box
             sx={{
               borderBottom: 1,

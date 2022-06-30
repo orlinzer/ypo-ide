@@ -131,7 +131,6 @@ export const options: NextAuthOptions = {
   // database: process.env.DATABASE_URL,
 };
 
-
 export default NextAuth({
   providers: [
     CredentialsProvider({
