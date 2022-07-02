@@ -244,8 +244,9 @@ export default NextAuth({
           ...token,
 
           // Defined in stores/AuthContext.tsx
-          accessToken: user.data.token,
-          refreshToken: user.data.refreshToken,
+          // TODO
+          // accessToken: user.data.token,
+          // refreshToken: user.data.refreshToken,
         };
       }
 
@@ -259,9 +260,10 @@ export default NextAuth({
     session: async ({ session, token, user }) => {
 
       // Defined in stores/AuthContext.tsx
-      session.user.accessToken = token.accessToken;
-      session.user.refreshToken = token.refreshToken;
-      session.user.accessTokenExpires = token.accessTokenExpires;
+      // TODO
+      // session.user.accessToken = token.accessToken;
+      // session.user.refreshToken = token.refreshToken;
+      // session.user.accessTokenExpires = token.accessTokenExpires;
 
       // // to save the token to the session
       // if (token) {

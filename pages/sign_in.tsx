@@ -6,7 +6,7 @@ import Form from "../components/Form/Form";
 import Layout from "../components/Layout/Layout";
 import Link from "../components/Link/Link";
 
-export const signInPage: NextPage = () => {
+export const SignInPage: NextPage = () => {
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -141,4 +141,4 @@ export const signInPage: NextPage = () => {
   );
 };
 
-export default signInPage;
+export default SignInPage;

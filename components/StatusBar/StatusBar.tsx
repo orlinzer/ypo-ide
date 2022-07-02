@@ -22,14 +22,15 @@ export const StatusBar: NextPage<StatusBarProps> = ({
   }
 
   return (
-    <Menu
-      open={open}
-      anchor={'right'}
-      sections={sections}
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-    // component='nav'
-    />
+    <></>
+    // <Menu
+    //   open={open}
+    //   anchor={'right'}
+    //   sections={sections}
+    //   onClose={() => setOpen(false)}
+    //   onOpen={() => setOpen(true)}
+    // // component='nav'
+    // />
   );
 };
 

@@ -25,10 +25,10 @@ export default function ContactUsPage() {
       >
         <Typography variant='h1'>Contact Us</Typography>
         <Typography variant='body1'>
-          Website: <Link href='https://www.ypo.co.il/'>YPO Website "www.ypo.co.il"</Link>
+          Website: <Link href='https://www.ypo.co.il/'>YPO Website &quot;www.ypo.co.il&quot;</Link>
         </Typography>
         <Typography variant='body1'>
-          Mail: <Link href='mailto://info@ypo.co.il/'>YPO Mail "info@ypo.co.il"</Link>
+          Mail: <Link href='mailto://info@ypo.co.il/'>YPO Mail &quot;info@ypo.co.il&quot;</Link>
         </Typography>
       </Paper>
     </Layout>

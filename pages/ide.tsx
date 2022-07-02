@@ -153,7 +153,7 @@ function FileTab(props: FileTabProps) {
   );
 }
 
-export const userPage: NextPage = () => {
+export const UserPage: NextPage = () => {
   const [value, setValue] = useState(0);
 
   const theme = useTheme();
@@ -264,4 +264,4 @@ export const userPage: NextPage = () => {
   );
 };
 
-export default userPage;
+export default UserPage;

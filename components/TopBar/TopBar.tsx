@@ -420,8 +420,8 @@ export const TopBar: NextPage<TopBarProps> = ({
           </MenuItem>
         ]]} */}
         {userSections?.map((section) => (
-          section.map((item: any) => (
-            <MenuItem onClick={closeUserMenu}>
+          section.map((item: any, index: number) => (
+            <MenuItem onClick={closeUserMenu} key={index}>
               {
                 item.href &&
                 <Link href={item.href}>
@@ -451,16 +451,18 @@ export const TopBar: NextPage<TopBarProps> = ({
           'aria-labelledby': 'basic-button',
         }}
       >
-        {navSections?.map((section) => (
+        {/* TODO */}
+        {/* {navSections?.map((section) => (
           section.map((item) => (
-            <MenuItem onClick={closeNavMenu}>
-              <Link href={item.href ? item.href : ''}>
-                {item.icon}
-                {item.text}
-              </Link>
-            </MenuItem>
+            (item &&
+              <MenuItem onClick={closeNavMenu}>
+                <Link href={item.href ? item.href : ''}>
+                  {item.icon}
+                  {item.text}
+                </Link>
+              </MenuItem>)
           ))
-        ))}
+        ))} */}
       </Menu>
 
       {/* Sign In Dialog */}
