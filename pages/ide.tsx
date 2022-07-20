@@ -22,7 +22,7 @@ import React,
   ReactEventHandler,
   useState
 } from "react";
-import BlocklyEditor from "../components/BlocklyWorkspace/BlocklyEditor";
+// import BlocklyEditor from "../components/BlocklyWorkspace/BlocklyEditor";
 import BlocklyWorkspace from "../components/BlocklyWorkspace/BlocklyWorkspace";
 import Layout from "../components/Layout/Layout";
 import TreeView,
