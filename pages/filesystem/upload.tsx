@@ -17,15 +17,22 @@ export const UploadPage: NextPage = ({ }: UploadPageProps) => {
       },
     };
 
-    const response = await axios.post('/api/v1/filesystem/upload', formData, config);
+    // const response = await axios.post('/api/v1/filesystem/upload', formData, config);
+    axios.post('/api/v1/filesystem/upload', formData, config).
+      then(response => {
+        console.log('response', response.data);
+      }).
+      catch(reason => {
+        console.error(reason);
+      });
 
-    console.log('response', response.data);
+    // console.log('response', response.data);
   };
 
   return (
     <UiFileInputButton
       label="Upload Single File"
-      uploadFileName="theFiles"
+      uploadFileName="upload"
       onChange={onChange}
     />
   );

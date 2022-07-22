@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "author": "Or Linzer",
   "description": "A Web IDE running on browser for educational purposes",
-  "prettier": {
-    "semi": false
-  },
   "homepage": "https://github.com/orlinzer/ypo-ide#readme",
   "url": "https://github.com/orlinzer/ypo-ide/issues",
   "email": "orlinzer@gmail.com",
@@ -22,6 +19,7 @@
     "export": "npm run build && next export -o _static"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.135.0",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.8.2",
     "@emotion/server": "^11.4.0",
@@ -32,13 +30,17 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.79",
     "@mui/material": "^5.5.2",
+    "@types/multer-s3": "^3.0.0",
+    "aws-sdk": "^2.1180.0",
     "axios": "^0.27.2",
     "blockly": "^5.20210325.0",
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "csstype": "^3.1.0",
     "jsonwebtoken": "^8.5.1",
     "monaco-editor": "^0.33.0",
     "multer": "^1.4.5-lts.1",
+    "multer-s3": "^3.0.1",
     "next": "^12.2.0",
     "next-auth": "^4.3.1",
     "next-connect": "^0.12.2",
@@ -52,6 +54,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/multer": "^1.4.7",
     "@types/node": "^17.0.23",

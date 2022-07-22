@@ -63,6 +63,13 @@ export const config = {
   },
 };
 
+export const remove = multer({
+  storage: multer.diskStorage({
+    destination: './public/uploads',
+    filename: (req, file, cb) => cb(null, file.originalname),
+  }),
+});
+
 // export default async function protectedHandler(
 //   req: NextApiRequest,
 //   res: NextApiResponse
