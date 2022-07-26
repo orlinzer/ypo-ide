@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react"
 import nextConnect from 'next-connect';
 import Cors from 'cors';
 
-import listObject from "../../../../lib/control/spaces/listObject";
+import getObject from "../../../../lib/control/spaces/getObject";
 
 
 // Define the cors configurations
@@ -52,6 +52,7 @@ export const apiRoute = nextConnect({
   },
 });
 
+
 /**
  * Handle a POST request for listing a directory content
  */
@@ -63,9 +64,11 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log(req?.body?.path); // DBG
 
   try {
-    const result = await listObject(req?.body?.path);
-    // console.log(result); // DBG
-    return res.status(200).json({ result: result });
+    const result = await getObject(req?.body?.path);
+    console.log(result); // DBG
+    return res.status(200).send(result.Body);
+    return res.status(200).json({ result: result });;
+
   } catch (error) {
     return res.status(400).json({ error: error });
   } finally {

@@ -44,6 +44,12 @@ yarn-error.log*
 Dockerfile
 .dockerignore
 
+# MySQL
+sql
+
+# CA Certificate
+certificate
+
 # vscode
 .vscode
 

@@ -7,36 +7,34 @@ import nextConnect from 'next-connect';
 
 import Cors from 'cors';
 
-var { S3Client } = require('@aws-sdk/client-s3');
+// var { S3Client } = require('@aws-sdk/client-s3');
 // import entire SDK
 import AWS from 'aws-sdk';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { Request, ParamsDictionary, Response } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 // // import individual service
 // import S3 from 'aws-sdk/clients/s3';
 
-// Initializing the cors middleware
-const cors = Cors({
-  methods: ['GET', 'POST', 'HEAD'],
-});
+const REGION = 'fra1';
+const BUCKET = 'orlinzer';
 
-const endpoint = 'fra1.digitaloceanspaces.com';
-const bucket = 'orlinzer';
-
-// Set S3 endpoint to DigitalOcean Spaces
-const spacesEndpoint = new AWS.Endpoint(endpoint);
-const s3 = new S3Client({
-  region: endpoint,
-  endpoint: spacesEndpoint
+const s3Client = new S3Client({
+  endpoint: `https://${REGION}.digitaloceanspaces.com`, // Find your endpoint in the control panel, under Settings. Prepend "https://".
+  region: `${REGION}`, // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
+  // credentials: {
+  //   accessKeyId: "C58A976M583E23R1O00N", // Access key pair. You can create access key pairs using the control panel or API.
+  //   secretAccessKey: process.env.SPACES_SECRET // Secret access key defined through an environment variable.
+  // }
 });
 
 // Change bucket property to your Space name
-const upload = multer({
+export const upload = multer({
   storage: multerS3({
-    s3: s3,
-    bucket: bucket,
+    s3: s3Client,
+    bucket: BUCKET,
     acl: 'public-read',
     // metadata: function (req, file, cb) {
     //   cb(null, {fieldName: file.fieldname});
@@ -46,8 +44,8 @@ const upload = multer({
       cb(null, file.originalname);
     }
   })
+  // }).array('upload');
 }).array('upload', 1);
-// }).array('upload');
 
 // // Returns a Multer instance that provides several methods for generating
 // // middleware that process files uploaded in multipart/form-data format.
@@ -57,7 +55,6 @@ const upload = multer({
 //     filename: (req, file, cb) => cb(null, file.originalname),
 //   }),
 // });
-
 // Helper method to wait for a middleware to execute before continuing
 // And to throw an error when an error happens in a middleware
 // function runMiddlewareLoading(req, res, fun) {
@@ -69,18 +66,20 @@ const upload = multer({
 //   console.log('File uploaded successfully.');
 //   res.status(200).json({ data: 'success' });
 // });
-
-
 //   return new Promise((resolve, reject) => {
 //     fun(req, res, result => {
 //       if (result instanceof Error) {
 //         return reject(result)
 //       }
-
 //       return resolve(result)
 //     })
 //   })
 // }
+
+// Initializing the cors middleware
+const cors = Cors({
+  methods: ['GET', 'POST', 'HEAD'],
+});
 
 export const apiRoute = nextConnect({
   onNoMatch(req: NextApiRequest, res: NextApiResponse) {
