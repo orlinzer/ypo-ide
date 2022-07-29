@@ -79,7 +79,7 @@ export const RemoveUserPage: NextPage = ({ }: ListPageProps) => {
         }
         <br/>
 
-        <input type="submit" value="Add User" />
+        <input type="submit" value="Remove User" />
       </form>
 
       {/* Loading */}

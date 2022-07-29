@@ -199,7 +199,7 @@ export const UpdateUserPage: NextPage = ({ }: ListPageProps) => {
         }
         <br/>
 
-        <input type="submit" value="Add User" />
+        <input type="submit" value="Update User" />
       </form>
 
       {/* Loading */}

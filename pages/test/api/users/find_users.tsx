@@ -79,7 +79,7 @@ export const FindUsersPage: NextPage = ({ }: ListPageProps) => {
         }
         <br/>
 
-        <input type="submit" value="Get User" />
+        <input type="submit" value="Find Users" />
       </form>
 
       {/* Loading */}
